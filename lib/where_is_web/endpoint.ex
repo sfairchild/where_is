@@ -1,6 +1,8 @@
 defmodule WhereIsWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :where_is
 
+  socket "/live", Phoenix.LiveView.Socket
+
   socket "/socket", WhereIsWeb.UserSocket,
     websocket: true,
     longpoll: false

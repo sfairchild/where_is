@@ -12,7 +12,11 @@ config :where_is, WhereIsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "M3xpWXIv3aP5TMXnw2cPgbK/GDUGzLgeqgTidk7FNCjbmtJIpPsGKk3OKnuHhetJ",
   render_errors: [view: WhereIsWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: WhereIs.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: WhereIs.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "SECRET_SALT"
+  ]
+
 
 # Configures Elixir's Logger
 config :logger, :console,

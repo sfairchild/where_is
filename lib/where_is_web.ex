@@ -23,6 +23,8 @@ defmodule WhereIsWeb do
 
       import Plug.Conn
       import WhereIsWeb.Gettext
+      import Phoenix.LiveView.Controller
+
       alias WhereIsWeb.Router.Helpers, as: Routes
     end
   end
@@ -42,6 +44,9 @@ defmodule WhereIsWeb do
       import WhereIsWeb.ErrorHelpers
       import WhereIsWeb.Gettext
       alias WhereIsWeb.Router.Helpers, as: Routes
+      import Phoenix.LiveView,
+        only: [live_render: 2, live_render: 3, live_link: 1, live_link: 2]
+
     end
   end
 
@@ -50,6 +55,7 @@ defmodule WhereIsWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
