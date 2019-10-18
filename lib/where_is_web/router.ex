@@ -21,7 +21,9 @@ defmodule WhereIsWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", WhereIsWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", WhereIsWeb do
+    pipe_through :api
+
+    post "/", PageController, :index
+  end
 end
