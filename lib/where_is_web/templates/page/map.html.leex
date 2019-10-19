@@ -1,12 +1,21 @@
 <header>
   <div class="header-left">Mattermost Hacks</div>
   <div class="header-right">
-    <input
-      class="header-search"
-      placeholder="Search people or rooms"
-      phx-change="search"
-      phx-debounce="1500"
-    />
+    <div class="search-container">
+      <input
+        class="header-search"
+        placeholder="Search people or rooms"
+        phx-change="search"
+        phx-debounce="1500"
+      />
+      <div class="shield">
+        <div class="separator"></div>
+      </div>
+      <div class="search-assist">
+        There are no suggestions to display
+        <span class="suggestion">Bilbo Baggins</span>
+      </div>
+    </div>
   </div>
 </header>
 <main role="main" class="container">
