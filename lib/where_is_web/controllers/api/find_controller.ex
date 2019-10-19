@@ -1,38 +1,25 @@
-defmodule WhereIsWeb.FindController do
+defmodule WhereIsWeb.Api.FindController do
   use WhereIsWeb, :controller
 
   def index(conn, _params) do
-    url = "http://54.91.189.149:8065/api/v4/users"
-    headers = [{"Authorization", "Bearer ambmsf88wtnefbmup6drr7qhrh"},
-      {"Content-Type", "application/json; charset=utf-8"}]
-    body = {}
-    {:ok, json} =
 
-    case HTTPoison.post!(url, body, headers) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        IO.puts body
-      {:ok, %HTTPoison.Response{status_code: 404}} ->
-        IO.puts "Not found :("
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.inspect reason
-    end
-                    json(conn, json)
+                    json(conn, fetchMattermostUsers())
   end
 
-  defmodule MattermostUser do
-    @derive [Poison.Encoder]
-    defstruct [
-                :id,
-                :username,
-                :email,
-                :roles
-                ]
-  end
+  # defmodule MattermostUser do
+  #   @derive [Poison.Encoder]
+  #   defstruct [
+  #               :id,
+  #               :username,
+  #               :email,
+  #               :roles
+  #               ]
+  # end
 
 
   def fetchMattermostUsers do
     url = "http://54.91.189.149:8065/api/v4/users"
-    headers = [{"Authorization", "Bearer ambmsf88wtnefbmup6drr7qhrh"},
+    headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
                {"Content-Type", "application/json; charset=utf-8"}]
 
 

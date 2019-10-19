@@ -2,4 +2,15 @@
 
 @import "./phoenix.css";
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
+:root {
+  --white: #FFFFFF;
+  --blue: #00AAFF;
+  --fontPrimary: 'Roboto', sans-serif;
+  --header-height: 80px;
+}
+
+body * {
+  font-family: var(--fontPrimary);
+}
