@@ -1,4 +1,5 @@
-
+import shuffle from 'lodash.shuffle';
+import anime from 'animejs';
 import resetCss from '../css/reset.css';
 import css from '../css/app.css';
 import LiveSocket from "phoenix_live_view";
@@ -23,9 +24,49 @@ let Hooks = {}
 
 Hooks.PanZoom = {
   mounted() {
-    svgPanZoom('#mainSvg')
-  }
-}
+    console.log('PANZOOM MOUNTED');
+    svgPanZoom('#mainSvg');
+  },
+};
+
+Hooks.TitleName = {
+  mounted() {
+    const el = document.getElementById('titleName');
+    const timer = 3000;
+    const list = shuffle([
+      'Randy', 'Jamal', 'Pedro', 'Jakob', 'Jane', 'L-a', 'Laurel', 'Yanny',
+      'Paul', 'Colin', 'Andre', 'Waldo',
+    ]);
+
+    const getWrapper = name => {
+      return name.replace(/\S/g, '<span class="letter">$&</span>');
+    };
+
+    // set initial name
+    el.innerHTML = getWrapper(list[0] + '?');
+
+    // change name every {timer} ms
+    let i = 1;
+    setInterval(() => {
+      el.innerHTML = getWrapper(list[i] + '?');
+
+      // animate name transition
+      anime.timeline({loop: true})
+        .add({
+          targets: '.letter',
+          scale: [0.3, 1],
+          opacity: [0, 1],
+          translateZ: 0,
+          easing: "easeOutExpo",
+          duration: timer,
+          delay: (el, i) => 70 * (i+1)
+        });
+
+      if (i >= list.length - 1) i = 0;
+      else ++i;
+    }, timer);
+  },
+};
 
 Hooks.getUserData = {
   mounted() {
