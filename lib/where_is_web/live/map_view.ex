@@ -7,7 +7,7 @@ defmodule WhereIsWeb.MapLive do
   end
 
   defmodule User do
-    defstruct name: "Roland Canuto", email: "rolandcanuto@outlook.com", username: "rolandc5"
+    defstruct name: "Roland Canuto", email: "rolandcanuto@outlook.com", username: "rolandc5", location: "Desk 200"
   end
 
   def mount(_session, socket) do
@@ -17,17 +17,19 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:name, "")
       |> assign(:email, "")
       |> assign(:username, "")
+      |> assign(:userData, "")
+      |> assign(:location, "")
       |> assign(:svg, WhereIs.Svg.generate_svg)
     {:ok, socket}
   end
 
   def handle_event("search", %{"search" => value}, socket) do
-    IO.puts(value)
     {:noreply, assign(socket, :searchValue, value)}
   end
 
   def handle_event("autosuggest", %{"name" => value}, socket) do
-    socket = socket |> assign(:searchValue, value)
+    socket = socket
+      |> assign(:searchValue, value)
     {:noreply, socket}
   end
 
@@ -46,9 +48,12 @@ defmodule WhereIsWeb.MapLive do
     {:noreply, assign(socket, :titleName, "Sally")}
   end
 
-  def handle_event("mockData", _, socket) do
+
+
+  def handle_event("getData", _, socket) do
     user = %User{}
     socket = socket
+      |> assign(:location, user.location)
       |> assign(:name, user.name)
       |> assign(:email, user.email)
       |> assign(:username, user.username)

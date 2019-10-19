@@ -1,6 +1,8 @@
 
 import resetCss from '../css/reset.css';
 import css from '../css/app.css';
+import LiveSocket from "phoenix_live_view";
+import {Socket} from "phoenix"
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -22,6 +24,15 @@ let Hooks = {}
 Hooks.PanZoom = {
   mounted() {
     svgPanZoom('#mainSvg')
+  }
+}
+
+Hooks.getUserData = {
+  mounted() {
+    this.el.addEventListener("click", (e) => {
+      console.log(this.el.value);
+      console.log(e);
+    })
   }
 }
 

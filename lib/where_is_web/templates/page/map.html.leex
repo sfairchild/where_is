@@ -14,6 +14,7 @@
           <div class="separator"></div>
         </div>
         <div class="search-assist">
+        <%# possible for a for loop here? %>
           <span class="suggestion" phx-click="autosuggest" phx-value-name="Harry Potter">Harry Potter</span>
           <span class="suggestion" phx-click="autosuggest" phx-value-name="Ron Weasley">Ron Weasley</span>
           <span class="suggestion" phx-click="autosuggest" phx-value-name="Hermione Granger">Hermione Granger</span>
@@ -36,11 +37,12 @@
   </section>
 
   <section class="user-container">
-    <h1>User Information</h1>
+    <button value="<%= @userData %>" phx-hook="userData" phx-click="getData">Click for mock data</button>
+    <h1>Location Information</h1>
+    <h1><%= @location %></h1>
     <h1><%= @name %></h1>
     <h1><%= @email %></h1>
     <h1><%= @username %></h1>
-    <h1>Location Information</h1>
     <button phx-click="nameclick">Click me</button>
   </section>
 </main>
