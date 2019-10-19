@@ -58,7 +58,7 @@ defmodule WhereIsWeb.Api.FindController do
       {
         "fallback": "test",
         "color": "#FFC0CB",
-        "pretext": "Here is a map of the building showing where the users are at... ",
+        "pretext": "stupid fucking lightbulb ",
         "text": "The location of #{text} can be found below. thank you #{user_name} for attempting to use /findthefucker slash command",
         "fields": [
           {
@@ -82,7 +82,7 @@ defmodule WhereIsWeb.Api.FindController do
           "value":"Testing"
           }
         ],
-      "image_url": "http://www.mattermost.org/wp-content/uploads/2016/03/logoHorizontal_WS.png"
+      "image_url": "https://cdn.rawgit.com/alexmwalker/03433aaec5293280f6b896e7a7a2ef1e/raw/08088a2c6f1fd5e363915003dc7e2e34cc04d3ec/alva.svg"
     }
   ]
 }
