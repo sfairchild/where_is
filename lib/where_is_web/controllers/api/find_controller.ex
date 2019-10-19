@@ -49,4 +49,21 @@ defmodule WhereIsWeb.Api.FindController do
                     json(conn, json)
   end
 
+  def find(conn, params) do
+    text = params["text"]
+    user_name = params["user_name"]
+    {:ok, json} = """
+      {
+        "response":
+        {
+          "text request":"requested location of #{text}",
+          "text requester": "Requested By  #{user_name}"
+        }
+      }
+      """
+    |> Jason.decode 
+
+    json(conn, json)
+  end
+
 end
