@@ -9,9 +9,10 @@ defmodule WhereIs.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      WhereIsWeb.Endpoint
+      WhereIsWeb.Endpoint,
       # Starts a worker by calling: WhereIs.Worker.start_link(arg)
       # {WhereIs.Worker, arg},
+       {WhereIs.Users, _args}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
