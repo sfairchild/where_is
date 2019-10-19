@@ -48,6 +48,7 @@ defmodule WhereIsWeb.Api.FindController do
                     |> Jason.decode
 
                     json(conn, json)
+  
   end
 
   def find(conn, %{"text" => text, "user_name" => user_name} = params) do
@@ -123,6 +124,44 @@ defmodule WhereIsWeb.Api.FindController do
         ]
       }
     """
+
   end
 
+  def fetchMattermostUsers(conn, params) do 
+    url = "http://54.91.189.149:8065/api/v4/users"
+    headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
+               {"Content-Type", "application/json; charset=utf-8"}]
+
+    json = "default"
+
+    case HTTPoison.get(url, headers) do
+    {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+     body |> Jason.decode
+    {:ok, %HTTPoison.Response{status_code: 404}} ->
+    IO.puts "Not found :("
+    {:error, %HTTPoison.Error{reason: reason}} ->
+    IO.inspect reason
+  end
+
+  json(conn, json)
 end
+
+  def fetchMattermostUser(userId) do
+    url = "http://54.91.189.149:8065/api/v4/users/"<>userId
+    headers = ["Content-Type: application/json",
+                "Authorization: Bearer "]
+
+    case HTTPoison.post(url, headers) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        IO.puts body
+      {:ok, %HTTPoison.Response{status_code: 404}} ->
+        IO.puts "Not found :("
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        IO.inspect reason
+    end
+  end
+
+
+
+end
+
