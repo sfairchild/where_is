@@ -127,23 +127,31 @@ defmodule WhereIsWeb.Api.FindController do
 
   end
 
-  def fetchMattermostUsers(conn, params) do 
+  def fetchMapOfCurrentMattermostUsers(conn, params) do
+    {:ok, map} = fetchMattermostUsers()
+
+
+    # Enum.map(json, fn {k, v} -> IO.inspect({k, v})end)
+
+#     Enum.map users, fn(user) ->
+#     user = Map.new user, fn({key, value}) ->
+#     {String.to_atom(key), value}
+#   end
+
+#   struct(Bear, bear)
+# end
+
+    IO.inspect(map)
+    json(conn, map)
+  end
+
+  def fetchMattermostUsers do 
     url = "http://54.91.189.149:8065/api/v4/users"
     headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
                {"Content-Type", "application/json; charset=utf-8"}]
 
-    json = "default"
-
-    case HTTPoison.get(url, headers) do
-    {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-     body |> Jason.decode
-    {:ok, %HTTPoison.Response{status_code: 404}} ->
-    IO.puts "Not found :("
-    {:error, %HTTPoison.Error{reason: reason}} ->
-    IO.inspect reason
-  end
-
-  json(conn, json)
+    {:ok, response} = HTTPoison.get(url, headers)
+    Jason.decode(response.body(), [:atoms])
 end
 
   def fetchMattermostUser(userId) do
