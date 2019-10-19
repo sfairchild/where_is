@@ -1,5 +1,5 @@
 <header>
-  <div class="header-left">Where Is... <%= @titleName %>?</div>
+  <div class="header-left">Where Is... <span phx-hook="TitleName" id="titleName"></span></div>
   <div class="header-right">
     <div class="search-container">
       <form phx-change="search" autocomplete="off">
@@ -17,7 +17,7 @@
           <span class="suggestion" phx-click="autosuggest" phx-value-name="Harry Potter">Harry Potter</span>
           <span class="suggestion" phx-click="autosuggest" phx-value-name="Ron Weasley">Ron Weasley</span>
           <span class="suggestion" phx-click="autosuggest" phx-value-name="Hermione Granger">Hermione Granger</span>
-          <span class="suggestion" phx-click="autosuggest" phx-value-name="Professor Snape">Professor Snape</span>
+          <span class="suggestion" phx-click="autosuggest" phx-value-name="Professor Snack">Professor Snack</span>
           <span class="suggestion" phx-click="autosuggest" phx-value-name="Gandalf">Gandalf</span>
           <span class="suggestion" phx-click="autosuggest" phx-value-name="The Dudleys">The Dudleys</span>
           <span class="suggestion" phx-click="autosuggest" phx-value-name="Mr. Filch">Mr. Filch</span>

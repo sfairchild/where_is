@@ -13,7 +13,6 @@ header {
 header .header-left {
   font-size: 44px;
   color: var(--white);
-  transition: all .25s ease-in-out;
 }
 
 header .header-right {
@@ -131,6 +130,11 @@ main > .svg-container {
   align-items: center;
   border: 1px solid black;
   overflow: hidden;
+}
+
+#mainSvg {
+  height: 100%;
+  width: 100%;
 }
 
 main > .user-container {
