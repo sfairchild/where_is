@@ -11,8 +11,10 @@
 </header>
 <main role="main" class="container">
   <section class="svg-container">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" width="100%">
+    <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
+      <g phx-hook="PanZoom">
       <%= raw @svg %>
+      </g>
     </svg>
   </section>
 

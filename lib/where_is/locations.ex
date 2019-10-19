@@ -13,6 +13,18 @@ defmodule WhereIs.Locations do
     nil
   end
 
+  def name_to_id(name) do
+    String.replace(name, " ", "_")
+  end
+
+  def get_svg_tuple(%__MODULE__{asset_type: :desk} = location, attrs \\ %{}) do
+    attrs = %{id: name_to_id(location.name), name: location.name,  "xlink:href": "#master-desk", transform: "translate(#{location.transform.x} #{location.transform.y}) rotate(#{location.transform.rotate})"}
+            |> Map.merge(location.attributes)
+            |> Map.merge(attrs)
+
+    {:use, attrs, location.children}
+  end
+
   def list do
     [
       %__MODULE__{ name: "North Desk 1",   transform: %{ x: "7",      y: "114",    rotate: "90 12 12"  }, asset_type: :desk },

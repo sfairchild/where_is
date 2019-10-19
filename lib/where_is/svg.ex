@@ -1,4 +1,5 @@
 defmodule WhereIs.Svg do
+  alias WhereIs.Locations
 
   def generate_svg do
     {:g, nil, get_defs ++ placements}
@@ -8,10 +9,14 @@ defmodule WhereIs.Svg do
 
   def placements do
     [
-      {:use, %{"xlink:href" => "#north-bldg", x: 600}, nil},
-      {:use, %{"xlink:href" => "#south-bldg", x: -200, y: 1400}, nil},
-      {:use, %{"xlink:href" => "#master-desk"}, nil},
-    ]
+      {:use, %{"xlink:href" => "#north-bldg"}, nil},
+      {:use, %{"xlink:href" => "#south-bldg"}, nil}
+    ] ++ locations
+  end
+
+  def locations do
+    Locations.list
+    |> Enum.map(&Locations.get_svg_tuple(&1))
   end
 
   def get_defs do
