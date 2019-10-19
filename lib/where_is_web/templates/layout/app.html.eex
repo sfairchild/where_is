@@ -8,7 +8,25 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
-    <div id="mountPoint"></div>
+    <header>
+      <div class="header-left">Mattermost Hacks</div>
+      <div class="header-right">
+        <input class="header-search" placeholder="Search person/place/thing" />
+        <%# <button class="search-button">Search</button> %>
+      </div>
+    </header>
+    <main role="main" class="container">
+      <section class="svg-container">
+
+      </section>
+
+      <section class="user-container">
+
+      </section>
+    </main>
+    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <%= render @view_module, @view_template, assigns %>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
