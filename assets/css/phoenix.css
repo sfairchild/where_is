@@ -11,45 +11,34 @@ header {
 }
 
 header .header-left {
-  width: 50%;
   font-size: 44px;
   color: var(--white);
 }
 
 header .header-right {
   height: 100%;
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 header .header-search {
-  height: 40px;
-  width: 87%;
-  font-size: 22px;
-  padding: 0 10px;
+  height: 34px;
+  width: 100%;
+  padding: 0 16px;
   outline: none;
   border: none;
-  border-radius: 3px;
-  transition: .15s all ease-in-out;
+  border-radius: 50px;
+  font-size: 20px;
+}
+header .header-search:hover {
+  transform: scale(1.009);
+  box-shadow: 0px 3px 3px #666;
 }
 header .header-search:focus {
-  box-shadow: 0px 0px 8px 1px #fff;
-}
-
-header .search-button {
-  border: none;
-  background: none;
-  font-size: 22px;
-  border-radius: 3px;
-  color: var(--white);
-  border: 1px solid var(--blue);
-  cursor: pointer;
-  transition: .15s all ease-in-out;
-}
-header .search-button:hover {
-  border: 1px solid var(--white);
+  transform: scale(1.009);
+  box-shadow: 0px 3px 3px #666;
 }
 
 main {
