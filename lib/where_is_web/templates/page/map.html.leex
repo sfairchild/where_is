@@ -1,26 +1,25 @@
 <header>
   <div class="header-left">Mattermost Hacks</div>
   <div class="header-right">
-    <form phx-change="search">
-      <%#= text_input f, :search %>
-      <input
-        class="header-search"
-        placeholder="Search people or rooms"
-        phx-debounce="1500"
-      />
-    </form>
+    <input
+      class="header-search"
+      placeholder="Search people or rooms"
+      phx-change="search"
+      phx-debounce="1500"
+    />
   </div>
 </header>
 <main role="main" class="container">
   <section class="svg-container">
     <h1>HERE</h1>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" width="100%">
-      <%= raw @svg %>
-    </svg>
+    <div class="svg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" width="100%">
+        <%= raw @svg %>
+      </svg>
+    </div>
   </section>
 
   <section class="user-container">
-    <h1></h1>
-    <%= @welcome %>
+    <h1>User Information</h1>
   </section>
 </main>
