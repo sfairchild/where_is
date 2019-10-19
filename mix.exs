@@ -42,7 +42,10 @@ defmodule WhereIs.MixProject do
       {:phoenix_live_view, "~> 0.3.0"},
       {:phoenix_pubsub, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
+      {:poison, "~> 1.3.1"},
+      {:httpoison, "~>1.6"},
       {:xml_builder, "~> 2.1.1"}
+
     ]
   end
 end
