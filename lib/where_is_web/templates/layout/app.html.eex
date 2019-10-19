@@ -9,15 +9,21 @@
   </head>
   <body>
     <header>
-      <section class="container">
-        <nav role="navigation">
-        </nav>
-      </section>
+      <div class="header-left">Mattermost Hacks</div>
+      <div class="header-right">
+        <input class="header-search" placeholder="Search person/place/thing" />
+        <button class="search-button">Search</button>
+      </div>
     </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
+
+    <main role="main">
+      <section class="svg-container">
+
+      </section>
+
+      <section class="user-container">
+
+      </section>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
