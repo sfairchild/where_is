@@ -54,12 +54,38 @@ defmodule WhereIsWeb.Api.FindController do
     %{"text" => text, "user_name" => user_name} = params
     {:ok, json} = """
       {
-        "response":
-        {
-          "text request":"requested location of #{text}",
-          "text requester": "Requested By  #{user_name}"
-        }
-      }
+    "attachments": [
+      {
+        "fallback": "test",
+        "color": "#FFC0CB",
+        "pretext": "This is optional pretext that shows above the attachment.",
+        "text": "The location of #{text} can be found below. thank you #{user_name} for attempting to use /findthefucker slash command",
+        "fields": [
+          {
+            "short":false,
+            "title":"Long Field",
+            "value":"here's a super long string of text randomly generated; three is a spectre haunting nexient, the spectre of gooch; many people tried to exorcize his shitposting, but to no avail; here is his code and this is his statement blah blah blah"
+          },
+          {
+            "short":true,
+            "title":"Column One",
+            "value":"Testing"
+          },
+          {
+            "short":true,
+            "title":"Column Two",
+            "value":"Testing"
+          },
+          {
+          "short":false,
+          "title":"Another Field",
+          "value":"Testing"
+          }
+        ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Mitropa-Logo-1949.svg"
+    }
+  ]
+}
       """
     |> Jason.decode 
 
