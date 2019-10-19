@@ -8,21 +8,6 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
-    <header>
-      <div class="header-left">Mattermost Hacks</div>
-      <div class="header-right">
-        <input class="header-search" placeholder="Search people or rooms" />
-      </div>
-    </header>
-    <main role="main" class="container">
-      <section class="svg-container">
-
-      </section>
-
-      <section class="user-container">
-
-      </section>
-    </main>
     <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
     <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
     <%= render @view_module, @view_template, assigns %>
