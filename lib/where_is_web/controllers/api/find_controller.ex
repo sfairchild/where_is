@@ -52,44 +52,89 @@ defmodule WhereIsWeb.Api.FindController do
 
   def find(conn, params) do
     %{"text" => text, "user_name" => user_name} = params
-    {:ok, json} = """
-      {
-    "attachments": [
-      {
-        "fallback": "test",
-        "color": "#FFC0CB",
-        "pretext": "stupid fucking lightbulb ",
-        "text": "The location of #{text} can be found below. thank you #{user_name} for attempting to use /findthefucker slash command",
-        "fields": [
-          {
-            "short":false,
-            "title":"Long Field",
-            "value":"here's a super long string of text randomly generated; three is a spectre haunting nexient, the spectre of gooch; many people tried to exorcize his shitposting, but to no avail; here is his code and this is his statement blah blah blah"
-          },
-          {
-            "short":true,
-            "title":"Column One",
-            "value":"Testing"
-          },
-          {
-            "short":true,
-            "title":"Column Two",
-            "value":"Testing"
-          },
-          {
-          "short":false,
-          "title":"Another Field",
-          "value":"Testing"
-          }
-        ],
-      "image_url": "https://cdn.rawgit.com/alexmwalker/03433aaec5293280f6b896e7a7a2ef1e/raw/08088a2c6f1fd5e363915003dc7e2e34cc04d3ec/alva.svg"
-    }
-  ]
-}
-      """
-    |> Jason.decode 
+    userExists = WhereIs.Application.validate(text)
+    if userExists do 
+      imageLink = WhereIs.Application.generateUrl(text)
+      #imageLink = "http://www.mattermost.org/wp-content/uploads/2016/03/logoHorizontal_WS.png"
+      if imageLink do 
 
-    json(conn, json)
+        #IO.inspect(text)
+        {:ok, json} = 
+        """
+        {
+          "attachments": [
+            {
+              "fallback": "test",
+              "color": "#FFC0CB",
+              "pretext": "stupid fucking lightbulb ",
+              "text": "The location of #{text} can be found below.",
+              "fields": [
+                {
+                  "short":false,
+                  "title":"Long Field",
+                  "value":"here's a super long string of text randomly generated; three is a spectre haunting nexient, the spectre of gooch; many people tried to exorcize his shitposting, but to no avail; here is his code and this is his statement blah blah blah"
+                },
+                {
+                  "short":true,
+                  "title":"Column One",
+                  "value":"Testing"
+                },
+                {
+                  "short":true,
+                  "title":"Column Two",
+                  "value":"Testing"
+                },
+                {
+                "short":false,
+                "title":"Another Field",
+                "value":"Testing"
+                }
+              ],
+              "image_url": "#{imageLink}"
+            }
+          ]
+        }
+        """
+        |> Jason.decode 
+
+        json(conn, json)
+      else 
+        {:ok, json} = 
+        """
+          {
+            "attachments":
+            [
+              {
+                "pretext": "svg could not be generated  ",
+                "text": "SVG Failed To Generate. ",
+                "image_url":"http://dailynous.com/wp-content/uploads/2016/10/poop-emoji-frown.png"
+              }
+            ]
+          }
+          """
+          |> Jason.decode
+
+          json(conn, json) 
+      end
+
+    else 
+      {:ok, json} = 
+      """
+      {
+        "attachments" :
+        [
+          {
+            "pretext": "User Does not exist  ",
+            "text": "user doesn't exist, please use a valid user.",
+            "image_url":"http://dailynous.com/wp-content/uploads/2016/10/poop-emoji-frown.png"
+          }
+        ]
+      }
+      """
+      |> Jason.decode
+
+      json(conn, json) 
+    end
   end
 
 end

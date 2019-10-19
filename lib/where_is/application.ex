@@ -20,6 +20,20 @@ defmodule WhereIs.Application do
     Supervisor.start_link(children, opts)
   end
 
+  def validate(username) do
+    true
+  end
+
+  def generateUrl(username) do 
+    if username == "@sean" do
+      link = "https://commons.wikimedia.org/wiki/File:Media_Viewer_Icon_-_Link_Hover.svg"
+    else 
+      link = "https://upload.wikimedia.org/wikipedia/commons/c/ca/Cthulhu_blood.png"
+    end
+  end
+
+  
+
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
