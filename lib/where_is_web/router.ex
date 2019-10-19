@@ -20,10 +20,16 @@ defmodule WhereIsWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/api/users", WhereIsWeb do
+    pipe_through :api
+
+    get "/", FindController, :fetchMattermostUsers
+  end
+
   # Other scopes may use custom stacks.
   scope "/api", WhereIsWeb.Api do
     pipe_through :api
 
-    post "/", FindController, :index
+    get "/", FindController, :index
   end
 end
