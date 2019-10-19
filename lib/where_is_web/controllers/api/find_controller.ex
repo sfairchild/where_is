@@ -58,7 +58,7 @@ defmodule WhereIsWeb.Api.FindController do
       {
         "fallback": "test",
         "color": "#FFC0CB",
-        "pretext": "This is optional pretext that shows above the attachment.",
+        "pretext": "Here is a map of the building showing where the users are at... ",
         "text": "The location of #{text} can be found below. thank you #{user_name} for attempting to use /findthefucker slash command",
         "fields": [
           {
@@ -82,7 +82,7 @@ defmodule WhereIsWeb.Api.FindController do
           "value":"Testing"
           }
         ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Mitropa-Logo-1949.svg"
+      "image_url": "http://www.mattermost.org/wp-content/uploads/2016/03/logoHorizontal_WS.png"
     }
   ]
 }
