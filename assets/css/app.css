@@ -10,3 +10,7 @@
   --fontPrimary: 'Roboto', sans-serif;
   --header-height: 80px;
 }
+
+body {
+  font-family: var(--fontPrimary);
+}
