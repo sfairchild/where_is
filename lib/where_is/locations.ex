@@ -13,10 +13,6 @@ defmodule WhereIs.Locations do
     nil
   end
 
-  # def create_svg_tuple(%__MODULE__{} = location) do
-  #   {:use, attrs, }
-  # end
-
   def list do
     [
       %__MODULE__{ name: "North Desk 1",   transform: %{ x: "7",      y: "114",    rotate: "90 12 12"  }, asset_type: :desk },
