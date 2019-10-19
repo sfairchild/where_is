@@ -25,5 +25,7 @@ defmodule WhereIsWeb.Router do
     pipe_through :api
 
     post "/", FindController, :index
+
+    post "/whereis", FindController, :find
   end
 end
