@@ -2,12 +2,12 @@
 header {
   height: var(--header-height);
   width: 100%;
-  background: var(--blue);
+  background: linear-gradient(to bottom left, #191F6F, var(--blue));
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eaeaea;
   padding: 0 30px;
+  box-shadow: 0 1px 6px 1px #666;
 }
 
 header .header-left {
@@ -23,12 +23,14 @@ header .header-right {
   align-items: center;
 }
 
+/* search-container is the parent element */
 header .search-container {
   height: 34px;
   width: 100%;
   position: relative;
 }
 
+/* header-search is the input */
 header .header-search {
   height: 34px;
   width: 100%;
@@ -56,6 +58,7 @@ header .search-assist:hover .header-search {
   border-radius: 15px 15px 0 0;
 }
 
+/* shield is a layer that masks the gap between the input and the suggestion list */
 header .header-search:focus + .shield {
   height: 6px;
   width: 100%;
@@ -74,6 +77,7 @@ header .header-search:focus + .shield > .separator {
   border-radius: 50px;
 }
 
+/* search-assist is the suggestion list */
 header .search-assist {
   height: 227px;
   width: 100%;
@@ -108,6 +112,7 @@ header .search-assist .suggestion:hover {
   color: var(--white);
 }
 
+/* Main body */
 main {
   height: calc(100vh - var(--header-height));
   width: 100%;
@@ -137,14 +142,25 @@ main > .svg-container {
   width: 100%;
 }
 
-main > .user-container {
+main .right-side {
   height: 100%;
   width: 23%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  padding: 30px 0;
+}
+
+main .location-information {
+  height: 75%;
+  width: 100%;
   border: 1px solid green;
+}
+
+main .svg-tabs {
+  height: 23%;
+  width: 100%;
+  border: 1px solid #faa500;
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */

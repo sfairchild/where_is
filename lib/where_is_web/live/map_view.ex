@@ -7,10 +7,16 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def mount(_session, socket) do
+    suggestions = [
+      "Harry Potter", "Ron Weasley", "Hermione Granger",
+      "Professor Snack", "Gandalf", "The Dudleys", "Mr. Filch",
+    ]
+
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, "")
       |> assign(:svg, WhereIs.Svg.generate_svg)
+      |> assign(:suggestions, suggestions)
     {:ok, socket}
   end
 
@@ -22,20 +28,5 @@ defmodule WhereIsWeb.MapLive do
   def handle_event("autosuggest", %{"name" => value}, socket) do
     socket = socket |> assign(:searchValue, value)
     {:noreply, socket}
-  end
-
-  def handle_event("nameclick", _, socket) do
-    socket = socket |> assign(:titleName, getTitleName())
-    {:noreply, socket}
-  end
-
-  def getTitleName() do
-    ["Randy", "Jamal", "Pedro", "Jakob", "Jane", "L-a", "Laurel", "Yanny"]
-      |> Enum.random
-  end
-
-  def handle_info(:tick, socket) do
-    Process.send_after(self(), :tick, 1000)
-    {:noreply, assign(socket, :titleName, "Sally")}
   end
 end
