@@ -13,6 +13,7 @@ header {
 header .header-left {
   font-size: 44px;
   color: var(--white);
+  transition: all .25s ease-in-out;
 }
 
 header .header-right {
@@ -23,22 +24,89 @@ header .header-right {
   align-items: center;
 }
 
+header .search-container {
+  height: 34px;
+  width: 100%;
+  position: relative;
+}
+
 header .header-search {
   height: 34px;
   width: 100%;
-  padding: 0 16px;
+  padding: 3px 16px 0 16px;
   outline: none;
   border: 1px solid #666;
   border-radius: 50px;
   font-size: 20px;
+  position: relative;
+  z-index: 1;
 }
 header .header-search:hover {
   border: none;
   box-shadow: 0px 0px 3px 2px #666;
 }
+header .search-assist:hover .header-search,
 header .header-search:focus {
   border: none;
   box-shadow: 0px 0px 3px 2px #666;
+  border-radius: 15px 15px 0 0;
+}
+header .search-assist:hover .header-search {
+  border: none;
+  box-shadow: 0px 0px 3px 2px #666;
+  border-radius: 15px 15px 0 0;
+}
+
+header .header-search:focus + .shield {
+  height: 6px;
+  width: 100%;
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: absolute;
+  bottom: -227;
+  z-index: 2;
+}
+header .header-search:focus + .shield > .separator {
+  height: 1px;
+  width: 96%;
+  border: 1px solid #666;
+  border-radius: 50px;
+}
+
+header .search-assist {
+  height: 227px;
+  width: 100%;
+  background: var(--white);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+  position: absolute;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0px 0px 3px 2px #666;
+  bottom: -230px; /* extra 3px to prevent shadow overlap */
+  font-size: 18px;
+  overflow-y: hidden;
+  z-index: 0;
+}
+header .header-search:focus ~ .search-assist,
+header .search-assist:hover {
+  display: flex;
+}
+
+header .search-assist .suggestion {
+  min-height: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  cursor: pointer;
+}
+header .search-assist .suggestion:hover {
+  background: rgb(255, 196, 0);
+  color: var(--white);
 }
 
 main {
