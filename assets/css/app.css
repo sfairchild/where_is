@@ -11,6 +11,6 @@
   --header-height: 80px;
 }
 
-body {
+body * {
   font-family: var(--fontPrimary);
 }
