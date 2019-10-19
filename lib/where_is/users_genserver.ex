@@ -15,21 +15,21 @@ defmodule WhereIs.Users do
   end
 
 
-  def handleInfo(:work, state) do 
+  def handle_info(:work, state) do
 
-    #call method to get userInfo 
-    
-    #upload userInfo to database. 
+    #call method to get userInfo
+
+    #upload userInfo to database.
 
 
 
-    #after doing the work; schedule more work 
-    #kind of like sisyphus if you think about it; 
-    #you push the proverbial boulder up a hill, only for it to fall down again; and in 12 hours; 
+    #after doing the work; schedule more work
+    #kind of like sisyphus if you think about it;
+    #you push the proverbial boulder up a hill, only for it to fall down again; and in 12 hours;
     #you push the boulder up again
     schedule_matter_most_user_call()
 
-    {:noreply, state} 
+    {:noreply, state}
   end
 
   #call mattermost users every 12 hours
