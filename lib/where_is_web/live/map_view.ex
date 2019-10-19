@@ -7,7 +7,7 @@ defmodule WhereIsWeb.MapLive do
 
   def mount(_session, socket) do
     socket = socket
-      |> assign(:svg, WhereIs.Svg.generate_svg)
+             |> assign(:svg, WhereIs.Svg.generate_svg)
     {:ok, socket}
   end
 
