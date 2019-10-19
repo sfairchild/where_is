@@ -1,5 +1,5 @@
 <section class="phx-hero">
-  <h1>Nexient Maps</h1>
+  <h1>Test Page</h1>
   <p>Find where you are</p>
 </section>
 
@@ -15,9 +15,6 @@
       </li>
       <li>
         <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-      <li>
-        <a href="https://xkcd.com">xkcd</a>
       </li>
     </ul>
   </article>

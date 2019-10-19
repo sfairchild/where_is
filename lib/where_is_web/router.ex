@@ -18,10 +18,18 @@ defmodule WhereIsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    get "/test1", PageController, :test1
+
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", WhereIsWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", WhereIsWeb do
+    pipe_through :api
+
+    post "/", PageController, :index
+
+    post "test1", PageController, :test1
+
+  end
 end
