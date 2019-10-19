@@ -50,46 +50,79 @@ defmodule WhereIsWeb.Api.FindController do
                     json(conn, json)
   end
 
-  def find(conn, params) do
-    %{"text" => text, "user_name" => user_name} = params
-    {:ok, json} = """
-      {
-    "attachments": [
-      {
-        "fallback": "test",
-        "color": "#FFC0CB",
-        "pretext": "stupid fucking lightbulb ",
-        "text": "The location of #{text} can be found below. thank you #{user_name} for attempting to use /findthefucker slash command",
-        "fields": [
-          {
-            "short":false,
-            "title":"Long Field",
-            "value":"here's a super long string of text randomly generated; three is a spectre haunting nexient, the spectre of gooch; many people tried to exorcize his shitposting, but to no avail; here is his code and this is his statement blah blah blah"
-          },
-          {
-            "short":true,
-            "title":"Column One",
-            "value":"Testing"
-          },
-          {
-            "short":true,
-            "title":"Column Two",
-            "value":"Testing"
-          },
-          {
-          "short":false,
-          "title":"Another Field",
-          "value":"Testing"
-          }
-        ],
-      "image_url": "https://cdn.rawgit.com/alexmwalker/03433aaec5293280f6b896e7a7a2ef1e/raw/08088a2c6f1fd5e363915003dc7e2e34cc04d3ec/alva.svg"
-    }
-  ]
-}
-      """
-    |> Jason.decode 
-
+  def find(conn, %{"text" => text, "user_name" => user_name} = params) do
+    user_exists = WhereIs.Application.validate(text)
+    {:ok, json} = get_json(WhereIs.Application.validate(text), WhereIs.Application.generate_url(text), text)
+                  |> Jason.decode
     json(conn, json)
+  end
+
+  defp get_json(user_exists = true, image_link, text) when is_binary(image_link) do
+    """
+      {
+        "attachments": [
+          {
+            "fallback": "test",
+            "color": "#FFC0CB",
+            "pretext": "stupid fucking lightbulb ",
+            "text": "The location of #{text} can be found below.",
+            "fields": [
+              {
+                "short":false,
+                "title":"Long Field",
+                "value":"here's a super long string of text randomly generated; three is a spectre haunting nexient, the spectre of gooch; many people tried to exorcize his shitposting, but to no avail; here is his code and this is his statement blah blah blah"
+              },
+              {
+                "short":true,
+                "title":"Column One",
+                "value":"Testing"
+              },
+              {
+                "short":true,
+                "title":"Column Two",
+                "value":"Testing"
+              },
+              {
+              "short":false,
+              "title":"Another Field",
+              "value":"Testing"
+              }
+            ],
+            "image_url": "#{image_link}"
+          }
+        ]
+      }
+    """
+  end
+
+  defp get_json(user_exists = true, _image_link, _text) do
+    """
+      {
+        "attachments":
+        [
+          {
+            "pretext": "svg could not be generated  ",
+            "text": "SVG Failed To Generate. ",
+            "image_url":"http://dailynous.com/wp-content/uploads/2016/10/poop-emoji-frown.png"
+          }
+        ]
+      }
+    """
+  end
+
+  defp get_json(_, _, _) do
+    """
+      {
+        "attachments" :
+        [
+          {
+            "pretext": "User Does not exist  ",
+            "text": "user doesn't exist, please use a valid user.",
+            "image_url":"http://dailynous.com/wp-content/uploads/2016/10/poop-emoji-frown.png"
+          }
+        ]
+      }
+    """
   end
 
 end
