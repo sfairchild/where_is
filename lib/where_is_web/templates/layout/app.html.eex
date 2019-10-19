@@ -8,23 +8,7 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
-    <header>
-      <div class="header-left">Mattermost Hacks</div>
-      <div class="header-right">
-        <input class="header-search" placeholder="Search person/place/thing" />
-        <button class="search-button">Search</button>
-      </div>
-    </header>
-
-    <main role="main">
-      <section class="svg-container">
-
-      </section>
-
-      <section class="user-container">
-
-      </section>
-    </main>
+    <div id="mountPoint"></div>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

@@ -6,6 +6,16 @@ import ReactDOM from 'react-dom'
 import resetCss from '../css/reset.css'
 import css from "../css/app.css"
 
-const ReactOnPhoenix = () => <div>This is a React Component!!!</div>
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
 
-ReactDOM.render(<ReactOnPhoenix />, document.getElementById('mountPoint'))
+function App() {
+  return (
+    <div className="App">
+      <Header />
+      <Main />
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('mountPoint'))
