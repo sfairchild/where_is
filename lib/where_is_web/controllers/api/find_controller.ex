@@ -50,8 +50,7 @@ defmodule WhereIsWeb.Api.FindController do
   end
 
   def find(conn, params) do
-    text = params["text"]
-    user_name = params["user_name"]
+    %{"text" => text, "user_name" => user_name} = params
     {:ok, json} = """
       {
         "response":
