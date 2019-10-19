@@ -1,7 +1,9 @@
 defmodule WhereIsWeb.Api.FindController do
   use WhereIsWeb, :controller
 
-  def index(conn, _params) do
+  def index(conn, params) do
+    IO.inspect params
+
     {:ok, json} = """
                     {
                     "attachments": [
