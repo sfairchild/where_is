@@ -56,9 +56,9 @@ header .header-search:focus + .shield {
   background: var(--white);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   position: absolute;
-  bottom: -240;
+  bottom: -227;
   z-index: 2;
 }
 header .header-search:focus + .shield > .separator {
@@ -69,18 +69,19 @@ header .header-search:focus + .shield > .separator {
 }
 
 header .search-assist {
-  height: 240px;
+  height: 227px;
   width: 100%;
   background: var(--white);
   display: none;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
+  padding-top: 12px;
   position: absolute;
   border-radius: 0 0 15px 15px;
   box-shadow: 0px 0px 3px 2px #666;
-  bottom: -243px;
+  bottom: -230px; /* extra 3px to prevent shadow overlap */
   font-size: 18px;
+  overflow-y: hidden;
   z-index: 0;
 }
 header .header-search:focus ~ .search-assist {
@@ -88,7 +89,7 @@ header .header-search:focus ~ .search-assist {
 }
 
 header .search-assist .suggestion {
-  height: 30px;
+  min-height: 30px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -97,6 +98,7 @@ header .search-assist .suggestion {
 }
 header .search-assist .suggestion:hover {
   background: rgb(255, 196, 0);
+  color: var(--white);
 }
 
 main {
