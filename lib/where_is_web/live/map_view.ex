@@ -6,6 +6,12 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def mount(_session, socket) do
-    {:ok, assign(socket, :welcome, "Hello from the view")}
+    socket = socket
+             |> assign(:svg, WhereIs.Svg.generate_svg)
+    {:ok, socket}
+  end
+
+  def handle_event("search", %{"value" => value}, socket) do
+    {:noreply, assign(socket, value: value)}
   end
 end

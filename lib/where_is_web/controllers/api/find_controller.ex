@@ -1,12 +1,15 @@
 defmodule WhereIsWeb.Api.FindController do
   use WhereIsWeb, :controller
 
-  def index(conn, _params) do
+  def index(conn, params) do
+    IO.inspect params
+
     {:ok, json} = """
                     {
                     "attachments": [
                     {
                     "fallback": "test",
+                    "response_type": "in_channel",
                     "color": "#FF8000",
                     "pretext": "This is optional pretext that shows above the attachment.",
                     "text": "This is the text of the attachment. It should appear just above an image of the Mattermost logo. The left border of the attachment should be colored orange, and below the image it should include additional fields that are formatted in columns. At the top of the attachment, there should be an author name followed by a bolded title. Both the author name and the title should be hyperlinks.",
@@ -45,6 +48,48 @@ defmodule WhereIsWeb.Api.FindController do
                     |> Jason.decode
 
                     json(conn, json)
+  end
+
+  def find(conn, params) do
+    %{"text" => text, "user_name" => user_name} = params
+    {:ok, json} = """
+      {
+    "attachments": [
+      {
+        "fallback": "test",
+        "color": "#FFC0CB",
+        "pretext": "stupid fucking lightbulb ",
+        "text": "The location of #{text} can be found below. thank you #{user_name} for attempting to use /findthefucker slash command",
+        "fields": [
+          {
+            "short":false,
+            "title":"Long Field",
+            "value":"here's a super long string of text randomly generated; three is a spectre haunting nexient, the spectre of gooch; many people tried to exorcize his shitposting, but to no avail; here is his code and this is his statement blah blah blah"
+          },
+          {
+            "short":true,
+            "title":"Column One",
+            "value":"Testing"
+          },
+          {
+            "short":true,
+            "title":"Column Two",
+            "value":"Testing"
+          },
+          {
+          "short":false,
+          "title":"Another Field",
+          "value":"Testing"
+          }
+        ],
+      "image_url": "https://cdn.rawgit.com/alexmwalker/03433aaec5293280f6b896e7a7a2ef1e/raw/08088a2c6f1fd5e363915003dc7e2e34cc04d3ec/alva.svg"
+    }
+  ]
+}
+      """
+    |> Jason.decode 
+
+    json(conn, json)
   end
 
 end

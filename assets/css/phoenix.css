@@ -49,10 +49,20 @@ main {
   padding: 10px;
 }
 
+/**
+ * NEED INFO:
+ * How will the SVG be adjusted based on location information?
+ * Currently the SVG is being centered, assuming the location
+ * will be returned in the center of the map
+ */
 main > .svg-container {
   height: 100%;
   width: 73%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid black;
+  overflow: hidden;
 }
 
 main > .user-container {
