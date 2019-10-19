@@ -17,8 +17,6 @@ import "phoenix_html"
 // import socket from "./socket"
 
 import svgPanZoom from "svg-pan-zoom"
-import {Socket} from "phoenix"
-import LiveSocket from "phoenix_live_view"
 
 let Hooks = {}
 

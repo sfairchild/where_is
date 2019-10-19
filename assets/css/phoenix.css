@@ -13,6 +13,7 @@ header {
 header .header-left {
   font-size: 44px;
   color: var(--white);
+  transition: all .25s ease-in-out;
 }
 
 header .header-right {
@@ -32,7 +33,7 @@ header .search-container {
 header .header-search {
   height: 34px;
   width: 100%;
-  padding: 0 16px;
+  padding: 3px 16px 0 16px;
   outline: none;
   border: 1px solid #666;
   border-radius: 50px;
@@ -44,7 +45,13 @@ header .header-search:hover {
   border: none;
   box-shadow: 0px 0px 3px 2px #666;
 }
+header .search-assist:hover .header-search,
 header .header-search:focus {
+  border: none;
+  box-shadow: 0px 0px 3px 2px #666;
+  border-radius: 15px 15px 0 0;
+}
+header .search-assist:hover .header-search {
   border: none;
   box-shadow: 0px 0px 3px 2px #666;
   border-radius: 15px 15px 0 0;
@@ -84,7 +91,8 @@ header .search-assist {
   overflow-y: hidden;
   z-index: 0;
 }
-header .header-search:focus ~ .search-assist {
+header .header-search:focus ~ .search-assist,
+header .search-assist:hover {
   display: flex;
 }
 
