@@ -1,9 +1,9 @@
+import {Socket} from "phoenix";
+import LiveSocket from "phoenix_live_view";
 import shuffle from 'lodash.shuffle';
 import anime from 'animejs';
 import resetCss from '../css/reset.css';
 import css from '../css/app.css';
-import LiveSocket from "phoenix_live_view";
-import {Socket} from "phoenix"
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -67,15 +67,6 @@ Hooks.TitleName = {
     }, timer);
   },
 };
-
-Hooks.getUserData = {
-  mounted() {
-    this.el.addEventListener("click", (e) => {
-      console.log(this.el.value);
-      console.log(e);
-    })
-  }
-}
 
 let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks})
 liveSocket.connect()
