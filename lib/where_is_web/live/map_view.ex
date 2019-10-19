@@ -10,4 +10,8 @@ defmodule WhereIsWeb.MapLive do
              |> assign(:svg, WhereIs.Svg.generate_svg)
     {:ok, socket}
   end
+
+  def handle_event("search", %{"value" => value}, socket) do
+    {:noreply, assign(socket, value: value)}
+  end
 end
