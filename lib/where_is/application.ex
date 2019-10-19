@@ -20,13 +20,14 @@ defmodule WhereIs.Application do
     Supervisor.start_link(children, opts)
   end
 
-  def validate("@sean"), do: returnType = true
-  def validate(_), do: returnType = false
+  def validate("@sean"), do: true
+  def validate(_), do: false
 
-  def generateUrl("@sean"), do: link = "https://commons.wikimedia.org/wiki/File:Media_Viewer_Icon_-_Link_Hover.svg"
-  def generateUrl(_), do: link = "https://upload.wikimedia.org/wikipedia/commons/c/ca/Cthulhu_blood.png"
+  def generate_url("@sean"), do: link = "https://commons.wikimedia.org/wiki/File:Media_Viewer_Icon_-_Link_Hover.svg"
+  def generate_url("bad_user"), do: nil
+  def generate_url(_), do: link = "https://upload.wikimedia.org/wikipedia/commons/c/ca/Cthulhu_blood.png"
 
-  
+
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
