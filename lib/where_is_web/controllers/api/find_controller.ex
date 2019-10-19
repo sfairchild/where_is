@@ -49,28 +49,8 @@ defmodule WhereIsWeb.Api.FindController do
 
                     json(conn, json)
   
-  # json(conn, fetchMattermostUsers())
-
   end
 
-<<<<<<< HEAD
-
-  def fetchMattermostUsers do
-    url = "http://54.91.189.149:8065/api/v4/users"
-    headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
-               {"Content-Type", "application/json; charset=utf-8"}]
-
-
-    case HTTPoison.get(url, headers) do
-    {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-    IO.puts body
-    {:ok, %HTTPoison.Response{status_code: 404}} ->
-    IO.puts "Not found :("
-    {:error, %HTTPoison.Error{reason: reason}} ->
-    IO.inspect reason
-    end
-
-=======
   def find(conn, %{"text" => text, "user_name" => user_name} = params) do
     user_exists = WhereIs.Application.validate(text)
     {:ok, json} = get_json(WhereIs.Application.validate(text), WhereIs.Application.generate_url(text), text)
@@ -144,10 +124,27 @@ defmodule WhereIsWeb.Api.FindController do
         ]
       }
     """
->>>>>>> 4d361d43ddf1ec395abb85b9e4509421d9f0ffe1
+
   end
 
+  def fetchMattermostUsers(conn, params) do 
+    url = "http://54.91.189.149:8065/api/v4/users"
+    headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
+               {"Content-Type", "application/json; charset=utf-8"}]
 
+    json = "default"
+
+    case HTTPoison.get(url, headers) do
+    {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+     body |> Jason.decode
+    {:ok, %HTTPoison.Response{status_code: 404}} ->
+    IO.puts "Not found :("
+    {:error, %HTTPoison.Error{reason: reason}} ->
+    IO.inspect reason
+  end
+
+  json(conn, json)
+end
 
   def fetchMattermostUser(userId) do
     url = "http://54.91.189.149:8065/api/v4/users/"<>userId
@@ -168,48 +165,3 @@ defmodule WhereIsWeb.Api.FindController do
 
 end
 
-#   
-
-#   def find(conn, params) do
-#     %{"text" => text, "user_name" => user_name} = params
-#     {:ok, json} = """
-#       {
-#     "attachments": [
-#       {
-#         "fallback": "test",
-#         "color": "#FFC0CB",
-#         "pretext": "stupid fucking lightbulb ",
-#         "text": "The location of #{text} can be found below. thank you #{user_name} for attempting to use /findthefucker slash command",
-#         "fields": [
-#           {
-#             "short":false,
-#             "title":"Long Field",
-#             "value":"here's a super long string of text randomly generated; three is a spectre haunting nexient, the spectre of gooch; many people tried to exorcize his shitposting, but to no avail; here is his code and this is his statement blah blah blah"
-#           },
-#           {
-#             "short":true,
-#             "title":"Column One",
-#             "value":"Testing"
-#           },
-#           {
-#             "short":true,
-#             "title":"Column Two",
-#             "value":"Testing"
-#           },
-#           {
-#           "short":false,
-#           "title":"Another Field",
-#           "value":"Testing"
-#           }
-#         ],
-#       "image_url": "https://cdn.rawgit.com/alexmwalker/03433aaec5293280f6b896e7a7a2ef1e/raw/08088a2c6f1fd5e363915003dc7e2e34cc04d3ec/alva.svg"
-#     }
-#   ]
-# }
-#       """
-#     |> Jason.decode 
-
-#     json(conn, json)
-#   end
-
-# end
