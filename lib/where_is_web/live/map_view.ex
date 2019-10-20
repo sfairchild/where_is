@@ -21,7 +21,7 @@ defmodule WhereIsWeb.MapLive do
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, nil)
-      |> assign(:user, %{first_name: nil, email: nil, username: nil, location_id: nil})
+      |> assign(:user, %{first_name: nil, email: nil, username: nil, location_id: nil, name: nil})
       |> assign(:map, "north")
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
@@ -42,14 +42,41 @@ defmodule WhereIsWeb.MapLive do
     {:noreply, socket}
   end
 
+  def formatSubject(%WhereIs.Room{email: email, name: name} = room) do
+    %{email: email, name: name}
+  end
+
+  def formatSubject(%WhereIs.Location{name: name} = location) do
+    %{
+      name: name,
+      email: nil,
+      id: "",
+      username: "",
+    }
+  end
+
+  def formatSubject(%WhereIs.User{first_name: first_name, last_name: last_name} = user) do
+    %{
+      name: "#{first_name} #{lasat_name}",
+      email: user.email,
+      id: user.location_id,
+      username: user.username
+    }
+  end
+
   def handle_event("search", %{"search" => value}, socket) do
-    suggestions = WhereIs.MattermostUser.fuzzy_search_users(value)
+    suggestions = WhereIs.Fuzzy.find(value)
     [head | _tail] = suggestions
+
+    subjet = %{
+      name: suggestion.name || "#{suggestion.first_name} #{suggestion.last_name}",
+      email: suggestion.email
+    }
 
     socket = socket
       |> assign(:searchValue, value)
       |> assign(:suggestions, suggestions)
-      |> assign(:user, head)
+      |> assign(:user, formatSubject(head))
 
     {:noreply, socket}
     # {:noreply, assign(socket, searchValue: value)}
