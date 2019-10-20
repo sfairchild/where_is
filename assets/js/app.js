@@ -20,7 +20,6 @@ import "phoenix_html"
 
 import svgPanZoom from "svg-pan-zoom"
 
-let Hooks = {}
 let Hooks = {};
 let pan
 
