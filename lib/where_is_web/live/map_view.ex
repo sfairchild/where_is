@@ -24,6 +24,12 @@ defmodule WhereIsWeb.MapLive do
     {:ok, socket}
   end
 
+  def handle_info(a, socket) do
+    IO.puts "RECEIVED CHANNEL"
+    IO.inspect a
+    {:noreply, socket}
+  end
+
   def handle_info(a, b, socket) do
 
     IO.puts "RECEIVED CHANNEL"
