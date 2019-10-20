@@ -21,17 +21,16 @@ import "phoenix_html"
 import svgPanZoom from "svg-pan-zoom"
 
 let Hooks = {}
+let Hooks = {};
+let pan
 
-let panZoomTiger;
 Hooks.PanZoom = {
   mounted() {
-    svgPanZoom('#mainSvg');
-    panZoomTiger = svgPanZoom('#mainSvg');
+    pan = svgPanZoom('#mainSvg');
   },
-
   updated() {
-    panZoomTiger.updateBBox();
-  },
+    pan.panBy({x: 0.01, y: 0.01})
+  }
 };
 
 Hooks.TitleName = {

@@ -28,7 +28,7 @@ defmodule WhereIs.MattermostUser do
 	tempUserContainer = []
 	usersContainer = []
     users = getAllPagesofMattermostUsers(tempUserContainer, usersContainer, 0)
-    
+
     IO.inspect(Enum.count(users), label: "Number of Users from callMattermostForUsers")
     usersList = makeUsers(users)
     IO.inspect(usersList)
@@ -65,22 +65,30 @@ defmodule WhereIs.MattermostUser do
 
   def makeUsers(users) do
   	numOfUsers = Enum.count(users)
-  	userslist = []
-  	makeUsers(users, userslist, numOfUsers - 1)
+  	usersList = []
+  	makeUsers(users, usersList, WhereIs.Locations.list, numOfUsers - 1)
   end
 
-  defp makeUsers(users, usersList, n) when n <= 0 do
+  defp makeUsers(users, usersList, locationsList, n) when n <= 0 do
   	{:ok, userMap} = Enum.fetch(users, n)
   	user = makeUserFromMap(userMap)
   	usersList = [user | usersList]
   end
 
-  defp makeUsers(users, usersList, n) do
+  defp makeUsers(users, usersList, locationsList, n) do
   	{:ok, userMap} = Enum.fetch(users, n)
   	user = makeUserFromMap(userMap)
+  	numOfLocations = Enum.count(locationsList)
+  	location = Enum.random(locationsList)
+  	
+  	{:ok, locationName} = Map.fetch(location, :name)
+  	user = addLocationToUser(locationName, user)
+  
   	usersList = [user | usersList]
-  	makeUsers(users, usersList, n - 1)
+  	makeUsers(users, usersList, locationsList, n - 1)
   end
+
+
 
 
   defp createUser(userMap) do
@@ -116,8 +124,9 @@ defmodule WhereIs.MattermostUser do
   		end
   	end
 
-  	def addLocationIdToUser(locationId, user) do
-  		assignVariable("location_id", locationId, user)
+  	#	For now it just assigns the name
+  	def addLocationToUser(location, user) do
+  		user = %{user | :location_id => location}
   	end
 end
 
