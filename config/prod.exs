@@ -16,8 +16,8 @@ config :where_is, WhereIsWeb.Endpoint,
   secret_key_base: "${SECRET_KEY_BASE}",
   url: [host: "${APP_NAME}.gigalixirapp.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  rooms_token: "${ROOMS_TOKEN}"
-  mattermost_token: = "${MATTERMOST_TOKEN}"
+  rooms_token: "${ROOMS_TOKEN}",
+  mattermost_token: "${MATTERMOST_TOKEN}"
 
 
 
