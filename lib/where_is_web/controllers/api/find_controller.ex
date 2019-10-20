@@ -48,7 +48,7 @@ defmodule WhereIsWeb.Api.FindController do
                     |> Jason.decode
 
                     json(conn, json)
-  
+
   end
 
   def find(conn, %{"text" => text, "user_name" => user_name} = params) do
@@ -126,6 +126,7 @@ defmodule WhereIsWeb.Api.FindController do
     """
 
   end
+
 
   def fetchCurrentMattermostUsers(conn, params) do
     {:ok, users} = fetchUsersFromMattermost()
