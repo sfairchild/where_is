@@ -15,48 +15,63 @@
         <div class="shield">
           <div class="separator"></div>
         </div>
-        <div class="search-assist">
           <%= if @searchValue == nil || @searchValue == "" do %>
-            <div>Start typing to see suggestions</div>
+            <div class="search-assist small">Start typing to see suggestions</div>
           <% else %>
-            <%= for suggestion <- @suggestions do %>
-              <span class="suggestion" phx-click="search" phx-value-search="<%= raw suggestion.name %>">
-                <%= raw suggestion.name %>
-              </span>
-            <% end %>
+            <div class="search-assist large">
+              <%= for suggestion <- @suggestions do %>
+                <span class="suggestion" phx-click="search" phx-value-search="<%= raw suggestion.name %>">
+                  <%= suggestion.name %>
+                </span>
+              <% end %>
+            </div>
           <% end %>
-        </div>
       </div>
     </form>
   </div>
 </header>
 <main role="main" class="container">
   <section class="svg-container">
-    <%= if @map === "north" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
-        <g phx-hook="PanZoom">
-        <%= raw @svg %>
-        </g>
-      </svg>
-    <% else %>
-      <div>SOUTH BUILDING HERE<div>
+    <%= case @map do %>
+      <% "both" -> %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
+          <g phx-hook="PanZoom">
+            <%= raw @svg %>
+          </g>
+        </svg>
+      <% "north" -> %>
+        <div>NORTH BUILDING HERE</div>
+      <% "south" -> %>
+        <div>SOUTH BUILDING HERE<div>
     <% end %>
-
   </section>
 
   <section class="right-side">
     <div class="location-information">
-      <%= if !@subject.name do %><button phx-hook="userData" phx-click="getData">Click for mock data</button><% end %>
-      <%= if @subject.name do %><div class="info name"><%= @subject.name %></div><% end %>
-      <%= if @subject.email do %><div class="info"><%= @subject.email %></div><% end %>
-      <%= if @subject.id do %><div class="info"><%= @subject.id %></div><% end %>
-      <%= if @subject.username do %><div class="info"><%= @subject.username %></div><% end %>
-      <%= if @subject.status do %><div class="info"><%= @subject.status %></div><% end %>
+      <%= if !@subject.name do %>
+        <h1>Make a search to view information</h1>
+      <% else %>
+        <div class="profile-image">
+          <img src="https://www.clipartwiki.com/clipimg/detail/248-2480210_user-staff-man-profile-person-icon-circle-png.png">
+        </div>
+        <div class="profile-info">
+          <%= if @subject.name do %><div class="info name"><%= @subject.name %></div><% end %>
+          <%= if @subject.email do %><div class="info"><%= @subject.email %></div><% end %>
+          <%= if @subject.id do %><div class="info"><%= @subject.id %></div><% end %>
+          <%= if @subject.username do %><div class="info">@<%= @subject.username %></div><% end %>
+          <%= if @subject.status do %><div class="info">Status: <%= @subject.status %></div><% end %>
+        </div>
+      <% end %>
     </div>
 
+    <!-- These are buttons to swap between North/South SVGs -->
     <div class="svg-tabs">
-      <button class="svg-tab orange" phx-click="change-map" phx-value-name="north">North</button>
+    <!--
+      <button class="svg-tab orange" phx-click="change-map" phx-value-name="both">Both</button>
+      <button class="svg-tab grey" phx-click="change-map" phx-value-name="north">North</button>
       <button class="svg-tab blue" phx-click="change-map" phx-value-name="south">South</button>
+    -->
     </div>
+
   </section>
 </main>

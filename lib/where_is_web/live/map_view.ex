@@ -6,8 +6,8 @@ defmodule WhereIsWeb.MapLive do
     WhereIsWeb.PageView.render("map.html", assigns)
   end
 
-  defmodule User do
-    defstruct name: "Roland Canuto", email: "rolandcanuto@outlook.com", username: "rolandc5", location: "North_Desk_21"
+  defmodule SubjectBase do
+    defstruct name: nil, email: nil, id: nil, username: nil, status: nil, attributes: nil
   end
 
   def mount(_session, socket) do
@@ -21,15 +21,8 @@ defmodule WhereIsWeb.MapLive do
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, nil)
-      |> assign(:subject, %{
-        name: nil,
-        email: nil,
-        id: nil,
-        username: nil,
-        status: nil,
-        attributes: nil,
-      })
-      |> assign(:map, "north")
+      |> assign(:subject, %SubjectBase{})
+      |> assign(:map, "both")
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
       |> assign(:rooms, %{})
@@ -93,14 +86,7 @@ defmodule WhereIsWeb.MapLive do
     [head | _tail] = suggestions
 
     subject = if (value !== ""), do: head,
-    else: %{
-      name: nil,
-      email: nil,
-      id: nil,
-      username: nil,
-      status: nil,
-      attributes: nil,
-    }
+    else: %SubjectBase{}
 
     socket = socket
       |> assign(:searchValue, value)
@@ -112,10 +98,5 @@ defmodule WhereIsWeb.MapLive do
 
   def handle_event("change-map", %{"name" => value}, socket) do
     {:noreply, assign(socket, :map, value)}
-  end
-
-  def handle_event("getData", _, socket) do
-    socket = socket |> assign(:user, %User{})
-    {:noreply, socket}
   end
 end

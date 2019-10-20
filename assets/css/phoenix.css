@@ -79,7 +79,6 @@ header .header-search:focus + .shield > .separator {
 
 /* search-assist is the suggestion list */
 header .search-assist {
-  height: 227px;
   width: 100%;
   background: var(--white);
   display: none;
@@ -89,7 +88,6 @@ header .search-assist {
   position: absolute;
   border-radius: 0 0 15px 15px;
   box-shadow: 0px 0px 3px 2px #666;
-  bottom: -230px; /* extra 3px to prevent shadow overlap */
   font-size: 18px;
   overflow-y: hidden;
   z-index: 0;
@@ -110,6 +108,15 @@ header .search-assist .suggestion {
 header .search-assist .suggestion:hover {
   background: var(--orange);
   color: var(--white);
+}
+
+header .search-assist.small {
+  height: 40px;
+  bottom: -43px;
+}
+header .search-assist.large {
+  height: 227px;
+  bottom: -230px; /* extra 3 pixels to prevent shadow overlap */
 }
 
 /* Main body */
@@ -154,11 +161,29 @@ main .right-side {
 }
 
 main .location-information {
-  height: 75%;
+  height: 72%;
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   padding: 12px 0px;
+}
+
+main .profile-image {
+  height: 300px;
+  width: 300px;
+}
+main .profile-image img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 15px;
+}
+
+main .profile-info {
+  width: 100%;
+  padding: 0 30px;
+  font-size: 18px;
 }
 
 main .info.name {
@@ -166,13 +191,12 @@ main .info.name {
 }
 
 main .svg-tabs {
-  height: 23%;
+  height: 28%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* padding: 0 30px; */
 }
 
 main .svg-tab {
@@ -183,19 +207,24 @@ main .svg-tab {
   color: var(--white);
   box-shadow: var(--shadow);
   cursor: pointer;
-  transition: all .15s ease-in-out;
+  transition: all .03s ease-in-out;
   outline: none;
+}
+main .svg-tab:hover {
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1), var(--shadow);
 }
 main .svg-tab:active {
   box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
 }
 .svg-tab.orange {
-  /* background: var(--orange); */
   background: linear-gradient(to bottom left, var(--darkOrange), var(--orange));
   border: 1px solid var(--darkOrange);
 }
+.svg-tab.grey {
+  background: linear-gradient(to bottom right, var(--darkGrey), var(--grey));
+  border: 1px solid var(--darkGrey);
+}
 .svg-tab.blue {
-  /* background: var(--blue); */
   background: linear-gradient(to bottom left, var(--darkBlue), var(--blue));
   border: 1px solid var(--darkBlue);
 }
