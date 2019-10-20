@@ -28,6 +28,7 @@ defmodule WhereIsWeb.Router do
    post "/", FindController, :index
 
     # post "/", FindController, :index
+    post "/users/list", FindController, :fetchCurrentMattermostUsersList
     post "/users", FindController, :fetchCurrentMattermostUsers
     post "/whereis", FindController, :find
   end

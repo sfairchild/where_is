@@ -16,6 +16,29 @@ defmodule WhereIs.MattermostUser do
 
   end
 
+  def makeUsers(users) do
+  	numOfUsers = Enum.count(users)
+  	IO.inspect(numOfUsers)
+  	userslist = []
+  	makeUsers(users, userslist, numOfUsers - 1)
+  end
+
+  defp makeUsers(users, usersList, n) when n <= 1 do
+  	{:ok, userMap} = Enum.fetch(users, n)
+  	keys = Map.keys(userMap)
+  	user = createUser(userMap, keys)
+  	usersList ++ user
+  end
+
+  defp makeUsers(users, usersList, n) do
+  	{:ok, userMap} = Enum.fetch(users, n)
+  	keys = Map.keys(userMap)
+  	user = createUser(userMap, keys)
+  	usersList ++ user
+  	makeUsers(users, usersList, n - 1)
+  end
+
+
   defp createUser(userMap, keys) do
   	{:ok, id} = Map.fetch(userMap, "id")
   	{:ok, username} = Map.fetch(userMap, "id")

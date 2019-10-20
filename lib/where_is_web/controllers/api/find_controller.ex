@@ -124,9 +124,15 @@ defmodule WhereIsWeb.Api.FindController do
         ]
       }
     """
-
   end
 
+  def fetchCurrentMattermostUsersList(conn, params) do
+    {:ok, users} = fetchUsersFromMattermost()
+
+    usersList = WhereIs.MattermostUser.makeUsers(users)
+    IO.inspect(usersList)
+    json(conn, users)
+  end
 
   def fetchCurrentMattermostUsers(conn, params) do
     {:ok, users} = fetchUsersFromMattermost()
