@@ -65,7 +65,7 @@ defmodule WhereIsWeb.Api.FindController do
           {
             "fallback": "test",
             "color": "#FFC0CB",
-            "pretext": "stupid fucking lightbulb ",
+            "pretext": "User Location: ",
             "text": "The location of #{text} can be found below.",
             "fields": [
               {
