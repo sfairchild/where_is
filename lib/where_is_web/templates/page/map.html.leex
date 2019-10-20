@@ -1,5 +1,7 @@
 <header>
-  <div class="header-left">Where Is... <span phx-hook="TitleName" id="titleName"></span></div>
+  <div class="header-left" id="title" phx-click="autosuggest">
+    Where Is... <span phx-hook="TitleName" id="titleName"></span>
+  </div>
   <div class="header-right">
     <div class="search-container">
       <form phx-change="search" autocomplete="off">
@@ -14,14 +16,11 @@
           <div class="separator"></div>
         </div>
         <div class="search-assist">
-        <%# possible for a for loop here? %>
-          <span class="suggestion" phx-click="autosuggest" phx-value-name="Harry Potter">Harry Potter</span>
-          <span class="suggestion" phx-click="autosuggest" phx-value-name="Ron Weasley">Ron Weasley</span>
-          <span class="suggestion" phx-click="autosuggest" phx-value-name="Hermione Granger">Hermione Granger</span>
-          <span class="suggestion" phx-click="autosuggest" phx-value-name="Professor Snack">Professor Snack</span>
-          <span class="suggestion" phx-click="autosuggest" phx-value-name="Gandalf">Gandalf</span>
-          <span class="suggestion" phx-click="autosuggest" phx-value-name="The Dudleys">The Dudleys</span>
-          <span class="suggestion" phx-click="autosuggest" phx-value-name="Mr. Filch">Mr. Filch</span>
+          <%= for suggestion <- @suggestions do %>
+            <span class="suggestion" phx-click="autosuggest" phx-value-name="<%= suggestion %>">
+              <%= suggestion %>
+            </span>
+          <% end %>
         </div>
       </div>
     </form>
@@ -29,20 +28,30 @@
 </header>
 <main role="main" class="container">
   <section class="svg-container">
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%", height="100%" id="mainSvg">
-      <g phx-hook="PanZoom">
-      <%= raw @svg %>
-      </g>
-    </svg>
+    <%= if @map === "north" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
+        <g phx-hook="PanZoom">
+        <%= raw @svg %>
+        </g>
+      </svg>
+    <% else %>
+      <div>SOUTH BUILDING HERE<div>
+    <% end %>
+
   </section>
 
-  <section class="user-container">
-    <button value="<%= @userData %>" phx-hook="userData" phx-click="getData">Click for mock data</button>
-    <h1>Location Information</h1>
-    <h1><%= @location %></h1>
-    <h1><%= @name %></h1>
-    <h1><%= @email %></h1>
-    <h1><%= @username %></h1>
-    <button phx-click="nameclick">Click me</button>
+  <section class="right-side">
+    <div class="location-information">
+      <%= if !@user.name do %><button phx-hook="userData" phx-click="getData">Click for mock data</button><% end %>
+      <%= if @user.name do %><h1 class="info name"><%= @user.name %></h1><% end %>
+      <%= if @user.email do %><h1 class="info"><%= @user.email %></h1><% end %>
+      <%= if @user.username do %><h1 class="info">@<%= @user.username %></h1><% end %>
+      <%= if @user.location do %><h1 class="info"><%= @user.location %></h1><% end %>
+    </div>
+
+    <div class="svg-tabs">
+      <button class="svg-tab orange" phx-click="change-map" phx-value-name="north">North</button>
+      <button class="svg-tab blue" phx-click="change-map" phx-value-name="south">South</button>
+    </div>
   </section>
 </main>
