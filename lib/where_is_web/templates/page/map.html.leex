@@ -46,11 +46,11 @@
 
   <section class="right-side">
     <div class="location-information">
-      <%= if !@user.name do %><button phx-hook="userData" phx-click="getData">Click for mock data</button><% end %>
-      <%= if @user.name do %><h1 class="info name"><%= @user.name %></h1><% end %>
+      <%= if !@user.first_name do %><button phx-hook="userData" phx-click="getData">Click for mock data</button><% end %>
+      <%= if @user.first_name do %><h1 class="info name"><%= @user.first_name %></h1><% end %>
       <%= if @user.email do %><h1 class="info"><%= @user.email %></h1><% end %>
       <%= if @user.username do %><h1 class="info">@<%= @user.username %></h1><% end %>
-      <%= if @user.location do %><h1 class="info"><%= @user.location %></h1><% end %>
+      <%= if @user.location_id do %><h1 class="info"><%= @user.location_id %></h1><% end %>
     </div>
 
     <div class="svg-tabs">

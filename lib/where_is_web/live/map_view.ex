@@ -21,7 +21,7 @@ defmodule WhereIsWeb.MapLive do
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, nil)
-      |> assign(:user, %{name: nil, email: nil, username: nil, location: nil})
+      |> assign(:user, %{first_name: nil, email: nil, username: nil, location_id: nil})
       |> assign(:map, "north")
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
@@ -44,8 +44,14 @@ defmodule WhereIsWeb.MapLive do
 
   def handle_event("search", %{"search" => value}, socket) do
     suggestions = WhereIs.MattermostUser.fuzzy_search_users(value)
-    # suggestions = match_search(:rooms, value)
-    {:noreply, assign(socket, searchValue: value, suggestions: suggestions)}
+    [head | _tail] = suggestions
+
+    socket = socket
+      |> assign(:searchValue, value)
+      |> assign(:suggestions, suggestions)
+      |> assign(:user, head)
+
+    {:noreply, socket}
     # {:noreply, assign(socket, searchValue: value)}
   end
 
