@@ -25,18 +25,34 @@ defmodule WhereIs.MattermostUser do
   end
 
    def fetchCurrentMattermostUsersList do
-    {:ok, users} = fetchUsersFromMattermost()
-
+	tempUserContainer = []
+	usersContainer = []
+    users = getAllPagesofMattermostUsers(tempUserContainer, usersContainer, 0)
+    
+    IO.inspect(Enum.count(users), label: "Number of Users from callMattermostForUsers")
     usersList = makeUsers(users)
     IO.inspect(usersList)
   end
 
-  def fetchUsersFromMattermost do 
+  def getAllPagesofMattermostUsers(tempUsers, usersContainer, n) do
+  	{:ok, tempUsers} = callMattermostForUsers(n)
+  	cond do
+			Enum.empty?(tempUsers) ->
+  				usersContainer
+  			!Enum.empty?(tempUsers) ->
+  				IO.inspect(n)
+  				IO.inspect(Enum.empty?(tempUsers))
+  				usersContainer = Enum.concat(usersContainer, tempUsers)
+  				getAllPagesofMattermostUsers(tempUsers, usersContainer, n + 1)
+  		end
+  end
+
+  def callMattermostForUsers(page) do 
     headers = [{"Authorization", System.get_env("MATTERMOST_TOKEN")},
              {"X-Requested-With", "XMLHttpRequest"}]
 	url = "https://chat.nexient.com/api/v4/users"
 
-	{:ok, response} = HTTPoison.get(url, headers)
+	{:ok, response} = HTTPoison.get(url, headers, params: %{per_page: 200, page: page})
 	Jason.decode(response.body())
   end
 
@@ -91,7 +107,7 @@ defmodule WhereIs.MattermostUser do
   defp assignVariable(keyString, value, user) do
   		key = String.to_atom(keyString)
   		Map.put(user, key, value)
-  		
+
   		cond do
 			Map.has_key?(user, key) ->
   				user = %{user | key => value}
