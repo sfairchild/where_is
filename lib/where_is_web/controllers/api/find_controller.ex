@@ -127,57 +127,31 @@ defmodule WhereIsWeb.Api.FindController do
 
   end
 
+  def fetchCurrentMattermostUsers(conn, params) do
+    {:ok, users} = fetchUsersFromMattermost()
 
-
-
-  def fetchMapOfCurrentMattermostUsers(conn, params) do
-    {:ok, users} = fetchMattermostUsers()
-
-    Enum.map_every(users, 1, fn x -> createMattermostUserFromMap(x) end)
-
-    IO.inspect(map)
-    json(conn, map)
+    Enum.each(users, fn(s) ->  WhereIs.MattermostUser.makeUser(s) end)
+    json(conn, users)
   end
 
-  def fetchMattermostUsers(conn, params) do 
+  def fetchUsersFromMattermost do 
     url = "http://54.91.189.149:8065/api/v4/users"
     headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
                {"Content-Type", "application/json; charset=utf-8"}]
 
     {:ok, response} = HTTPoison.get(url, headers)
-    {:ok, json} = Jason.decode(response.body())
+    Jason.decode(response.body())
+  end
 
-    size = Enum.at(json,1)
-        |> Map.keys
-
-
-    
-    IO.inspect(size)
-    
-    
-
-   
-    IO.inspect(json)
-    json(conn, json)
-end
-
-  def fetchMattermostUser(conn, params) do
+  def fetchUserFromMatterMost do
     url = "http://54.91.189.149:8065/api/v4/users/mkeeywthbtdkpm71tb6gsc7ser"
     headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
                {"Content-Type", "application/json; charset=utf-8"}]
 
-  {:ok, response} = HTTPoison.get(url, headers)
-    {:ok, json} = Jason.decode(response.body())
+    {:ok, response} = HTTPoison.get(url, headers)
+    {:ok, user} = Jason.decode(response.body())
 
-    keys = Map.keys(json)
-    size = map_size(json)
-
-    
-    IO.inspect(size)
-    
-    IO.inspect(keys)
-    IO.inspect(json)
-    json(conn, json)
+    WhereIs.MattermostUser.makeUser(user)
   end
 
 
