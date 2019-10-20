@@ -97,6 +97,8 @@ defmodule WhereIs.Room do
         name: name,
         id: name_to_id(name),
         style: "fill: #{busy_style(location)};",
+        "phx-click": "search",
+        "phx-value-search": name,
         transform: "translate(#{transform.x} #{transform.y}) rotate(#{transform.rotate})",
         height: "#{transform.height}px",
         width: "#{transform.height}px" }, []}

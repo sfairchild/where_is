@@ -29,7 +29,7 @@ defmodule WhereIs.Locations do
   end
 
   def get_svg_tuple(%__MODULE__{asset_type: :desk} = location, attrs \\ %{}) do
-    attrs = %{id: name_to_id(location.name), name: location.name,  "xlink:href": "#master-desk", transform: "translate(#{location.transform.x} #{location.transform.y}) rotate(#{location.transform.rotate})"}
+    attrs = %{id: name_to_id(location.name), name: location.name,  "xlink:href": "#master-desk", transform: "translate(#{location.transform.x} #{location.transform.y}) rotate(#{location.transform.rotate})", "phx-click": "search", "phx-value-search": location.name}
             |> Map.merge(location.attributes)
             |> Map.merge(attrs)
 
