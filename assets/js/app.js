@@ -20,12 +20,16 @@ import "phoenix_html"
 
 import svgPanZoom from "svg-pan-zoom"
 
-let Hooks = {}
+let Hooks = {};
+let pan
 
 Hooks.PanZoom = {
   mounted() {
-    svgPanZoom('#mainSvg');
+    pan = svgPanZoom('#mainSvg');
   },
+  updated() {
+    pan.panBy({x: 0.01, y: 0.01})
+  }
 };
 
 Hooks.TitleName = {
