@@ -41,3 +41,7 @@ defmodule WhereIs.Users do
 
 #
 end
+
+#needed functions
+#update user 
+#make list 

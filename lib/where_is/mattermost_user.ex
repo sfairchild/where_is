@@ -8,11 +8,11 @@ defmodule WhereIs.MattermostUser do
   def makeUser(userMap) do
   	keys = Map.keys(userMap)
   	user = createUser(userMap, keys)
-  	IO.inspect(user)
+  	# IO.inspect(user)
 
   	#fTODO: fix when we have more time
-  	buildUser(keys, userMap, user)
-  	IO.inspect(user)
+  	# buildUserFromMap(keys, userMap, user)
+  	# IO.inspect(user)
   end
 
   def makeUsers(users) do
@@ -48,22 +48,44 @@ defmodule WhereIs.MattermostUser do
   	%__MODULE__{id: id, username: username, first_name: firstName, last_name: lastName, email: email,}
   end
 
-  defp buildUser(keys, userMap, user) do
-  		Enum.each(keys, fn(s) -> assignVariable(s, userMap, user) end)		
-  end
-
-  defp assignVariable(key, userMap, user) do
-  	IO.inspect(key)
-  	{value, userMap} = Map.pop(userMap, key)
+  defp buildUserFromMap([head | tail], userMap, user) do
+  	IO.inspect(head)
+  	{value, userMap} = Map.pop(userMap, head)
+  	{value, userMap} = Map.pop(userMap, head)
   	IO.inspect(userMap)
-  	Map.put(user, key, value)
-  	IO.inspect(user)
+  	IO.inspect(value)
+  	user = assignVariable(head, value, user)
+
+  	buildUserFromMap(tail, userMap, user)	
   end
 
-  defp assignVariable()
-  def assignLocationId(user, locationId) do
-  	
+  defp buildUserFromMap([], userMap, user) do
+  	user
   end
+
+  defp assignVariable(key, value, user) do
+  		Map.put(user, key, value)
+  end
+
+  def fetchCurrentMattermostUsersList do
+    {:ok, users} = fetchUsersFromMattermost()
+
+    usersList = WhereIs.MattermostUser.makeUsers(users)
+    IO.inspect(usersList)
+  end
+
+  def fetchUsersFromMattermost do 
+	url = "http://54.91.189.149:8065/api/v4/users"
+	headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
+	           {"Content-Type", "application/json; charset=utf-8"}]
+
+	{:ok, response} = HTTPoison.get(url, headers)
+	Jason.decode(response.body())
+  end
+
+
+
+
 
 end
 
