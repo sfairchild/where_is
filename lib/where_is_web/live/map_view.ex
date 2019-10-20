@@ -29,16 +29,20 @@ defmodule WhereIsWeb.MapLive do
     {:ok, socket}
   end
 
-  def match_search(:rooms, rooms, value) do
-    Enum.filter(rooms, fn(room) -> String.jaro_distance(value, room.name) > 0.6 end)
-  end
+  # def match_search(:rooms, rooms, value) do
+  #   Enum.filter(rooms, fn(room) -> String.jaro_distance(value, room.name) > 0.6 end)
+  # end
 
-  def handle_info(%{event: "updated", topic: "rooms"} = a, socket) do
+  # def handle_info(%{event: "updated", topic: "rooms"} = a, socket) do
 
-    IO.puts "RECEIVED CHANNEL"
-    IO.inspect a
-    {:noreply, assign(socket, :rooms, a.rooms)}
-  end
+  #   IO.puts "RECEIVED CHANNEL"
+  #   IO.inspect a
+  #   {:noreply, assign(socket, :rooms, a.rooms)}
+  # end
+
+  # def handle_info(a, socket) do
+  #   {:noreply, socket}
+  # end
 
   def handle_info(a, b, socket) do
 
@@ -50,9 +54,10 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def handle_event("search", %{"search" => value}, socket) do
+    suggestions = WhereIs.MattermostUser.fuzzy_search_users(value)
     # suggestions = match_search(:rooms, value)
-    # {:noreply, assign(socket, searchValue: value, suggestions: suggestions)}
-    {:noreply, assign(socket, searchValue: value)}
+    {:noreply, assign(socket, searchValue: value, suggestions: suggestions)}
+    # {:noreply, assign(socket, searchValue: value)}
   end
 
   def handle_event("autosuggest", %{"name" => value}, socket) do

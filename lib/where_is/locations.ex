@@ -26,6 +26,10 @@ defmodule WhereIs.Locations do
   end
 
   def list do
+    north_desks ++ south_desks
+  end
+
+  def north_desks do
     [
       %__MODULE__{ name: "North Desk 1",   transform: %{ x: "7",      y: "114",    rotate: "90 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 2",   transform: %{ x: "25.15",  y: "103.5",  rotate: "210 12 12" }, asset_type: :desk },
@@ -306,8 +310,11 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "North Desk 232", transform: %{ x: "207.5",  y: "1041.7", rotate: "240 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 233", transform: %{ x: "196.95", y: "1060",   rotate: "0 12 12"   }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 234", transform: %{ x: "183.15", y: "1068",   rotate: "300 12 12" }, asset_type: :desk },
+    ]
+  end
 
-      # South Building
+  def south_desks do
+    [
       %__MODULE__{ name: "South Desk 1",    transform: %{ x: "847",     y: "84",    rotate: "90 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 2",    transform: %{ x: "865.15",  y: "73.5",  rotate: "210 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 3",    transform: %{ x: "880.75",  y: "73.5",  rotate: "150 12 12" }, asset_type: :desk },
