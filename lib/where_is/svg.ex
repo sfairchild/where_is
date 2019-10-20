@@ -9,13 +9,16 @@ defmodule WhereIs.Svg do
   def placements do
     [
       {:use, %{"xlink:href" => "#north-bldg"}, nil},
-      {:use, %{"xlink:href" => "#south-bldg"}, nil}
+      {:use, %{"xlink:href" => "#south-bldg", transform: "translate(-900 1300)"}, nil}
     ] ++ locations
   end
 
   def locations do
-    Locations.list
-    |> Enum.map(&Locations.get_svg_tuple(&1))
+    north = Locations.north_desks
+            |> Enum.map(&Locations.get_svg_tuple(&1))
+    south = Locations.south_desks
+            |> Enum.map(&Locations.get_svg_tuple(&1))
+    [{:g, %{transform: "translate(-900 1300)"}, south} | north]
   end
 
   def get_defs do
@@ -65,6 +68,6 @@ defmodule WhereIs.Svg do
   end
 
   def desk do
-    {:path, %{id: "master-desk", d: "m12 0.067938 11.919 6.7526-2.987 5.0985s-5.7475-3.2208-8.9324-3.2446c-3.3107-0.0242-8.9323 3.2446-8.9323 3.2446l-2.9865-5.0985z"}, nil}
+    {:path, %{style: "fill: #485665;",id: "master-desk", d: "m12 0.067938 11.919 6.7526-2.987 5.0985s-5.7475-3.2208-8.9324-3.2446c-3.3107-0.0242-8.9323 3.2446-8.9323 3.2446l-2.9865-5.0985z"}, nil}
   end
 end
