@@ -12,7 +12,8 @@ defmodule WhereIs.Application do
       WhereIsWeb.Endpoint,
       # Starts a worker by calling: WhereIs.Worker.start_link(arg)
       # {WhereIs.Worker, arg},
-       {WhereIs.Users, _args}
+       {WhereIs.Users, _args},
+       {WhereIs.Room, _args}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

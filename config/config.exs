@@ -9,6 +9,7 @@ use Mix.Config
 
 # Configures the endpoint
 config :where_is, WhereIsWeb.Endpoint,
+  rooms_token: {:system, "ROOMS_TOKEN"},
   url: [host: "localhost"],
   secret_key_base: "M3xpWXIv3aP5TMXnw2cPgbK/GDUGzLgeqgTidk7FNCjbmtJIpPsGKk3OKnuHhetJ",
   render_errors: [view: WhereIsWeb.ErrorView, accepts: ~w(html json)],

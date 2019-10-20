@@ -24,7 +24,6 @@ let Hooks = {}
 
 Hooks.PanZoom = {
   mounted() {
-    console.log('PANZOOM MOUNTED');
     svgPanZoom('#mainSvg');
   },
 };
