@@ -48,7 +48,7 @@ defmodule WhereIsWeb.Api.FindController do
                     |> Jason.decode
 
                     json(conn, json)
-  
+
   end
 
   def find(conn, %{"text" => text, "user_name" => user_name} = params) do
@@ -127,7 +127,7 @@ defmodule WhereIsWeb.Api.FindController do
 
   end
 
-  def fetchMattermostUsers(conn, params) do 
+  def fetchMattermostUsers(conn, params) do
     url = "http://54.91.189.149:8065/api/v4/users"
     headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
                {"Content-Type", "application/json; charset=utf-8"}]

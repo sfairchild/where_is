@@ -42,7 +42,11 @@
 
   <section class="right-side">
     <div class="location-information">
-      <h1>Location Information</h1>
+      <%= if !@name do %><button phx-hook="userData" phx-click="getData">Click for mock data</button><% end %>
+      <%= if @name do %><h1 class="info name"><%= @name %></h1><% end %>
+      <%= if @email do %><h1 class="info"><%= @email %></h1><% end %>
+      <%= if @username do %><h1 class="info">@<%= @username %></h1><% end %>
+      <%= if @location do %><h1 class="info"><%= @location %></h1><% end %>
     </div>
 
     <div class="svg-tabs">
