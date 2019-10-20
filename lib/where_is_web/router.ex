@@ -25,10 +25,10 @@ defmodule WhereIsWeb.Router do
     pipe_through :api
 
 
-    post "/", FindController, :index
+   post "/", FindController, :index
 
     # post "/", FindController, :index
-    post "/users", FindController, :fetchMattermostUsers
+    post "/users", FindController, :fetchCurrentMattermostUsers
     post "/whereis", FindController, :find
   end
 end
