@@ -10,7 +10,7 @@ defmodule WhereIs.Users do
 
    @impl true
    def init(state) do
-    schedule_matter_most_user_call()
+    call_matter_most_user_list()
      {:ok, state}
   end
 
@@ -27,15 +27,21 @@ defmodule WhereIs.Users do
     #kind of like sisyphus if you think about it;
     #you push the proverbial boulder up a hill, only for it to fall down again; and in 12 hours;
     #you push the boulder up again
-    schedule_matter_most_user_call()
+    call_matter_most_user_list()
+
+    Process.send_after(self(), :work, 12 * 60 * 60 * 1000)
 
     {:noreply, state}
   end
 
   #call mattermost users every 12 hours
-  defp schedule_matter_most_user_call() do
-    Process.send_after(self(), :work, 12 * 60 * 60 * 1000)
+  defp call_matter_most_user_list() do
+    
   end
 
 #
 end
+
+#needed functions
+#update user 
+#make list 

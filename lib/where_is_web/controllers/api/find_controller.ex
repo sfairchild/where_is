@@ -124,27 +124,9 @@ defmodule WhereIsWeb.Api.FindController do
         ]
       }
     """
-
   end
 
-
-  def fetchCurrentMattermostUsers(conn, params) do
-    {:ok, users} = fetchUsersFromMattermost()
-
-    Enum.each(users, fn(s) ->  WhereIs.MattermostUser.makeUser(s) end)
-    json(conn, users)
-  end
-
-  def fetchUsersFromMattermost do 
-    url = "http://54.91.189.149:8065/api/v4/users"
-    headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
-               {"Content-Type", "application/json; charset=utf-8"}]
-
-    {:ok, response} = HTTPoison.get(url, headers)
-    Jason.decode(response.body())
-  end
-
-  def fetchUserFromMatterMost do
+  def fetchUserFromMattermost(conn, param) do
     url = "http://54.91.189.149:8065/api/v4/users/mkeeywthbtdkpm71tb6gsc7ser"
     headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
                {"Content-Type", "application/json; charset=utf-8"}]
@@ -153,6 +135,7 @@ defmodule WhereIsWeb.Api.FindController do
     {:ok, user} = Jason.decode(response.body())
 
     WhereIs.MattermostUser.makeUser(user)
+    json(conn, user)
   end
 
 
