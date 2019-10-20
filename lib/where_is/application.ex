@@ -22,24 +22,19 @@ defmodule WhereIs.Application do
     Supervisor.start_link(children, opts)
   end
 
-  def validate("@sean"), do: true
-  def validate(_), do: false
+  def validate("@bad_user"), do: false
+  def validate(_), do: true
 
   def generate_url("bad_user"), do: nil
-  def generate_url("frodo") do 
+  def generate_url("frodo") do
     locationInfo = WhereIs.Locations.find_location(WhereIs.Locations.list, "North Desk 13")
     WhereIs.Svg.desk_zoom(locationInfo.x, locationInfo.y)
   end
 
   def generate_url(username) do
     [head | tail] = WhereIs.MattermostUser.fuzzy_search_users(username)
-    #uses first response from fuzzy search to get location_id from the individual user. 
-    if WhereIs.Locations.find_location(WhereIs.Locations.list, head.location_id) do 
-       WhereIs.Svg.desk_zoom(WhereIs.Locations.find_location(WhereIs.Locations.list, head.location_id).x, WhereIs.Locations.find_location(WhereIs.Locations.list, head.location_id).y)   
-    else 
-      returnText = "no location found"
-    end
-
+    #uses first response from fuzzy search to get location_id from the individual user.
+    "https://nautical-sandy-americanbulldog.gigalixirapp.com/svg/map.svg?name=#{head.location_id}"
   end
   #def generate_url(_), do: link = "https://upload.wikimedia.org/wikipedia/commons/c/ca/Cthulhu_blood.png"
 
