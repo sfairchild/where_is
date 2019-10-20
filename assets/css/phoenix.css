@@ -2,7 +2,7 @@
 header {
   height: var(--header-height);
   width: 100%;
-  background: linear-gradient(to bottom left, #191F6F, var(--blue));
+  background: linear-gradient(to bottom left, var(--darkBlue), var(--blue));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -108,7 +108,7 @@ header .search-assist .suggestion {
   cursor: pointer;
 }
 header .search-assist .suggestion:hover {
-  background: rgb(255, 196, 0);
+  background: var(--orange);
   color: var(--white);
 }
 
@@ -130,11 +130,13 @@ main {
 main > .svg-container {
   height: 100%;
   width: 73%;
+  background: #efefef;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
   overflow: hidden;
+  box-shadow: var(--shadow);
+  border-radius: 3px;;
 }
 
 #mainSvg {
@@ -154,13 +156,47 @@ main .right-side {
 main .location-information {
   height: 75%;
   width: 100%;
-  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* border-radius: 3px; */
+  /* box-shadow: var(--shadow); */
 }
 
 main .svg-tabs {
   height: 23%;
   width: 100%;
-  border: 1px solid #faa500;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 30px;
+}
+
+main .svg-tab {
+  height: 50px;
+  width: 100%;
+  border-radius: 3px;
+  font-size: 22px;
+  color: var(--white);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all .15s ease-in-out;
+  outline: none;
+}
+main .svg-tab:active {
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+}
+.svg-tab.orange {
+  /* background: var(--orange); */
+  background: linear-gradient(to bottom left, var(--darkOrange), var(--orange));
+  border: 1px solid var(--darkOrange);
+}
+.svg-tab.blue {
+  /* background: var(--blue); */
+  background: linear-gradient(to bottom left, var(--darkBlue), var(--blue));
+  border: 1px solid var(--darkBlue);
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */

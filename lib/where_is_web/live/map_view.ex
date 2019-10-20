@@ -17,6 +17,7 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:searchValue, "")
       |> assign(:svg, WhereIs.Svg.generate_svg)
       |> assign(:suggestions, suggestions)
+      |> assign(:map, "north")
     {:ok, socket}
   end
 
@@ -28,5 +29,9 @@ defmodule WhereIsWeb.MapLive do
   def handle_event("autosuggest", %{"name" => value}, socket) do
     socket = socket |> assign(:searchValue, value)
     {:noreply, socket}
+  end
+
+  def handle_event("change-map", %{"name" => value}, socket) do
+    {:noreply, assign(socket, :map, value)}
   end
 end
