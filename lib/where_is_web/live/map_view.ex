@@ -29,20 +29,9 @@ defmodule WhereIsWeb.MapLive do
     {:ok, socket}
   end
 
-  # def match_search(:rooms, rooms, value) do
-  #   Enum.filter(rooms, fn(room) -> String.jaro_distance(value, room.name) > 0.6 end)
-  # end
-
-  # def handle_info(%{event: "updated", topic: "rooms"} = a, socket) do
-
-  #   IO.puts "RECEIVED CHANNEL"
-  #   IO.inspect a
-  #   {:noreply, assign(socket, :rooms, a.rooms)}
-  # end
-
-  # def handle_info(a, socket) do
-  #   {:noreply, socket}
-  # end
+  def handle_info(a, socket) do
+    {:noreply, socket}
+  end
 
   def handle_info(a, b, socket) do
 
