@@ -1,9 +1,28 @@
 defmodule WhereIs.MattermostUser do
  @enforce_keys [:id, :username, :email]
- defstruct id: "", username: "", first_name: "", last_name: "", email: "", location_id: ""
+ defstruct id: "", username: "", first_name: "", last_name: "", email: "", location_id: "", rank: 0
   # defstruct id: "", username: "", first_name: "", last_name: "", email: "", nickname: "", position: "", auth_data: "", auth_service: "", roles: [], timezone: %{automatic_timezone: "", manual_timezone: "", use_automaticTimezone: ""}, create_at: "", update_at: "", delete_at: ""
-	alias WhereIs.MattermostUser, as: MattermostUser 
+	alias WhereIs.MattermostUser, as: MattermostUser
 
+  def fuzzy_search_users(str) when is_binary(str) do
+    fuzzy_search_users(WhereIs.Users.get_users, String.downcase(str))
+  end
+
+  def fuzzy_search_users([%__MODULE__{} = user | users], str ) do
+    Enum.sort_by([get_jaro_number(user, str) | fuzzy_search_users(users, str)], fn(u) -> u.rank end)
+    |> Enum.reverse
+  end
+
+  def fuzzy_search_users([], _str ), do: []
+
+  def get_jaro_number(%__MODULE__{} = user, str) do
+    rank = Enum.max [
+      String.jaro_distance(String.downcase(user.username), str),
+      String.jaro_distance(String.downcase(user.email), str),
+      String.jaro_distance(String.downcase("#{user.first_name} #{user.last_name}"), str)
+    ]
+    %__MODULE__{user | rank: rank}
+  end
 
   def makeUser(userMap) do
   	keys = Map.keys(userMap)
@@ -17,20 +36,17 @@ defmodule WhereIs.MattermostUser do
 
   def makeUsers(users) do
   	numOfUsers = Enum.count(users)
-  	IO.inspect(numOfUsers)
   	userslist = []
   	makeUsers(users, userslist, numOfUsers - 1)
   end
 
   defp makeUsers(users, usersList, n) when n <= 0 do
-  	  	IO.inspect(n, label: "1 or below")
   	{:ok, userMap} = Enum.fetch(users, n)
   	user = makeUser(userMap)
   	usersList = [user | usersList]
   end
 
   defp makeUsers(users, usersList, n) do
-  	IO.inspect(n, label: "above 1")
   	{:ok, userMap} = Enum.fetch(users, n)
   	user = makeUser(userMap)
   	usersList = [user | usersList]
@@ -49,14 +65,11 @@ defmodule WhereIs.MattermostUser do
   end
 
   defp buildUserFromMap([head | tail], userMap, user) do
-  	IO.inspect(head)
   	{value, userMap} = Map.pop(userMap, head)
   	{value, userMap} = Map.pop(userMap, head)
-  	IO.inspect(userMap)
-  	IO.inspect(value)
   	user = assignVariable(head, value, user)
 
-  	buildUserFromMap(tail, userMap, user)	
+  	buildUserFromMap(tail, userMap, user)
   end
 
   defp buildUserFromMap([], userMap, user) do
@@ -71,10 +84,9 @@ defmodule WhereIs.MattermostUser do
     {:ok, users} = fetchUsersFromMattermost()
 
     usersList = WhereIs.MattermostUser.makeUsers(users)
-    IO.inspect(usersList)
   end
 
-  def fetchUsersFromMattermost do 
+  def fetchUsersFromMattermost do
 	url = "http://54.91.189.149:8065/api/v4/users"
 	headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
 	           {"Content-Type", "application/json; charset=utf-8"}]

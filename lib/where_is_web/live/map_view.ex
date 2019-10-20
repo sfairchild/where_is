@@ -29,8 +29,6 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def handle_info(a, socket) do
-    IO.puts "RECEIVED CHANNEL"
-    IO.inspect a
     {:noreply, socket}
   end
 
