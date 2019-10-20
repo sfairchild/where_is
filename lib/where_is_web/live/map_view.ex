@@ -29,7 +29,9 @@ defmodule WhereIsWeb.MapLive do
     {:ok, socket}
   end
 
-  def handle_info(a, socket) do
+  def handle_info(%{event: "updated", topic: "rooms"}, socket) do
+      socket = socket |> assign(:svg, WhereIs.Svg.generate_svg)
+
     {:noreply, socket}
   end
 
