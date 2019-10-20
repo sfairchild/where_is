@@ -40,7 +40,7 @@ Hooks.TitleName = {
     const timer = 3000;
     const list = shuffle([
       'Randy', 'Jamal', 'Pedro', 'Jakob', 'Jane', 'L-a', 'Laurel', 'Yanny',
-      'Paul', 'Colin', 'Andre', 'Waldo', 'Sarah', 'Rachel', 'Yazmin', 'Stephanie',
+      'Paul', 'Collin', 'Andre', 'Waldo', 'Sarah', 'Rachel', 'Yazmin', 'Stephanie',
     ]);
 
     const getWrapper = name => {

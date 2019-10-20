@@ -13,11 +13,6 @@ defmodule WhereIsWeb.MapLive do
   def mount(_session, socket) do
     WhereIsWeb.Endpoint.subscribe("rooms")
 
-    suggestions = [
-      "Harry Potter", "Ron Weasley", "Hermione Granger",
-      "Professor Snack", "Gandalf", "The Dudleys", "Mr. Filch",
-    ]
-
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, nil)
