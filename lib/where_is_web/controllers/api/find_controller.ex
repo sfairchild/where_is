@@ -127,14 +127,14 @@ defmodule WhereIsWeb.Api.FindController do
   end
 
   def fetchUserFromMattermost(conn, param) do
-    url = "http://54.91.189.149:8065/api/v4/users/mkeeywthbtdkpm71tb6gsc7ser"
-    headers = [{"Authorization", "Bearer ih7cgnr3otd5igzkawtwrhu5ia"},
-               {"Content-Type", "application/json; charset=utf-8"}]
+   headers = [{"Authorization", System.get_env("MATTERMOST_TOKEN")},
+             {"X-Requested-With", "XMLHttpRequest"}]
+  url = "https://chat.nexient.com/api/v4/users"
 
-    {:ok, response} = HTTPoison.get(url, headers)
+  {:ok, response} = HTTPoison.get(url, headers)
     {:ok, user} = Jason.decode(response.body())
-
-    WhereIs.MattermostUser.makeUser(user)
+    # WhereIs.MattermostUser.makeUserFromMap(user)
+IO.inspect(user)
     json(conn, user)
   end
 
