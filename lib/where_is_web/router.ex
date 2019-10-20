@@ -10,15 +10,24 @@ defmodule WhereIsWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :svg do
+    plug :accepts, ["svg"]
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  scope "/svg", WhereIsWeb do
+    pipe_through :svg
+    get "/map.svg", SvgController, :index
+  end
+
   scope "/", WhereIsWeb do
     pipe_through :browser
-
-    get "/*path", PageController, :index
+    get "/", PageController, :index
   end
+
 
   # Other scopes may use custom stacks.
   scope "/api", WhereIsWeb.Api do
