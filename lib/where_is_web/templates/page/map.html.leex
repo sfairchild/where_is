@@ -16,10 +16,14 @@
           <div class="separator"></div>
         </div>
         <div class="search-assist">
-          <%= for suggestion <- @suggestions do %>
-            <span class="suggestion" phx-click="autosuggest" phx-value-name="<%= suggestion %>">
-              <%= suggestion %>
-            </span>
+          <%= if @searchValue == nil || @searchValue == "" do %>
+            <div>Start typing to see suggestions</div>
+          <% else %>
+            <%= for suggestion <- @suggestions do %>
+              <span class="suggestion" phx-click="autosuggest" phx-value-name="<%= suggestion %>">
+                <%= suggestion %>
+              </span>
+            <% end %>
           <% end %>
         </div>
       </div>

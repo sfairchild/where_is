@@ -25,16 +25,23 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:map, "north")
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
+      |> assign(:rooms, %{})
     {:ok, socket}
   end
 
-  def handle_info(a, socket) do
+  def match_search(:rooms, rooms, value) do
+    Enum.filter(rooms, fn(room) -> String.jaro_distance(value, room.name) > 0.6 end)
+  end
+
+  def handle_info(%{event: "updated", topic: "rooms"} = a, socket) do
+
     IO.puts "RECEIVED CHANNEL"
     IO.inspect a
-    {:noreply, socket}
+    {:noreply, assign(socket, :rooms, a.rooms)}
   end
 
   def handle_info(a, b, socket) do
+
 
     IO.puts "RECEIVED CHANNEL"
     IO.inspect a
@@ -43,11 +50,14 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def handle_event("search", %{"search" => value}, socket) do
-    {:noreply, assign(socket, :searchValue, value)}
+    # suggestions = match_search(:rooms, value)
+    # {:noreply, assign(socket, searchValue: value, suggestions: suggestions)}
+    {:noreply, assign(socket, searchValue: value)}
   end
 
   def handle_event("autosuggest", %{"name" => value}, socket) do
     socket = socket |> assign(:searchValue, value)
+    # handle_event("search", %{"search" => value}, socket)
     {:noreply, socket}
   end
 
@@ -59,6 +69,4 @@ defmodule WhereIsWeb.MapLive do
     socket = socket |> assign(:user, %User{})
     {:noreply, socket}
   end
-
 end
-

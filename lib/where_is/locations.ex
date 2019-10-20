@@ -86,7 +86,7 @@ defmodule WhereIs.Locations do
 
       %__MODULE__{ name: "North Desk 49",  transform: %{ x: "82.1",   y: "145.3",  rotate: "120 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 50",  transform: %{ x: "103.25", y: "145.3",  rotate: "240 12 12" }, asset_type: :desk },
-      %__MODULE__{ name: "North Desk 51",  transform: %{ x: "116.85", y: "153.2",  rotate: "180 12 12" }, asset_type: :desk},
+      %__MODULE__{ name: "North Desk 51",  transform: %{ x: "116.85", y: "153.2",  rotate: "180 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 52",  transform: %{ x: "127.45", y: "171.5",  rotate: "300 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 53",  transform: %{ x: "106.25", y: "171.5",  rotate: "60 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 54",  transform: %{ x: "92.65",  y: "163.6",  rotate: "360 12 12" }, asset_type: :desk },
@@ -120,10 +120,10 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "North Desk 78",  transform: %{ x: "92.65",  y: "363.6",  rotate: "360 12 12" }, asset_type: :desk },
 
       # Desks north buildiNorth De north section east row starting fron the north going south
-      %__MODULE__{ name: "North Desk 79",  transform: %{ x: "157",    y: "64",     rotate: "90 12 12"  }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 80",  transform: %{ x: "175.15", y: "53.5",   rotate: "210 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 81",  transform: %{ x: "190.75", y: "53.5",   rotate: "150 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 82",  transform: %{ x: "208.95", y: "64",     rotate: "270 12 12" }, asset_type: :desk},
+      %__MODULE__{ name: "North Desk 79",  transform: %{ x: "157",    y: "64",     rotate: "90 12 12"  }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 80",  transform: %{ x: "175.15", y: "53.5",   rotate: "210 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 81",  transform: %{ x: "190.75", y: "53.5",   rotate: "150 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 82",  transform: %{ x: "208.95", y: "64",     rotate: "270 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 83",  transform: %{ x: "190.75", y: "74.5",   rotate: "30 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 84",  transform: %{ x: "175.15", y: "74.5",   rotate: "330 12 12" }, asset_type: :desk },
 
@@ -143,9 +143,9 @@ defmodule WhereIs.Locations do
 
       %__MODULE__{ name: "North Desk 97",  transform: %{ x: "157",    y: "214",    rotate: "90 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 98",  transform: %{ x: "175.15", y: "203.5",  rotate: "210 12 12" }, asset_type: :desk },
-      %__MODULE__{ name: "North Desk 99",  transform: %{ x: "190.75", y: "203.5",  rotate: "150 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 100", transform: %{ x: "208.95", y: "214",    rotate: "270 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 101", transform: %{ x: "190.75", y: "224.5",  rotate: "30 12 12"  }, asset_type: :desk},
+      %__MODULE__{ name: "North Desk 99",  transform: %{ x: "190.75", y: "203.5",  rotate: "150 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 100", transform: %{ x: "208.95", y: "214",    rotate: "270 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 101", transform: %{ x: "190.75", y: "224.5",  rotate: "30 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 102", transform: %{ x: "175.15", y: "224.5",  rotate: "330 12 12" }, asset_type: :desk },
 
       %__MODULE__{ name: "North Desk 103", transform: %{ x: "157",    y: "264",    rotate: "90 12 12"  }, asset_type: :desk },
@@ -170,15 +170,15 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "North Desk 120", transform: %{ x: "175.15", y: "374.5",  rotate: "330 12 12" }, asset_type: :desk },
 
       # Desks north buildiNorth De middle section west row starting fron the north going south
-      %__MODULE__{ name: "North Desk 122", transform: %{ x: "12",     y: "533.9",  rotate: "150 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 123", transform: %{ x: "19.84",  y: "520.3",  rotate: "90 12 12"  }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 124", transform: %{ x: "38.1",   y: "509.7",  rotate: "210 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 125", transform: %{ x: "38.1",   y: "530.9",  rotate: "-30 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 126", transform: %{ x: "30.2",   y: "544.45", rotate: "270 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 127", transform: %{ x: "12",     y: "620",    rotate: "30 12 12"  }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 128", transform: %{ x: "12",     y: "598.9",  rotate: "150 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 129", transform: %{ x: "19.84",  y: "585.3",  rotate: "90 12 12"  }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 130", transform: %{ x: "38.1",   y: "574.7",  rotate: "210 12 12" }, asset_type: :desk},
+      %__MODULE__{ name: "North Desk 122", transform: %{ x: "12",     y: "533.9",  rotate: "150 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 123", transform: %{ x: "19.84",  y: "520.3",  rotate: "90 12 12"  }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 124", transform: %{ x: "38.1",   y: "509.7",  rotate: "210 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 125", transform: %{ x: "38.1",   y: "530.9",  rotate: "-30 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 126", transform: %{ x: "30.2",   y: "544.45", rotate: "270 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 127", transform: %{ x: "12",     y: "620",    rotate: "30 12 12"  }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 128", transform: %{ x: "12",     y: "598.9",  rotate: "150 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 129", transform: %{ x: "19.84",  y: "585.3",  rotate: "90 12 12"  }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 130", transform: %{ x: "38.1",   y: "574.7",  rotate: "210 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 131", transform: %{ x: "38.1",   y: "595.9",  rotate: "-30 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 132", transform: %{ x: "30.2",   y: "609.45", rotate: "270 12 12" }, asset_type: :desk },
 
@@ -194,8 +194,8 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "North Desk 140", transform: %{ x: "72",     y: "598.9",  rotate: "150 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 141", transform: %{ x: "79.84",  y: "585.3",  rotate: "90 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "North Desk 142", transform: %{ x: "98.1",   y: "574.7",  rotate: "210 12 12" }, asset_type: :desk },
-      %__MODULE__{ name: "North Desk 143", transform: %{ x: "98.1",   y: "595.9",  rotate: "-30 12 12" }, asset_type: :desk},
-      %__MODULE__{ name: "North Desk 144", transform: %{ x: "90.2",   y: "609.45", rotate: "270 12 12" }, asset_type: :desk},
+      %__MODULE__{ name: "North Desk 143", transform: %{ x: "98.1",   y: "595.9",  rotate: "-30 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "North Desk 144", transform: %{ x: "90.2",   y: "609.45", rotate: "270 12 12" }, asset_type: :desk },
 
       # Desks north buildiNorth De middle section east row starting fron the north going south
       %__MODULE__{ name: "North Desk 145", transform: %{ x: "117",    y: "514",    rotate: "90 12 12"  }, asset_type: :desk },
@@ -377,7 +377,7 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 56",   transform: %{ x: "321.1",  y: "158.2",   rotate: "40 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 57",   transform: %{ x: "305.7",  y: "155.5",   rotate: "340 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 58",   transform: %{ x: "331.64", y: "180.97",   rotate: "100 12 12" }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 58",   transform: %{ x: "331.64", y: "180.97",  rotate: "100 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 59",   transform: %{ x: "351.4",  y: "173.8",   rotate: "220 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 60",   transform: %{ x: "366.8",  y: "176.5",   rotate: "160 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 61",   transform: %{ x: "382.95", y: "190",     rotate: "280 12 12" }, asset_type: :desk },
@@ -399,7 +399,7 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 75",   transform: %{ x: "328.7",  y: "239.5",   rotate: "340 12 12" }, asset_type: :desk },
 
       #area to the east ofSouth Dthe server room and south of the kitchen, starting at the north by the kitchen and going south
-      %__MODULE__{ name: "South Desk 76",   transform: %{ x: "362.7",   y: "347.2",  rotate: "25 12 12"   }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 76",   transform: %{ x: "362.7",   y: "347.2",  rotate: "25 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 77",   transform: %{ x: "360.9",   y: "326.0",  rotate: "145 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 78",   transform: %{ x: "367.6",   y: "311.5",  rotate: "85 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 79",   transform: %{ x: "385.0",   y: "299.4",  rotate: "205 12 12" }, asset_type: :desk },
@@ -410,7 +410,7 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 83",   transform: %{ x: "311.2",   y: "321.7",  rotate: "180 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 84",   transform: %{ x: "300.6",   y: "340",    rotate: "60 12 12"  }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 85",   transform: %{ x: "336.7",   y: "408.2",  rotate: "25 12 12"   }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 85",   transform: %{ x: "336.7",   y: "408.2",  rotate: "25 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 86",   transform: %{ x: "334.9",   y: "387.0",  rotate: "145 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 87",   transform: %{ x: "341.6",   y: "372.5",  rotate: "85 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 88",   transform: %{ x: "359.0",   y: "360.4",  rotate: "205 12 12" }, asset_type: :desk },
@@ -422,14 +422,14 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 93",   transform: %{ x: "285.6",   y: "380",    rotate: "60 12 12"  }, asset_type: :desk },
 
       # southern most areaSouth D starting at the north by the door and going south
-      %__MODULE__{ name: "South Desk 94",   transform: %{ x: "91.2",   y: "500",    rotate: "20 12 12"   }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 94",   transform: %{ x: "91.2",   y: "500",    rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 95",   transform: %{ x: "87.5",   y: "479.2",  rotate: "140 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 96",   transform: %{ x: "92.9",   y: "464.5",  rotate: "80 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 97",   transform: %{ x: "109.1",  y: "450.9",  rotate: "200 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 98",   transform: %{ x: "112.8",  y: "471.6",  rotate: "-40 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 99",   transform: %{ x: "107.4",  y: "486.4",  rotate: "260 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 100",   transform: %{ x: "133.81", y: "486.1",  rotate: "110 12 12", }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 100",   transform: %{ x: "133.81", y: "486.1",  rotate: "110 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 101",   transform: %{ x: "154.6",  y: "482.5",  rotate: "230 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 102",   transform: %{ x: "169.3",  y: "487.9",  rotate: "170 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 103",   transform: %{ x: "182.95", y: "504",    rotate: "290 12 12" }, asset_type: :desk },
@@ -443,21 +443,21 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 110",   transform: %{ x: "234.76", y: "537.6",  rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 111",   transform: %{ x: "219.0",  y: "540.4",  rotate: "320 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 112",   transform: %{ x: "118.81", y: "522.1",  rotate: "110 12 12", }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 112",   transform: %{ x: "118.81", y: "522.1",  rotate: "110 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 113",   transform: %{ x: "139.6",  y: "518.5",  rotate: "230 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 114",   transform: %{ x: "154.3",  y: "523.9",  rotate: "170 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 115",   transform: %{ x: "167.95", y: "540",    rotate: "290 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 116",   transform: %{ x: "147.1",  y: "543.7",  rotate: "50 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 117",   transform: %{ x: "132.3",  y: "538.3",  rotate: "350 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 118",   transform: %{ x: "65.2",   y: "565",    rotate: "20 12 12"   }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 118",   transform: %{ x: "65.2",   y: "565",    rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 119",   transform: %{ x: "61.5",   y: "544.2",  rotate: "140 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 120",   transform: %{ x: "66.9",   y: "529.5",  rotate: "80 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 121",   transform: %{ x: "83.1",   y: "515.9",  rotate: "200 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 122",   transform: %{ x: "86.8",   y: "536.6",  rotate: "-40 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 123",   transform: %{ x: "81.4",   y: "551.4",  rotate: "260 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 124",   transform: %{ x: "102.81", y: "557.1",  rotate: "110 12 12", }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 124",   transform: %{ x: "102.81", y: "557.1",  rotate: "110 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 125",   transform: %{ x: "123.6",  y: "553.5",  rotate: "230 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 126",   transform: %{ x: "138.3",  y: "558.9",  rotate: "170 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 127",   transform: %{ x: "151.95", y: "575",    rotate: "290 12 12" }, asset_type: :desk },
@@ -471,21 +471,21 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 134",   transform: %{ x: "210.76", y: "581.6",  rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 135",   transform: %{ x: "195.0",  y: "584.4",  rotate: "320 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 136",   transform: %{ x: "253.2",  y: "606",    rotate: "20 12 12"   }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 136",   transform: %{ x: "253.2",  y: "606",    rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 137",   transform: %{ x: "249.5",  y: "585.2",  rotate: "140 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 138",   transform: %{ x: "254.9",  y: "570.5",  rotate: "80 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 139",   transform: %{ x: "271.1",  y: "556.9",  rotate: "200 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 140",   transform: %{ x: "274.8",  y: "577.6",  rotate: "-40 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 141",   transform: %{ x: "269.4",  y: "592.4",  rotate: "260 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 142",   transform: %{ x: "87.81",  y: "593.1",  rotate: "110 12 12", }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 142",   transform: %{ x: "87.81",  y: "593.1",  rotate: "110 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 143",   transform: %{ x: "108.6",  y: "589.5",  rotate: "230 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 144",   transform: %{ x: "123.3",  y: "594.9",  rotate: "170 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 145",   transform: %{ x: "136.95", y: "611",    rotate: "290 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 146",   transform: %{ x: "116.1",  y: "614.7",  rotate: "50 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 147",   transform: %{ x: "101.3",  y: "609.3",  rotate: "350 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 148",   transform: %{ x: "39.2",   y: "629",    rotate: "20 12 12"   }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 148",   transform: %{ x: "39.2",   y: "629",    rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 149",   transform: %{ x: "35.5",   y: "608.2",  rotate: "140 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 150",   transform: %{ x: "40.9",   y: "593.5",  rotate: "80 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 151",   transform: %{ x: "57.1",   y: "579.9",  rotate: "200 12 12" }, asset_type: :desk },
@@ -499,14 +499,14 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 158",   transform: %{ x: "197.76", y: "626.6",  rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 159",   transform: %{ x: "182.0",  y: "629.4",  rotate: "320 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 160",   transform: %{ x: "74.81",  y: "628.1",  rotate: "110 12 12", }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 160",   transform: %{ x: "74.81",  y: "628.1",  rotate: "110 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 161",   transform: %{ x: "95.6",   y: "624.5",  rotate: "230 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 162",   transform: %{ x: "110.3",  y: "629.9",  rotate: "170 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 163",   transform: %{ x: "123.95", y: "646",    rotate: "290 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 164",   transform: %{ x: "103.1",  y: "649.7",  rotate: "50 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 165",   transform: %{ x: "88.3",   y: "644.3",  rotate: "350 12 12" }, asset_type: :desk },
 
-      %__MODULE__{ name: "South Desk 166",   transform: %{ x: "222.2",  y: "675",    rotate: "20 12 12"   }, asset_type: :desk },
+      %__MODULE__{ name: "South Desk 166",   transform: %{ x: "222.2",  y: "675",    rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 167",   transform: %{ x: "218.5",  y: "654.2",  rotate: "140 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 168",   transform: %{ x: "223.9",  y: "639.5",  rotate: "80 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 169",   transform: %{ x: "240.1",  y: "625.9",  rotate: "200 12 12" }, asset_type: :desk },
@@ -519,6 +519,12 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 175",   transform: %{ x: "195.95", y: "658",    rotate: "260 12 12" }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 176",   transform: %{ x: "179.76", y: "671.6",  rotate: "20 12 12"  }, asset_type: :desk },
       %__MODULE__{ name: "South Desk 177",   transform: %{ x: "164",    y: "674.4",  rotate: "320 12 12" }, asset_type: :desk },
+    ]
+  end
+
+  def roomsList do
+    [
+      %__MODULE__{ name: "NC-2",   transform: %{ x: "7",      y: "114",    rotate: "90 12 12"  }, asset_type: :room },
     ]
   end
 end
