@@ -38,4 +38,5 @@ npm-debug.log
 
 /.vscode
 /.elixir_ls
+/mix.env
 
