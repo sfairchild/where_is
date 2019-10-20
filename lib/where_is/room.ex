@@ -1,34 +1,80 @@
 defmodule WhereIs.Room do
   use GenServer
 
-  defstruct name: "", email: "", events: []
+  defstruct name: "", email: "", event: %{}, status: :free, next_event: %{}
 
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
-  @impl true
   def init(state) do
-    %{remainging_rooms: list, rooms: list}
+    state = %{remainging_rooms: list(), rooms: list()}
 
+    schedule_poller()
     {:ok, state}
   end
 
   def schedule_poller do
+    :timer.sleep(100);
     send self(), :update
   end
 
-  def handle_info(:update, ) do
-
+  def get_rooms do
+    GenServer.call(__MODULE__, :rooms)
   end
+
+  def handle_call(:rooms, _, state) do
+    {:reply, state.rooms, state}
+  end
+
+  def handle_info(:update, %{remainging_rooms: [h | t], rooms: rooms} = state) do
+    events = get_events(h)
+
+    case Enum.sort(events, fn %{"start" => %{"dateTime" => x}}, %{"start" => %{"dateTime" => y}} -> :lt == Timex.compare(Timex.parse(y, "RFC3339"), Timex.parse(x, "RFC3339")) end) do
+      [%{} = event | t] ->
+        {first_list, [found_room | last_list]} = Enum.split_while(rooms, fn (r) -> r.name != h.name end)
+
+        start_time = Timex.parse(event["start"]["dateTime"], "RFC3339")
+        end_time = Timex.parse(event["end"]["dateTime"], "RFC3339")
+
+        found_room = %__MODULE__{found_room | next_event: %{ start: start_time, end: end_time, }, status: get_status(start_time)}
+
+      rooms = first_list ++ [found_room | last_list]
+
+      WhereIsWeb.Endpoint.broadcast("rooms", "upaated", %{rooms: rooms})
+      _ -> %{}
+    end
+
+    schedule_poller()
+
+    {:noreply, %{state | rooms: rooms, remainging_rooms: t}}
+  end
+
+  def get_status(start_time) do
+    Timex.before?(Timex.now, start_time)
+  end
+
+  def handle_info(:update, %{remainging_rooms: []} = state) do
+    schedule_poller()
+    {:noreply, %{state | remainging_rooms: list()}}
+  end
+
+  def handle_info(_, state) do
+    schedule_poller()
+    {:noreply, state}
+  end
+
+  def find_room([%__MODULE__{name: name} = room | t], name), do: room
+  def find_room([_|t], name), do: find_room(t, name)
+  def find_room([], _name), do: nil
 
   def get_events(%__MODULE__{} = room) do
     now = DateTime.utc_now
     start_date = now |> format_datetime
     end_date = now
                 # 86400 seconds = 24 hours
-                |> DateTime.add(86400 * 5)
+                |> DateTime.add(86400)
                 |> format_datetime
 
     {:ok, response} = "https://rooms.nexient.com/gateway/api/ms-graph-rooms/v2/Rooms/#{ room.email }/Availability"
