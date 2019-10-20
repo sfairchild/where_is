@@ -9,8 +9,9 @@ defmodule WhereIs.Users do
 
    @impl true
    def init(state) do
-     schedule_matter_most_user_call()
-     {:ok, state}
+    users = WhereIs.MattermostUser.fetchCurrentMattermostUsersList()
+    # schedule_matter_most_user_call()
+     {:ok, %{users: users}}
   end
 
   def get_users do
@@ -35,7 +36,7 @@ defmodule WhereIs.Users do
 
   #call mattermost users every 12 hours
   defp schedule_matter_most_user_call() do
-    :timer.sleep(800);
+    :timer.sleep(4000);
     send self(), :work
   end
 

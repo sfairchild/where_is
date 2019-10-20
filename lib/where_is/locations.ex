@@ -459,4 +459,10 @@ defmodule WhereIs.Locations do
       %__MODULE__{ name: "South Desk 177",   transform: %{ x: -736    ,    y: 1974.4    ,  rotate: "320 12 12" }, asset_type: :desk },
       ]
   end
+
+  def roomsList do
+    [
+      %__MODULE__{ name: "NC-2",   transform: %{ x: "7",      y: "114",    rotate: "90 12 12"  }, asset_type: :room },
+    ]
+  end
 end

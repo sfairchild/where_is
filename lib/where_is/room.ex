@@ -40,7 +40,7 @@ defmodule WhereIs.Room do
 
         found_room = %__MODULE__{found_room | next_event: %{ start: start_time, end: end_time, }, status: get_status(start_time)}
 
-        WhereIsWeb.Endpoint.broadcast("rooms", "upaated", %{rooms: rooms})
+        WhereIsWeb.Endpoint.broadcast("rooms", "updated", %{rooms: rooms})
 
         rooms = first_list ++ [found_room | last_list]
       _ -> rooms

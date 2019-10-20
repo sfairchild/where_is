@@ -25,6 +25,7 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:map, "north")
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
+      |> assign(:rooms, %{})
     {:ok, socket}
   end
 
@@ -34,6 +35,7 @@ defmodule WhereIsWeb.MapLive do
 
   def handle_info(a, b, socket) do
 
+
     IO.puts "RECEIVED CHANNEL"
     IO.inspect a
     IO.inspect b
@@ -41,11 +43,15 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def handle_event("search", %{"search" => value}, socket) do
-    {:noreply, assign(socket, :searchValue, value)}
+    suggestions = WhereIs.MattermostUser.fuzzy_search_users(value)
+    # suggestions = match_search(:rooms, value)
+    {:noreply, assign(socket, searchValue: value, suggestions: suggestions)}
+    # {:noreply, assign(socket, searchValue: value)}
   end
 
   def handle_event("autosuggest", %{"name" => value}, socket) do
     socket = socket |> assign(:searchValue, value)
+    # handle_event("search", %{"search" => value}, socket)
     {:noreply, socket}
   end
 
@@ -57,6 +63,4 @@ defmodule WhereIsWeb.MapLive do
     socket = socket |> assign(:user, %User{})
     {:noreply, socket}
   end
-
 end
-
