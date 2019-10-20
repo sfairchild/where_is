@@ -3,7 +3,6 @@ defmodule WhereIs.Svg do
 
   def generate_svg do
     {:g, nil, get_defs ++ placements}
-    |> IO.inspect
     |> XmlBuilder.generate()
   end
 

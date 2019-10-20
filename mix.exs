@@ -19,7 +19,7 @@ defmodule WhereIs.MixProject do
   def application do
     [
       mod: {WhereIs.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :timex]
     ]
   end
 
@@ -44,7 +44,8 @@ defmodule WhereIs.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 1.3.1"},
       {:httpoison, "~>1.6"},
-      {:xml_builder, "~> 2.1.1"}
+      {:xml_builder, "~> 2.1.1"},
+      {:timex, "~> 3.5"}
 
     ]
   end
