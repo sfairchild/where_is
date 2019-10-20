@@ -1,5 +1,5 @@
 defmodule WhereIs.Locations do
-  defstruct name: "", attributes: %{}, children: [], x: 0, y: 0, asset: "", transform: %{}, asset_type: :desk
+  defstruct name: "", attributes: %{}, children: [], x: 0, y: 0, asset: "", transform: %{}, asset_type: :desk, rank: 0
 
   def find_location([%{name: name} = location | _tail] = locations, name) when is_binary(name) do
     location
@@ -12,6 +12,17 @@ defmodule WhereIs.Locations do
   def find_location([], _name) do
     nil
   end
+
+  def fuzzy_search_locations(str) do
+    Enum.sort_by(fuzzy_search_locations(list(), str), fn(u) -> u.rank end) |> Enum.reverse
+  end
+
+  def fuzzy_search_locations([%__MODULE__{name: name} = location | tail], str) do
+    jaro = String.jaro_distance(name, str)
+    [%__MODULE__{location | rank: jaro} | fuzzy_search_locations(tail, str)]
+  end
+
+  def fuzzy_search_locations([], _str), do: []
 
   def name_to_id(name) do
     String.replace(name, " ", "_")
