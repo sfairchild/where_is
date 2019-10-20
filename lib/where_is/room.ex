@@ -31,19 +31,19 @@ defmodule WhereIs.Room do
   def handle_info(:update, %{remainging_rooms: [h | t], rooms: rooms} = state) do
     events = get_events(h)
 
-    case Enum.sort(events, fn %{"start" => %{"dateTime" => x}}, %{"start" => %{"dateTime" => y}} -> :lt == Timex.compare(Timex.parse(y, "RFC3339"), Timex.parse(x, "RFC3339")) end) do
+    rooms = case Enum.sort(events, fn %{"start" => %{"dateTime" => x}}, %{"start" => %{"dateTime" => y}} -> :lt == Timex.compare(Timex.parse(y, "{RFC3339}"), Timex.parse(x, "{RFC3339}")) end) do
       [%{} = event | t] ->
         {first_list, [found_room | last_list]} = Enum.split_while(rooms, fn (r) -> r.name != h.name end)
 
-        start_time = Timex.parse(event["start"]["dateTime"], "RFC3339")
-        end_time = Timex.parse(event["end"]["dateTime"], "RFC3339")
+        {:ok, start_time} = Timex.parse(event["start"]["dateTime"], "{RFC3339}")
+        {:ok, end_time} = Timex.parse(event["end"]["dateTime"], "{RFC3339}")
 
         found_room = %__MODULE__{found_room | next_event: %{ start: start_time, end: end_time, }, status: get_status(start_time)}
 
-      rooms = first_list ++ [found_room | last_list]
+        WhereIsWeb.Endpoint.broadcast("rooms", "upaated", %{rooms: rooms})
 
-      WhereIsWeb.Endpoint.broadcast("rooms", "upaated", %{rooms: rooms})
-      _ -> %{}
+        rooms = first_list ++ [found_room | last_list]
+      _ -> rooms
     end
 
     schedule_poller()
@@ -52,8 +52,11 @@ defmodule WhereIs.Room do
   end
 
   def get_status(start_time) do
-    Timex.before?(Timex.now, start_time)
+    free?(Timex.before?(Timex.now, start_time))
   end
+
+  def free?(true), do: :free
+  def free?(false), do: :busy
 
   def handle_info(:update, %{remainging_rooms: []} = state) do
     schedule_poller()

@@ -11,6 +11,8 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def mount(_session, socket) do
+    WhereIsWeb.Endpoint.subscribe("rooms")
+
     suggestions = [
       "Harry Potter", "Ron Weasley", "Hermione Granger",
       "Professor Snack", "Gandalf", "The Dudleys", "Mr. Filch",
@@ -24,6 +26,20 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
     {:ok, socket}
+  end
+
+  def handle_info(a, socket) do
+    IO.puts "RECEIVED CHANNEL"
+    IO.inspect a
+    {:noreply, socket}
+  end
+
+  def handle_info(a, b, socket) do
+
+    IO.puts "RECEIVED CHANNEL"
+    IO.inspect a
+    IO.inspect b
+    {:noreply, socket}
   end
 
   def handle_event("search", %{"search" => value}, socket) do
@@ -44,5 +60,5 @@ defmodule WhereIsWeb.MapLive do
     {:noreply, socket}
   end
 
-
 end
+
