@@ -4,7 +4,7 @@
   </div>
   <div class="header-right">
     <div class="search-container">
-      <form phx-change="search" autocomplete="off">
+      <form phx-change="search" onSubmit="return false" autocomplete="off">
         <input
           name="search"
           class="header-search"
@@ -20,8 +20,8 @@
             <div>Start typing to see suggestions</div>
           <% else %>
             <%= for suggestion <- @suggestions do %>
-              <span class="suggestion" phx-click="autosuggest" phx-value-name="<%= raw suggestion.email %>">
-                <%= raw suggestion.name || suggestion.email %>
+              <span class="suggestion" phx-click="search" phx-value-search="<%= raw suggestion.name %>">
+                <%= raw suggestion.name %>
               </span>
             <% end %>
           <% end %>
@@ -46,8 +46,12 @@
 
   <section class="right-side">
     <div class="location-information">
-      <%= if !@subject.first_name do %><button phx-hook="userData" phx-click="getData">Click for mock data</button><% end %>
-      <%= if @sugject.name do %><%= @subject.name %><% end %>
+      <%= if !@subject.name do %><button phx-hook="userData" phx-click="getData">Click for mock data</button><% end %>
+      <%= if @subject.name do %><div class="info name"><%= @subject.name %></div><% end %>
+      <%= if @subject.email do %><div class="info"><%= @subject.email %></div><% end %>
+      <%= if @subject.id do %><div class="info"><%= @subject.id %></div><% end %>
+      <%= if @subject.username do %><div class="info"><%= @subject.username %></div><% end %>
+      <%= if @subject.status do %><div class="info"><%= @subject.status %></div><% end %>
     </div>
 
     <div class="svg-tabs">

@@ -21,7 +21,14 @@ defmodule WhereIsWeb.MapLive do
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, nil)
-      |> assign(:user, %{first_name: nil, email: nil, username: nil, location_id: nil, name: nil})
+      |> assign(:subject, %{
+        name: nil,
+        email: nil,
+        id: nil,
+        username: nil,
+        status: nil,
+        attributes: nil,
+      })
       |> assign(:map, "north")
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
@@ -42,49 +49,64 @@ defmodule WhereIsWeb.MapLive do
     {:noreply, socket}
   end
 
-  def formatSubject(%WhereIs.Room{email: email, name: name} = room) do
-    %{email: email, name: name}
-  end
-
-  def formatSubject(%WhereIs.Location{name: name} = location) do
+  def formatSubject(%WhereIs.Room{} = room) do
     %{
-      name: name,
-      email: nil,
-      id: "",
-      username: "",
+      name: room.name,
+      email: room.email,
+      id: nil,
+      username: nil,
+      status: room.status,
+      attributes: nil,
     }
   end
 
-  def formatSubject(%WhereIs.User{first_name: first_name, last_name: last_name} = user) do
+  def formatSubject(%WhereIs.Locations{} = location) do
     %{
-      name: "#{first_name} #{lasat_name}",
+      name: location.name,
+      email: nil,
+      id: nil,
+      username: nil,
+      status: nil,
+      attributes: location.attributes,
+    }
+  end
+
+  def formatSubject(%WhereIs.MattermostUser{} = user) do
+    name =
+      if (user.first_name !== "" && user.first_name !== nil), do: "#{user.first_name} #{user.last_name}",
+      else: user.username
+
+    %{
+      name: name,
       email: user.email,
       id: user.location_id,
-      username: user.username
+      username: user.username,
+      status: nil,
+      attributes: nil,
     }
   end
 
   def handle_event("search", %{"search" => value}, socket) do
     suggestions = WhereIs.Fuzzy.find(value)
+      |> Enum.map(fn(s) -> formatSubject(s) end)
+
     [head | _tail] = suggestions
 
-    subjet = %{
-      name: suggestion.name || "#{suggestion.first_name} #{suggestion.last_name}",
-      email: suggestion.email
+    subject = if (value !== ""), do: head,
+    else: %{
+      name: nil,
+      email: nil,
+      id: nil,
+      username: nil,
+      status: nil,
+      attributes: nil,
     }
 
     socket = socket
       |> assign(:searchValue, value)
       |> assign(:suggestions, suggestions)
-      |> assign(:user, formatSubject(head))
+      |> assign(:subject, subject)
 
-    {:noreply, socket}
-    # {:noreply, assign(socket, searchValue: value)}
-  end
-
-  def handle_event("autosuggest", %{"name" => value}, socket) do
-    socket = socket |> assign(:searchValue, value)
-    # handle_event("search", %{"search" => value}, socket)
     {:noreply, socket}
   end
 
