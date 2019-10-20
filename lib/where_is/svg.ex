@@ -1,5 +1,5 @@
 defmodule WhereIs.Svg do
-  alias WhereIs.Locations
+  alias WhereIs.{Locations, Room}
 
   def generate_svg do
     {:g, nil, get_defs ++ placements}
@@ -10,7 +10,7 @@ defmodule WhereIs.Svg do
     [
       {:use, %{"xlink:href" => "#north-bldg"}, nil},
       {:use, %{"xlink:href" => "#south-bldg", transform: "translate(-900 1300)"}, nil}
-    ] ++ locations
+    ] ++ locations ++ rooms
   end
 
   def locations do
@@ -19,6 +19,11 @@ defmodule WhereIs.Svg do
     south = Locations.south_desks
             |> Enum.map(&Locations.get_svg_tuple(&1))
     [south | north]
+  end
+
+  def rooms do
+    WhereIs.Room.get_rooms
+            |> Enum.map(&Room.room_to_svg_tuple(&1))
   end
 
   def get_defs do

@@ -32,16 +32,11 @@
 </header>
 <main role="main" class="container">
   <section class="svg-container">
-    <%= if @map === "north" do %>
       <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
         <g phx-hook="PanZoom">
         <%= raw @svg %>
         </g>
       </svg>
-    <% else %>
-      <div>SOUTH BUILDING HERE<div>
-    <% end %>
-
   </section>
 
   <section class="right-side">
@@ -51,11 +46,6 @@
       <%= if @user.email do %><h1 class="info"><%= @user.email %></h1><% end %>
       <%= if @user.username do %><h1 class="info">@<%= @user.username %></h1><% end %>
       <%= if @user.location do %><h1 class="info"><%= @user.location %></h1><% end %>
-    </div>
-
-    <div class="svg-tabs">
-      <button class="svg-tab orange" phx-click="change-map" phx-value-name="north">North</button>
-      <button class="svg-tab blue" phx-click="change-map" phx-value-name="south">South</button>
     </div>
   </section>
 </main>
