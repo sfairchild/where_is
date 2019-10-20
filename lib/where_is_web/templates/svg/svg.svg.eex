@@ -1,0 +1,15 @@
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  id="mainSvg" veiwBox="1000 300 400 200">
+      <style>
+      svg *path {
+        fill: inherit;
+      }
+
+      use#<%= @desk_id %> #master-desk {
+        background: "green" !important;
+      }
+      </style>
+      <g transform="scale(2) translate(<%= @x - 100 %> <%= (@y * -1 ) + 100 %>)">
+      <%=  @svg %>
+      </g>
+      </svg>
+

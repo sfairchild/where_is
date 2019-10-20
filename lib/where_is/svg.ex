@@ -6,29 +6,29 @@ defmodule WhereIs.Svg do
     |> XmlBuilder.generate()
   end
 
-  def desk_zoom(xCoord, yCoord) do 
+  def desk_zoom(xCoord, yCoord) do
     IO.puts(xCoord)
-    IO.puts(yCoord)  
-    #create view svg viewbox, takes 4 element string separated by spaces, x, y, x offset, y offset 
-    #inside svg; find first suggestion 
+    IO.puts(yCoord)
+    #create view svg viewbox, takes 4 element string separated by spaces, x, y, x offset, y offset
+    #inside svg; find first suggestion
     #add those to viewbox of svg element
     svgValues = generate_svg()
     viewBoxText = "<svg viewbox = '#{xCoord} #{yCoord} 100 100' xmlns='http://www.w3.org/2000/svg'> #{svgValues} </svg>"
-  end 
+  end
 
-  def map_by_name(name) do 
+  def map_by_name(name) do
     [head | tail] = WhereIs.MattermostUser.fuzzy_search_users(name)
-    #uses first response from fuzzy search to get location_id from the individual user. 
+    #uses first response from fuzzy search to get location_id from the individual user.
     location = WhereIs.Locations.find_location(WhereIs.Locations.list, head.location_id)
     location = true
-    if location do 
+    if location do
       #xCoord = location.x
       #yCoord = location.y
       xCoord = 10
       yCoord = 20
       svgValues = generate_svg()
       viewBoxText = "<svg viewbox = '#{xCoord} #{yCoord} 100 100' xmlns='http://www.w3.org/2000/svg'> #{svgValues} </svg>"
-    else 
+    else
       returnText = "no location found"
     end
   end
