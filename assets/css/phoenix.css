@@ -2,12 +2,12 @@
 header {
   height: var(--header-height);
   width: 100%;
-  background: var(--blue);
+  background: linear-gradient(to bottom left, var(--darkBlue), var(--blue));
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eaeaea;
   padding: 0 30px;
+  box-shadow: 0 1px 6px 1px #666;
 }
 
 header .header-left {
@@ -23,12 +23,14 @@ header .header-right {
   align-items: center;
 }
 
+/* search-container is the parent element */
 header .search-container {
   height: 34px;
   width: 100%;
   position: relative;
 }
 
+/* header-search is the input */
 header .header-search {
   height: 34px;
   width: 100%;
@@ -56,6 +58,7 @@ header .search-assist:hover .header-search {
   border-radius: 15px 15px 0 0;
 }
 
+/* shield is a layer that masks the gap between the input and the suggestion list */
 header .header-search:focus + .shield {
   height: 6px;
   width: 100%;
@@ -74,6 +77,7 @@ header .header-search:focus + .shield > .separator {
   border-radius: 50px;
 }
 
+/* search-assist is the suggestion list */
 header .search-assist {
   height: 227px;
   width: 100%;
@@ -104,16 +108,17 @@ header .search-assist .suggestion {
   cursor: pointer;
 }
 header .search-assist .suggestion:hover {
-  background: rgb(255, 196, 0);
+  background: var(--orange);
   color: var(--white);
 }
 
+/* Main body */
 main {
   height: calc(100vh - var(--header-height));
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 22px;
 }
 
 /**
@@ -125,11 +130,13 @@ main {
 main > .svg-container {
   height: 100%;
   width: 73%;
+  background: #efefef;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
   overflow: hidden;
+  box-shadow: var(--shadow);
+  border-radius: 3px;;
 }
 
 #mainSvg {
@@ -137,14 +144,60 @@ main > .svg-container {
   width: 100%;
 }
 
-main > .user-container {
+main .right-side {
   height: 100%;
   width: 23%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  padding: 30px 0;
-  border: 1px solid green;
+}
+
+main .location-information {
+  height: 75%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0px;
+}
+
+main .info.name {
+  font-size: 32px;
+}
+
+main .svg-tabs {
+  height: 23%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* padding: 0 30px; */
+}
+
+main .svg-tab {
+  height: 50px;
+  width: 100%;
+  border-radius: 3px;
+  font-size: 22px;
+  color: var(--white);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all .15s ease-in-out;
+  outline: none;
+}
+main .svg-tab:active {
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+}
+.svg-tab.orange {
+  /* background: var(--orange); */
+  background: linear-gradient(to bottom left, var(--darkOrange), var(--orange));
+  border: 1px solid var(--darkOrange);
+}
+.svg-tab.blue {
+  /* background: var(--blue); */
+  background: linear-gradient(to bottom left, var(--darkBlue), var(--blue));
+  border: 1px solid var(--darkBlue);
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */

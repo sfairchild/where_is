@@ -7,8 +7,12 @@
 :root {
   --white: #FFFFFF;
   --blue: #00AAFF;
+  --darkBlue: #191F6F;
+  --orange: #faa500;
+  --darkOrange: #fc4a1a;
   --fontPrimary: 'Roboto', sans-serif;
   --header-height: 80px;
+  --shadow: 0 2px 2px 1px #666;
 }
 
 body * {
