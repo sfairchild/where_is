@@ -6,23 +6,18 @@ defmodule WhereIsWeb.MapLive do
     WhereIsWeb.PageView.render("map.html", assigns)
   end
 
-  defmodule User do
-    defstruct name: "Roland Canuto", email: "rolandcanuto@outlook.com", username: "rolandc5", location: "North_Desk_21"
+  defmodule SubjectBase do
+    defstruct name: nil, email: nil, id: nil, username: nil, status: nil, attributes: nil
   end
 
   def mount(_session, socket) do
     WhereIsWeb.Endpoint.subscribe("rooms")
 
-    suggestions = [
-      "Harry Potter", "Ron Weasley", "Hermione Granger",
-      "Professor Snack", "Gandalf", "The Dudleys", "Mr. Filch",
-    ]
-
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, nil)
-      |> assign(:user, %{name: nil, email: nil, username: nil, location: nil})
-      |> assign(:map, "north")
+      |> assign(:subject, %SubjectBase{})
+      |> assign(:map, "both")
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
       |> assign(:rooms, %{})
@@ -44,25 +39,61 @@ defmodule WhereIsWeb.MapLive do
     {:noreply, socket}
   end
 
-  def handle_event("search", %{"search" => value}, socket) do
-    suggestions = WhereIs.MattermostUser.fuzzy_search_users(value)
-    # suggestions = match_search(:rooms, value)
-    {:noreply, assign(socket, searchValue: value, suggestions: suggestions)}
-    # {:noreply, assign(socket, searchValue: value)}
+  def formatSubject(%WhereIs.Room{} = room) do
+    %{
+      name: room.name,
+      email: room.email,
+      id: nil,
+      username: nil,
+      status: room.status,
+      attributes: nil,
+    }
   end
 
-  def handle_event("autosuggest", %{"name" => value}, socket) do
-    socket = socket |> assign(:searchValue, value)
-    # handle_event("search", %{"search" => value}, socket)
+  def formatSubject(%WhereIs.Locations{} = location) do
+    %{
+      name: location.name,
+      email: nil,
+      id: nil,
+      username: nil,
+      status: nil,
+      attributes: location.attributes,
+    }
+  end
+
+  def formatSubject(%WhereIs.MattermostUser{} = user) do
+    name =
+      if (user.first_name !== "" && user.first_name !== nil), do: "#{user.first_name} #{user.last_name}",
+      else: user.username
+
+    %{
+      name: name,
+      email: user.email,
+      id: user.location_id,
+      username: user.username,
+      status: nil,
+      attributes: nil,
+    }
+  end
+
+  def handle_event("search", %{"search" => value}, socket) do
+    suggestions = WhereIs.Fuzzy.find(value)
+      |> Enum.map(fn(s) -> formatSubject(s) end)
+
+    [head | _tail] = suggestions
+
+    subject = if (value !== ""), do: head,
+    else: %SubjectBase{}
+
+    socket = socket
+      |> assign(:searchValue, value)
+      |> assign(:suggestions, suggestions)
+      |> assign(:subject, subject)
+
     {:noreply, socket}
   end
 
   def handle_event("change-map", %{"name" => value}, socket) do
     {:noreply, assign(socket, :map, value)}
-  end
-
-  def handle_event("getData", _, socket) do
-    socket = socket |> assign(:user, %User{})
-    {:noreply, socket}
   end
 end

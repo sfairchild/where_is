@@ -22,9 +22,15 @@ import svgPanZoom from "svg-pan-zoom"
 
 let Hooks = {}
 
+let panZoomTiger;
 Hooks.PanZoom = {
   mounted() {
     svgPanZoom('#mainSvg');
+    panZoomTiger = svgPanZoom('#mainSvg');
+  },
+
+  updated() {
+    panZoomTiger.updateBBox();
   },
 };
 
@@ -34,7 +40,7 @@ Hooks.TitleName = {
     const timer = 3000;
     const list = shuffle([
       'Randy', 'Jamal', 'Pedro', 'Jakob', 'Jane', 'L-a', 'Laurel', 'Yanny',
-      'Paul', 'Colin', 'Andre', 'Waldo',
+      'Paul', 'Collin', 'Andre', 'Waldo', 'Sarah', 'Rachel', 'Yazmin', 'Stephanie',
     ]);
 
     const getWrapper = name => {
