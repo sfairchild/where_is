@@ -11,6 +11,7 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def mount(_session, socket) do
+    WhereIsWeb.Endpoint.subscribe("rooms")
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, "")
@@ -21,6 +22,14 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:location, "")
       |> assign(:svg, WhereIs.Svg.generate_svg)
     {:ok, socket}
+  end
+
+  def handle_info(a, b, socket) do
+
+    IO.puts "RECEIVED CHANNEL"
+    IO.inspect a
+    IO.inspect b
+    {:noreply, socket}
   end
 
   def handle_event("search", %{"search" => value}, socket) do
@@ -48,8 +57,6 @@ defmodule WhereIsWeb.MapLive do
     {:noreply, assign(socket, :titleName, "Sally")}
   end
 
-
-
   def handle_event("getData", _, socket) do
     user = %User{}
     socket = socket
@@ -60,5 +67,5 @@ defmodule WhereIsWeb.MapLive do
     {:noreply, socket}
   end
 
-
 end
+
