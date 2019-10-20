@@ -18,7 +18,7 @@ defmodule WhereIs.Svg do
             |> Enum.map(&Locations.get_svg_tuple(&1))
     south = Locations.south_desks
             |> Enum.map(&Locations.get_svg_tuple(&1))
-    [{:g, %{transform: "translate(-900 1300)"}, south} | north]
+    [south | north]
   end
 
   def get_defs do

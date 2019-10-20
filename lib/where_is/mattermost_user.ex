@@ -1,9 +1,28 @@
 defmodule WhereIs.MattermostUser do
  @enforce_keys [:id, :username, :email]
- defstruct id: "", username: "", first_name: "", last_name: "", email: "", location_id: ""
- #defstruct id: "", username: "", first_name: "", last_name: "", email: "", nickname: "", position: "", auth_data: "", auth_service: "", roles: [], timezone: %{automatic_timezone: "", manual_timezone: "", use_automaticTimezone: ""}, create_at: 0, update_at: 0, delete_at: 0, location_id: nil
-	alias WhereIs.MattermostUser, as: MattermostUser 
+ defstruct id: "", username: "", first_name: "", last_name: "", email: "", location_id: "", rank: 0
+	alias WhereIs.MattermostUser, as: MattermostUser
 
+
+  def fuzzy_search_users(str) when is_binary(str) do
+    fuzzy_search_users(WhereIs.Users.get_users, String.downcase(str))
+  end
+
+  def fuzzy_search_users([%__MODULE__{} = user | users], str ) do
+    Enum.sort_by([get_jaro_number(user, str) | fuzzy_search_users(users, str)], fn(u) -> u.rank end)
+    |> Enum.reverse
+  end
+
+  def fuzzy_search_users([], _str ), do: []
+
+  def get_jaro_number(%__MODULE__{} = user, str) do
+    rank = Enum.max [
+      String.jaro_distance(String.downcase(user.username), str),
+      String.jaro_distance(String.downcase(user.email), str),
+      String.jaro_distance(String.downcase("#{user.first_name} #{user.last_name}"), str)
+    ]
+    %__MODULE__{user | rank: rank}
+  end
 
    def fetchCurrentMattermostUsersList do
     {:ok, users} = fetchUsersFromMattermost()
@@ -62,7 +81,7 @@ defmodule WhereIs.MattermostUser do
   	{value, userMap} = Map.pop(userMap, head)
   	user = assignVariable(head, value, user)
 
-  	buildUserFromMap(tail, userMap, user)	
+  	buildUserFromMap(tail, userMap, user)
   end
 
   defp buildUserFromMap([], userMap, user) do
@@ -71,7 +90,8 @@ defmodule WhereIs.MattermostUser do
 
   defp assignVariable(keyString, value, user) do
   		key = String.to_atom(keyString)
-
+  		Map.put(user, key, value)
+  		
   		cond do
 			Map.has_key?(user, key) ->
   				user = %{user | key => value}

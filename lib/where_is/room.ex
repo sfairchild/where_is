@@ -1,7 +1,7 @@
 defmodule WhereIs.Room do
   use GenServer
 
-  defstruct name: "", email: "", event: %{}, status: :free, next_event: %{}
+  defstruct name: "", email: "", event: %{}, status: :free, next_event: %{}, rank: 0
 
 
   def start_link(_) do
@@ -40,7 +40,7 @@ defmodule WhereIs.Room do
 
         found_room = %__MODULE__{found_room | next_event: %{ start: start_time, end: end_time, }, status: get_status(start_time)}
 
-        WhereIsWeb.Endpoint.broadcast("rooms", "upaated", %{rooms: rooms})
+        WhereIsWeb.Endpoint.broadcast("rooms", "updated", %{rooms: rooms})
 
         rooms = first_list ++ [found_room | last_list]
       _ -> rooms
@@ -119,5 +119,21 @@ defmodule WhereIs.Room do
   defp zero_pad(str, num \\ 2) do
     String.pad_leading("#{str}", num, "0")
   end
+
+  def fuzzy_search_rooms(str) do
+    IO.puts str
+    list()
+    |> fuzzy_search_rooms(String.downcase(str))
+    |> Enum.sort_by(fn(u) -> u.rank end)
+  end
+
+  def fuzzy_search_rooms([%__MODULE__{name: name} = room | tail], str) do
+    IO.puts name
+    jaro = String.jaro_distance(name, str)
+    [%__MODULE__{room | rank: jaro} | fuzzy_search_rooms(tail, str)]
+  end
+
+  def fuzzy_search_rooms([], _str), do: []
+
 end
 
