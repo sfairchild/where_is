@@ -34,9 +34,8 @@ defmodule WhereIs.Application do
   def generate_url(username) do
     [head | tail] = WhereIs.MattermostUser.fuzzy_search_users(username)
     #uses first response from fuzzy search to get location_id from the individual user.
-    "https://nautical-sandy-americanbulldog.gigalixirapp.com/svg/map.svg?name=#{head.location_id}"
+    "https://nautical-sandy-americanbulldog.gigalixirapp.com/svg/map.svg?name=#{head.location_id}.svg"
   end
-  #def generate_url(_), do: link = "https://upload.wikimedia.org/wikipedia/commons/c/ca/Cthulhu_blood.png"
 
 
 
