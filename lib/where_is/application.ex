@@ -34,10 +34,8 @@ defmodule WhereIs.Application do
   def generate_url(username) do
     [head | tail] = WhereIs.MattermostUser.fuzzy_search_users(username)
     #uses first response from fuzzy search to get location_id from the individual user.
-    "https://nautical-sandy-americanbulldog.gigalixirapp.com/svg/map.svg?name=#{head.location_id}.svg"
+    URI.encode "https://nautical-sandy-americanbulldog.gigalixirapp.com/svg/map.svg?name=#{head.location_id}.svg"
   end
-
-
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
