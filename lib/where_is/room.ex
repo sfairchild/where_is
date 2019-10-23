@@ -153,11 +153,11 @@ defmodule WhereIs.Room do
       %__MODULE__{name: "North Huddle 10", email: "nhuddle10@nexient.com", transform: %{x: 195, y: 510, rotate: "0", height: 31, width: 32}},
       %__MODULE__{name: "North Huddle 11", email: "nhuddle11@nexient.com", transform: %{x: 195, y: 542, rotate: "0", height: 27, width: 32}},
       %__MODULE__{name: "North Huddle 12", email: "nhuddle12@nexient.com", transform: %{x: 195, y: 619, rotate: "0", height: 30, width: 32}},
-      
+
       %__MODULE__{name: "South Conference A", email: "SConferenceA@nexient.com", transform: %{x: -801, y: 1980, rotate: "22", height: 35, width: 66}},
       %__MODULE__{name: "South Conference B", email: "SConferenceB@nexient.com", transform: %{x: -686, y: 1622, rotate: "22", height: 46, width: 90}},
       %__MODULE__{name: "South Conference C", email: "SConferenceC@nexient.com", transform: %{x: -669, y: 1580, rotate: "22", height: 44, width: 90}},
-      %__MODULE__{name: "South Conference D", email: "SConferenceD@nexient.com", transform: %{x: -635, y:1314, rotate: "0", height: 50, width: 70}},
+      %__MODULE__{name: "South Conference D", email: "SConferenceD@nexient.com", transform: %{x: -635, y: 1314, rotate: "0", height: 50, width: 70}},
       %__MODULE__{name: "North Conference 1", email: "NConference1@nexient.com", transform: %{x: 10, y: 1094, rotate: "0", height: 55, width: 44}},
       %__MODULE__{name: "North Conference 2", email: "NConference2@nexient.com", transform: %{x: 10, y: 875, rotate: "0", height: 61, width: 45}},
       %__MODULE__{name: "North Conference 3", email: "NConference3@nexient.com", transform: %{x: 10, y: 815, rotate: "0", height: 55, width: 45}},
