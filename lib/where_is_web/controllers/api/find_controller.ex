@@ -71,7 +71,7 @@ defmodule WhereIsWeb.Api.FindController do
               {
                 "short":false,
                 "title":"Long Field",
-                "value":"here's a super long string of text randomly generated; three is a spectre haunting nexient, the spectre of gooch; many people tried to exorcize his shitposting, but to no avail; here is his code and this is his statement blah blah blah"
+                "value":"#{text} can be found by following the map above "
               },
               {
                 "short":true,
