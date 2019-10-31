@@ -1,7 +1,7 @@
 defmodule WhereIs.Room do
   use GenServer
 
-  defstruct name: "", email: "", event: %{}, status: :free, next_event: %{}, rank: 0, transform: %{width: 200, height: 200, x: 0, y: 0, rotate: "0"}
+  defstruct name: "", email: "", event: %{}, events: [], status: :free, next_event: %{}, rank: 0, transform: %{width: 200, height: 200, x: 0, y: 0, rotate: "0"}
 
 
   def start_link(_) do
@@ -11,7 +11,7 @@ defmodule WhereIs.Room do
   def init(state) do
     state = %{remainging_rooms: list(), rooms: list()}
 
-    schedule_poller()
+    # schedule_poller()
     {:ok, state}
   end
 
@@ -75,17 +75,20 @@ defmodule WhereIs.Room do
   def find_room([], _name), do: nil
 
   def get_events(%__MODULE__{} = room) do
-    now = DateTime.utc_now
-    start_date = now |> format_datetime
-    end_date = now
-                # 86400 seconds = 24 hours
-                |> DateTime.add(86400)
-                |> format_datetime
+    # now = DateTime.utc_now
+    # start_date = now |> format_datetime
+    # end_date = now
+    #             # 86400 seconds = 24 hours
+    #             |> DateTime.add(86400)
+    #             |> format_datetime
 
-    {:ok, response} = "https://rooms.nexient.com/gateway/api/ms-graph-rooms/v2/Rooms/#{ room.email }/Availability"
-                      |> HTTPoison.get(%{"X-Rooms-Authorization":  System.get_env("ROOMS_TOKEN")}, params: %{startDate: start_date, endDate: end_date})
-    {:ok, events} = Jason.decode(response.body)
-    events
+    # events = case "https://rooms.nexient.com/gateway/api/ms-graph-rooms/v2/Rooms/#{ room.email }/Availability"
+    # |> HTTPoison.get(%{"X-Rooms-Authorization":  System.get_env("ROOMS_TOKEN")}, params: %{startDate: start_date, endDate: end_date}) do
+    #   {:ok, events} -> Jason.decode(response.body)
+    #     {:error, %HTTPoison.Error{}}
+
+    # end
+    # events
   end
 
   def name_to_id(name) do
@@ -165,14 +168,6 @@ defmodule WhereIs.Room do
       %__MODULE__{name: "North Conference 5", email: "NConference5@nexient.com", transform: %{x: 177, y: 3, rotate: "0", height: 43, width: 52}},
       %__MODULE__{name: "North Conference 6", email: "NConference6@nexient.com", transform: %{x: 195, y: 416, rotate: "0", height: 69, width: 31}},
     ]
-  end
-
-  defp format_datetime(datetime) do
-    "#{datetime.year}-#{zero_pad datetime.month}-#{zero_pad datetime.day}T#{zero_pad datetime.hour}:#{zero_pad datetime.minute}:#{zero_pad datetime.second}"
-  end
-
-  defp zero_pad(str, num \\ 2) do
-    String.pad_leading("#{str}", num, "0")
   end
 
   def fuzzy_search_rooms(str) do
