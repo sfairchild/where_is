@@ -32,8 +32,6 @@ defmodule WhereIs.Room do
       %__MODULE__{events: old_events} = room = find_room(rooms, name)
 
       if(events != old_events) do
-        IO.inspect room.name
-        IO.inspect events
         room = %__MODULE__{ room | events: events, status: get_status(List.first(events)) }
 
         GenServer.cast(__MODULE__, {:update_room, room})
@@ -51,11 +49,6 @@ defmodule WhereIs.Room do
   def handle_cast({:update_room, %__MODULE__{name: name} = room}, %{rooms: rooms} = state) do
     {h, [_old_room | t]} = Enum.split_while(rooms, fn (r) -> r.name != name end)
     rooms = h ++ [room | t]
-
-    IO.puts "HEAD"
-    IO.inspect h
-    IO.puts "UPDATED ROOM"
-    IO.inspect room
 
     WhereIsWeb.Endpoint.broadcast("rooms", "updated", %{rooms: rooms})
     {:noreply, %{state | rooms: rooms}}
