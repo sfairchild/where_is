@@ -12,8 +12,8 @@ defmodule WhereIs.Users do
    @impl true
    def init(state) do
      users = [
-       %MattermostUser{id: 1, first_name: 'Sean', last_name: 'Fairchild', email: 'sfairchild@nexient.com', username: '@sean'},
-       %MattermostUser{id: 2, first_name: 'Justin', last_name: 'Gooch', email: 'jgooch@nexient.com', username: '@gooch'}
+       %MattermostUser{id: 1, first_name: "Sean", last_name: "Fairchild", email: "sfairchild@nexient.com", username: "@sean"},
+       %MattermostUser{id: 2, first_name: "Justin", last_name: "Gooch", email: "jgooch@nexient.com", username: "@gooch"}
      ]
 
     # schedule_matter_most_user_call()
