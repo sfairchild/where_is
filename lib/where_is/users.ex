@@ -1,7 +1,9 @@
 defmodule WhereIs.Users do
   use GenServer
 
- def start_link(_) do
+  alias WhereIs.MattermostUser
+
+  def start_link(_) do
     GenServer.start_link(__MODULE__, %{users: []}, name: __MODULE__)
   end
 
@@ -9,7 +11,11 @@ defmodule WhereIs.Users do
 
    @impl true
    def init(state) do
-    users = WhereIs.MattermostUser.fetchCurrentMattermostUsersList()
+     users = [
+       %MattermostUser{id: 1, first_name: 'Sean', last_name: 'Fairchild', email: 'sfairchild@nexient.com', username: '@sean'},
+       %MattermostUser{id: 2, first_name: 'Justin', last_name: 'Gooch', email: 'jgooch@nexient.com', username: '@gooch'}
+     ]
+
     # schedule_matter_most_user_call()
      {:ok, %{users: users}}
   end
