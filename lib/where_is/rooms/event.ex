@@ -1,10 +1,15 @@
 defmodule WhereIs.Rooms.Event do
+  require Logger
   alias WhereIs.{ Room, DateFormatter }
 
   defstruct [:start_time, :end_time]
 
   def get_todays_events(%Room{} = room), do: get_todays_events(room, 0)
-  def get_todays_events(%Room{events: events}, 5), do: events
+  def get_todays_events(%Room{events: events, name: name}, 5) do
+    Logger.error("Error getting events for room \"#{name}\"...")
+    events
+  end
+
   def get_todays_events(%Room{} = room, retry_count) do
     events = room |> get_events(start_date(), end_date())
              |> format_response()
@@ -27,7 +32,6 @@ defmodule WhereIs.Rooms.Event do
     # TODO: move the rooms api url to a config variable so it can be reused and changed per environment
     "https://rooms.nexient.com/gateway/api/ms-graph-rooms/v2/Rooms/#{ email }/Availability"
     |> HTTPoison.get(%{"X-Rooms-Authorization":  System.get_env("ROOMS_TOKEN")}, params: %{startDate: start_date, endDate: end_date})
-    {:error, "error"}
   end
 
   defp get_events(%WhereIs.Room{} = room, _start, _end) do
