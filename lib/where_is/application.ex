@@ -12,8 +12,8 @@ defmodule WhereIs.Application do
       WhereIsWeb.Endpoint,
       # Starts a worker by calling: WhereIs.Worker.start_link(arg)
       # {WhereIs.Worker, arg},
-       {WhereIs.Users, _args},
-       {WhereIs.Room, _args}
+      {WhereIs.Users, %{}},
+      {WhereIs.Room, %{}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -32,7 +32,7 @@ defmodule WhereIs.Application do
   end
 
   def generate_url(username) do
-    [head | tail] = WhereIs.MattermostUser.fuzzy_search_users(username)
+    [head | _tail] = WhereIs.MattermostUser.fuzzy_search_users(username)
     #uses first response from fuzzy search to get location_id from the individual user.
     URI.encode "https://nautical-sandy-americanbulldog.gigalixirapp.com/svg/map.svg?name=#{head.location_id}.svg"
   end
