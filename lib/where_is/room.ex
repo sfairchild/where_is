@@ -1,5 +1,6 @@
 defmodule WhereIs.Room do
   use GenServer
+  alias WhereIs.Rooms.Event
 
   defstruct name: "", email: "", event: %{}, events: [], status: :free, next_event: %{}, rank: 0, transform: %{width: 200, height: 200, x: 0, y: 0, rotate: "0"}
 
@@ -11,89 +12,69 @@ defmodule WhereIs.Room do
   def init(state) do
     state = %{remainging_rooms: list(), rooms: list()}
 
-    # schedule_poller()
+    schedule_poller()
     {:ok, state}
   end
 
   def schedule_poller do
-    :timer.sleep(100);
-    send self(), :update
+    Process.send_after(self(), :update_rooms, 250)
   end
 
-  def get_rooms do
-    GenServer.call(__MODULE__, :rooms)
+  def handle_info(:update_rooms, %{remainging_rooms: [], rooms: rooms} = state) do
+    schedule_poller()
+    {:noreply, %{state | remainging_rooms: rooms}}
+  end
+
+  def handle_info(:update_rooms, %{remainging_rooms: [%__MODULE__{name: name} = r | t], rooms: rooms} = state) do
+    spawn fn() ->
+      events = Event.get_todays_events(r)
+
+      %__MODULE__{events: old_events} = room = find_room(rooms, name)
+
+      if(events != old_events) do
+        room = %__MODULE__{ room | events: events, status: get_status(List.first(events)) }
+
+        GenServer.cast(__MODULE__, {:update_room, room})
+      end
+    end
+
+    schedule_poller()
+    {:noreply, %{state | remainging_rooms: t}}
   end
 
   def handle_call(:rooms, _, state) do
     {:reply, state.rooms, state}
   end
 
-  def handle_info(:update, %{remainging_rooms: [h | t], rooms: rooms} = state) do
-    events = get_events(h)
+  def handle_cast({:update_room, %__MODULE__{name: name} = room}, %{rooms: rooms} = state) do
+    {h, [_old_room | t]} = Enum.split_while(rooms, fn (r) -> r.name != name end)
+    rooms = h ++ [room | t]
 
-    rooms = case Enum.sort(events, fn %{"start" => %{"dateTime" => x}}, %{"start" => %{"dateTime" => y}} -> :lt == Timex.compare(Timex.parse(y, "{RFC3339}"), Timex.parse(x, "{RFC3339}")) end) do
-      [%{} = event | t] ->
-        {first_list, [found_room | last_list]} = Enum.split_while(rooms, fn (r) -> r.name != h.name end)
-
-        {:ok, start_time} = Timex.parse(event["start"]["dateTime"], "{RFC3339}")
-        {:ok, end_time} = Timex.parse(event["end"]["dateTime"], "{RFC3339}")
-
-        found_room = %__MODULE__{found_room | next_event: %{ start: start_time, end: end_time, }, status: get_status(start_time)}
-
-        WhereIsWeb.Endpoint.broadcast("rooms", "updated", %{rooms: rooms})
-
-        rooms = first_list ++ [found_room | last_list]
-      _ -> rooms
-    end
-
-    schedule_poller()
-
-    {:noreply, %{state | rooms: rooms, remainging_rooms: t}}
+    WhereIsWeb.Endpoint.broadcast("rooms", "updated", %{rooms: rooms})
+    {:noreply, %{state | rooms: rooms}}
   end
 
-  def get_status(start_time) do
-    # IO.inspec start_time
-    # IO.inspect Timex.now()
-    free?(Timex.before?(start_time, Timex.now))
+  def get_rooms do
+    GenServer.call(__MODULE__, :rooms)
   end
 
-  def free?(true), do: :free
-  def free?(false), do: :busy
-
-  def handle_info(:update, %{remainging_rooms: []} = state) do
-    schedule_poller()
-    {:noreply, %{state | remainging_rooms: list()}}
+  def get_status(%{start_time: start}) do
+    free?(Timex.before?(Timex.now, start))
   end
+  def get_status(_), do: :free
 
-  def handle_info(_, state) do
-    schedule_poller()
-    {:noreply, state}
-  end
+  defp free?(true), do: :free
+  defp free?(false), do: :busy
+  defp free?(false), do: :busy
 
-  def find_room([%__MODULE__{name: name} = room | t], name), do: room
+  def find_room([%__MODULE__{name: name} = room | _t], name), do: room
   def find_room([_|t], name), do: find_room(t, name)
   def find_room([], _name), do: nil
 
-  def get_events(%__MODULE__{} = room) do
-    # now = DateTime.utc_now
-    # start_date = now |> format_datetime
-    # end_date = now
-    #             # 86400 seconds = 24 hours
-    #             |> DateTime.add(86400)
-    #             |> format_datetime
-
-    # events = case "https://rooms.nexient.com/gateway/api/ms-graph-rooms/v2/Rooms/#{ room.email }/Availability"
-    # |> HTTPoison.get(%{"X-Rooms-Authorization":  System.get_env("ROOMS_TOKEN")}, params: %{startDate: start_date, endDate: end_date}) do
-    #   {:ok, events} -> Jason.decode(response.body)
-    #     {:error, %HTTPoison.Error{}}
-
-    # end
-    # events
-  end
-
-  def name_to_id(name) do
+  defp name_to_id(name) do
     String.replace(name, " ", "_")
   end
+
   def room_to_svg_tuple(%__MODULE__{name: name, status: status, transform: transform} = location) do
     {:rect,
       %{
@@ -107,15 +88,15 @@ defmodule WhereIs.Room do
         width: "#{transform.height}px" }, []}
   end
 
-  def busy_style(%{status: :free}) do
+  defp busy_style(%{status: :free}) do
     "green"
   end
 
-  def busy_style(%{status: :busy}) do
+  defp busy_style(%{status: :busy}) do
     "red"
   end
 
-  def busy_style(_) do
+  defp busy_style(_) do
     ""
   end
 
@@ -171,7 +152,7 @@ defmodule WhereIs.Room do
   end
 
   def fuzzy_search_rooms(str) do
-    list()
+    get_rooms()
     |> fuzzy_search_rooms(String.downcase(str))
     |> Enum.sort_by(fn(u) -> u.rank end)
   end
