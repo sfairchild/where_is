@@ -152,7 +152,7 @@ defmodule WhereIs.Room do
   end
 
   def fuzzy_search_rooms(str) do
-    list()
+    get_rooms()
     |> fuzzy_search_rooms(String.downcase(str))
     |> Enum.sort_by(fn(u) -> u.rank end)
   end
