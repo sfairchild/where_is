@@ -17,7 +17,7 @@ defmodule WhereIs.Room do
   end
 
   def schedule_poller do
-    Process.send_after(self(), :update_rooms, 250)
+    Process.send_after(self(), :update_rooms, 1_500)
   end
 
   def handle_info(:update_rooms, %{remainging_rooms: [], rooms: rooms} = state) do
