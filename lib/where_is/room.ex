@@ -152,12 +152,16 @@ defmodule WhereIs.Room do
   end
 
   def fuzzy_search_rooms(str) do
+    str = str |> String.downcase |> String.reverse
+
     get_rooms()
-    |> fuzzy_search_rooms(String.downcase(str))
+    |> fuzzy_search_rooms(str)
     |> Enum.sort_by(fn(u) -> u.rank end)
+    |> Enum.reverse
   end
 
   def fuzzy_search_rooms([%__MODULE__{name: name} = room | tail], str) do
+    name = name |> String.downcase |> String.reverse
     jaro = String.jaro_distance(name, str)
     [%__MODULE__{room | rank: jaro} | fuzzy_search_rooms(tail, str)]
   end

@@ -14,14 +14,15 @@ defmodule WhereIs.Locations do
   end
 
   def fuzzy_search_locations(str) do
+    str = str |> String.downcase |> String.reverse
     Enum.sort_by(fuzzy_search_locations(list(), str), fn(u) -> u.rank end) |> Enum.reverse
   end
 
   def fuzzy_search_locations([%__MODULE__{name: name} = location | tail], str) do
+    name = name |> String.downcase |> String.reverse
     jaro = String.jaro_distance(name, str)
     [%__MODULE__{location | rank: jaro} | fuzzy_search_locations(tail, str)]
   end
-
   def fuzzy_search_locations([], _str), do: []
 
   def name_to_id(name) do
