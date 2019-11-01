@@ -17,7 +17,7 @@ defmodule WhereIs.Room do
   end
 
   def schedule_poller do
-    Process.send_after(self(), :update_rooms, 1_500)
+    Process.send_after(self(), :update_rooms, 500)
   end
 
   def handle_info(:update_rooms, %{remainging_rooms: [], rooms: rooms} = state) do
@@ -28,10 +28,11 @@ defmodule WhereIs.Room do
   def handle_info(:update_rooms, %{remainging_rooms: [%__MODULE__{name: name} = r | t], rooms: rooms} = state) do
     spawn fn() ->
       events = Event.get_todays_events(r)
+      new_status = get_status(List.first(events))
 
-      %__MODULE__{events: old_events} = room = find_room(rooms, name)
+      %__MODULE__{events: old_events, status: current_status} = room = find_room(rooms, name)
 
-      if(events != old_events) do
+      if(events != old_events or new_status != current_status) do
         room = %__MODULE__{ room | events: events, status: get_status(List.first(events)) }
 
         GenServer.cast(__MODULE__, {:update_room, room})
@@ -64,7 +65,6 @@ defmodule WhereIs.Room do
   def get_status(_), do: :free
 
   defp free?(true), do: :free
-  defp free?(false), do: :busy
   defp free?(false), do: :busy
 
   def find_room([%__MODULE__{name: name} = room | _t], name), do: room
