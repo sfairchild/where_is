@@ -29,16 +29,9 @@ defmodule WhereIsWeb.MapLive do
     {:ok, socket}
   end
 
-  def handle_info(a, socket) do
-    {:noreply, socket}
-  end
+  def handle_info(%Phoenix.Socket.Broadcast{event: "updated", topic: "rooms"}, socket) do
+    socket = socket |> assign(:svg, WhereIs.Svg.generate_svg)
 
-  def handle_info(a, b, socket) do
-
-
-    IO.puts "RECEIVED CHANNEL"
-    IO.inspect a
-    IO.inspect b
     {:noreply, socket}
   end
 
