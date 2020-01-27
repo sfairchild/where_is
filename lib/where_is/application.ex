@@ -13,7 +13,8 @@ defmodule WhereIs.Application do
       # Starts a worker by calling: WhereIs.Worker.start_link(arg)
       # {WhereIs.Worker, arg},
       {WhereIs.Users, %{}},
-      {WhereIs.Room, %{}}
+      {WhereIs.Room, %{}},
+      {WhereIs.Repo, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

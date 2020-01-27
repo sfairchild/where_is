@@ -7,6 +7,18 @@
 # General application configuration
 use Mix.Config
 
+config :where_is, WhereIs.Repo,
+  database: "where_is_repo",
+  username: "user",
+  password: "pass",
+  hostname: "localhost"
+
+config :where_is, WhereIs.Repo,
+  database: "where_is_repo",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"
+
 # Configures the endpoint
 config :where_is, WhereIsWeb.Endpoint,
   rooms_token: {:system, "ROOMS_TOKEN"},
@@ -19,6 +31,7 @@ config :where_is, WhereIsWeb.Endpoint,
     signing_salt: "SECRET_SALT"
   ]
 
+config :where_is, ecto_repos: [WhereIs.Repo]
 
 # Configures Elixir's Logger
 config :logger, :console,
