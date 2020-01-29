@@ -20,8 +20,10 @@ config :where_is, WhereIsWeb.Endpoint,
   mattermost_token: "${MATTERMOST_TOKEN}"
 
 config :where_is, WhereIs.Repo,
-  database: "where_is_repo",
-  hostname: "${DATABASE_URL}"
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  ssl: true,
+  pool_size: 2
 
 config :ueberauth, Ueberauth,
   providers: [
