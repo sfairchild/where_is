@@ -23,10 +23,25 @@ header .header-right {
   align-items: center;
 }
 
+header .logout-button {
+  height: 34px;
+  width: 20%;
+  margin-left: 10px;
+  padding: 3px 16px 0 16px;
+  outline: none;
+  border: 1px solid #666;
+  border-radius: 10px;
+  font-size: 20px;
+  font-position: center;
+  position: relative;
+  background-color: var(--grey);
+  z-index: 1;
+}
+
 /* search-container is the parent element */
 header .search-container {
   height: 34px;
-  width: 100%;
+  width: 80%;
   position: relative;
 }
 
@@ -227,6 +242,25 @@ main .svg-tab:active {
 .svg-tab.blue {
   background: linear-gradient(to bottom left, var(--darkBlue), var(--blue));
   border: 1px solid var(--darkBlue);
+}
+
+.login-container {
+  margin-top: 10%;
+}
+
+.login-container a {
+  display: block;
+  max-width: 200px;
+  margin: auto;
+  text-align: center;
+  text-decoration: none;
+  padding: 20px 40px;
+  font: var(--default-font);
+  color: var(--white);
+  font-weight: 900;
+  background-color: var(--darkBlue);
+  border: 1px solid #666;
+  border-radius: 50px;
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */

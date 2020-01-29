@@ -31,10 +31,10 @@ defmodule WhereIs.Svg do
   end
 
   def placements do
-    [
+    locations ++ rooms ++ [
       {:use, %{"xlink:href" => "#north-bldg"}, nil},
       {:use, %{"xlink:href" => "#south-bldg", transform: "translate(-900 1300)"}, nil}
-    ] ++ locations ++ rooms
+    ]
   end
 
   def locations do

@@ -8,6 +8,7 @@ defmodule WhereIsWeb.Router do
     plug Phoenix.LiveView.Flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug WhereIsWeb.Auth
   end
 
   pipeline :svg do
@@ -16,6 +17,15 @@ defmodule WhereIsWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  scope "/auth", WhereIsWeb do
+    pipe_through([:browser])
+
+    get("/:provider", AuthController, :request)
+    get("/:provider/callback", AuthController, :callback)
+    post("/:provider/callback", AuthController, :callback)
+    delete("/logout", AuthController, :delete)
   end
 
   scope "/svg", WhereIsWeb do

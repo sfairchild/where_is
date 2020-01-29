@@ -1,5 +1,5 @@
-
 defmodule WhereIsWeb.MapLive do
+
   use Phoenix.LiveView
 
   def render(assigns) do
@@ -10,14 +10,13 @@ defmodule WhereIsWeb.MapLive do
     defstruct name: nil, email: nil, id: nil, username: nil, status: nil, attributes: nil
   end
 
-  def mount(_session, socket) do
+  def mount(%{csrf_token: csrf_token}, socket) do
     WhereIsWeb.Endpoint.subscribe("rooms")
 
     suggestions = [
       "Harry Potter", "Ron Weasley", "Hermione Granger",
       "Professor Snack", "Gandalf", "The Dudleys", "Mr. Filch",
     ]
-
     socket = socket
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, nil)
@@ -26,6 +25,7 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
       |> assign(:rooms, %{})
+      |> assign(:csrf_token, csrf_token)
     {:ok, socket}
   end
 

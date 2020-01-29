@@ -27,6 +27,7 @@
             </div>
           <% end %>
       </div>
+        <%= button "Logout", to: "/auth/logout", csrf_token: @csrf_token, method: :delete, class: "logout-button" %>
     </form>
   </div>
 </header>
