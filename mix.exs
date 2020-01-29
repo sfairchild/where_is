@@ -38,6 +38,7 @@ defmodule WhereIs.MixProject do
       {:gettext, "~> 0.11"},
       {:httpoison, "~>1.6"},
       {:jason, "~> 1.0"},
+      {:oauth2, "~> 2.0", override: true},
       {:phoenix, "~> 1.4.10"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -47,6 +48,8 @@ defmodule WhereIs.MixProject do
       {:poison, "~> 1.3.1"},
       {:postgrex, ">= 0.0.0"},
       {:timex, "~> 3.5"},
+      {:ueberauth, "~> 0.6"},
+      {:ueberauth_microsoft, "~> 0.6.0"},
       {:xml_builder, "~> 2.1.1"}
     ]
   end

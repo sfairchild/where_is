@@ -41,6 +41,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# This file is purposely left out of git, you will need to create your own ./config/ueberauth.exs.
+# You can use ueberauth.sample.exs as an example and insert your own oauth keys.
+import_config "ueberauth.exs"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
