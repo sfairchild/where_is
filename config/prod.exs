@@ -19,6 +19,9 @@ config :where_is, WhereIsWeb.Endpoint,
   rooms_token: "${ROOMS_TOKEN}",
   mattermost_token: "${MATTERMOST_TOKEN}"
 
+config :where_is, WhereIs.Repo,
+  database: "where_is_repo",
+  hostname: "${DATABASE_URL}"
 
 config :ueberauth, Ueberauth,
   providers: [
