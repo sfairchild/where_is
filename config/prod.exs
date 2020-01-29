@@ -20,6 +20,17 @@ config :where_is, WhereIsWeb.Endpoint,
   mattermost_token: "${MATTERMOST_TOKEN}"
 
 
+config :ueberauth, Ueberauth,
+  providers: [
+    microsoft: {Ueberauth.Strategy.Microsoft, []},
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
+  client_id: "${MICROSOFT_CLIENT_ID}",
+  client_secret: "${MICROSOFT_CLIENT_SECRET}",
+  redirect_uri: "${MICROSOFT_REDIRECT_URI}",
+  tenant_id: "${MICROSOFT_TENANT_ID}",
+  authorize_url: "${AUTHORIZE_URL}"
 
 # Do not print debug messages in production
 config :logger, level: :info
