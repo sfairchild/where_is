@@ -7,18 +7,6 @@
 # General application configuration
 use Mix.Config
 
-config :where_is, WhereIs.Repo,
-  database: "where_is_repo",
-  username: "user",
-  password: "pass",
-  hostname: "localhost"
-
-config :where_is, WhereIs.Repo,
-  database: "where_is_repo",
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost"
-
 # Configures the endpoint
 config :where_is, WhereIsWeb.Endpoint,
   rooms_token: {:system, "ROOMS_TOKEN"},
