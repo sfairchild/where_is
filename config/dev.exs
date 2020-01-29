@@ -56,6 +56,12 @@ config :where_is, WhereIsWeb.Endpoint,
     ]
   ]
 
+config :where_is, WhereIs.Repo,
+  database: "where_is_repo",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
