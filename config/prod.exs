@@ -32,11 +32,11 @@ config :ueberauth, Ueberauth,
   ]
 
 config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
-  client_id: "${MICROSOFT_CLIENT_ID}",
-  client_secret: "${MICROSOFT_CLIENT_SECRET}",
-  redirect_uri: "${MICROSOFT_REDIRECT_URI}",
-  tenant_id: "${MICROSOFT_TENANT_ID}",
-  authorize_url: "${AUTHORIZE_URL}"
+  client_id: System.get_env("MICROSOFT_CLIENT_ID"),
+  client_secret: System.get_env("MICROSOFT_CLIENT_SECRET"),
+  redirect_uri: System.get_env("MICROSOFT_REDIRECT_URI"),
+  tenant_id: System.get_env("MICROSOFT_TENANT_ID"),
+  authorize_url: System.get_env("AUTHORIZE_URL")
 
 # Do not print debug messages in production
 config :logger, level: :info
