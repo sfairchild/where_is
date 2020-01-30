@@ -9,9 +9,9 @@
     "animejs": "^3.1.0",
     "css-loader": "^3.2.0",
     "lodash.shuffle": "^4.2.0",
-    "phoenix": "^1.4.12",
-    "phoenix_html": "^2.13.2",
-    "phoenix_live_view": "^0.6.0",
+    "phoenix": "^1.4.10",
+    "phoenix_html": "^2.11.0",
+    "phoenix_live_view": "^0.3.0",
     "svg-pan-zoom": "github:ariutta/svg-pan-zoom"
   },
   "devDependencies": {
