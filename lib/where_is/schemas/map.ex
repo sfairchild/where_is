@@ -10,5 +10,8 @@ defmodule WhereIs.Map do
     field :rotation, :string
     field :scale, :string
     field :attributes, :map
+
+    belongs_to :template, WhereIs.Template
+    has_many :locations, WhereIs.Location
   end
 end

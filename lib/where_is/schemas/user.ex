@@ -11,6 +11,7 @@ defmodule WhereIs.User do
     field :first_name, :string
     field :last_name, :string
     field :photo_url, :string
+    field :admin, :boolean
 
     belongs_to :manager, WhereIs.User
     belongs_to :coach, WhereIs.User
@@ -20,9 +21,7 @@ defmodule WhereIs.User do
 
   @doc false
   def changeset(user, attrs) do
-    IO.puts "TESTING CHANGESET..."
-    IO.inspect(attrs)
     user
-    |> cast(attrs, [:email])
+    |> cast(attrs, [:email, :admin])
   end
 end

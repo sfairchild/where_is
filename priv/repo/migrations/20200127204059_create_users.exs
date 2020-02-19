@@ -10,11 +10,11 @@ defmodule WhereIs.Repo.Migrations.CreateUsers do
       add :first_name, :string
       add :last_name, :string
       add :photo_url, :string
+      add :admin, :boolean
 
       add :manager_id, references(:users, type: :binary_id)
       add :coach_id, references(:users, type: :binary_id)
       timestamps()
     end
-
   end
 end
