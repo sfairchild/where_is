@@ -1,8 +1,6 @@
 defmodule WhereIs.Location do
-  use Ecto.Schema
+  use WhereIs.Schema
   import Ecto.Changeset
-
-  @primary_key {:id, :binary_id, autogenerate: true}
 
   schema "locations" do
     field :name, :string
@@ -13,6 +11,8 @@ defmodule WhereIs.Location do
     field :attributes, :map
 
     belongs_to :map, WhereIs.Map
+    belongs_to :template, WhereIs.Template
+
     timestamps()
   end
 

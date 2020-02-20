@@ -1,9 +1,7 @@
 defmodule WhereIs.Map do
-  use Ecto.Schema
+  use WhereIs.Schema
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-
-  schema "map" do
+  schema "maps" do
     field :name, :string
     field :x_coordinate, :float
     field :y_coordinate, :float

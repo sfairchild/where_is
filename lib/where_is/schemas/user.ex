@@ -1,8 +1,6 @@
 defmodule WhereIs.User do
-  use Ecto.Schema
+  use WhereIs.Schema
   import Ecto.Changeset
-
-  @primary_key {:id, :binary_id, autogenerate: true}
 
   schema "users" do
     field :email, :string

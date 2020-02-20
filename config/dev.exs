@@ -60,7 +60,8 @@ config :where_is, WhereIs.Repo,
   database: "where_is_repo",
   username: "postgres",
   password: "postgres",
-  hostname: "localhost"
+  hostname: "localhost",
+  migration_primary_key: [name: :id, type: :binary_id]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

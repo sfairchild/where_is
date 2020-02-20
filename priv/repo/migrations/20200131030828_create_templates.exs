@@ -4,6 +4,7 @@ defmodule WhereIs.Repo.Migrations.CreateTemplates do
   def change do
     create table(:templates) do
       add :name, :string
+      add :label, :string
 
       timestamps()
     end

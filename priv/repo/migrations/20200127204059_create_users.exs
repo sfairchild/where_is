@@ -2,8 +2,7 @@ defmodule WhereIs.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do
-    create table(:users, primary_key: false) do
-      add :id, :binary_id, primary_key: true
+    create table(:users) do
       add :email, :string
       add :username, :string
       add :display_name, :string
@@ -12,8 +11,8 @@ defmodule WhereIs.Repo.Migrations.CreateUsers do
       add :photo_url, :string
       add :admin, :boolean
 
-      add :manager_id, references(:users, type: :binary_id)
-      add :coach_id, references(:users, type: :binary_id)
+      add :manager_id, references(:users)
+      add :coach_id, references(:users)
       timestamps()
     end
   end

@@ -9,7 +9,7 @@
       }
       </style>
       <g transform="scale(2) translate(<%= @x - 100 %> <%= (@y * -1 ) + 100 %>)">
-      <%=  @svg %>
+      <%= @svg %>
       </g>
       </svg>
 

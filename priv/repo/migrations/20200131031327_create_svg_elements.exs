@@ -5,7 +5,7 @@ defmodule WhereIs.Repo.Migrations.CreateSvgElements do
     create table(:svg_elements) do
       add :tag, :string
       add :attributes, :map
-      add :template_id, references(:templates, type: :binary_id, on_delete: :nothing)
+      add :template_id, references(:templates)
 
       timestamps()
     end
