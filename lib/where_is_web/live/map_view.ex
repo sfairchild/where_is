@@ -2,6 +2,9 @@ defmodule WhereIsWeb.MapLive do
 
   use Phoenix.LiveView
 
+  alias WhereIs.Repo
+  alias WhereIs.Map
+
   def render(assigns) do
     WhereIsWeb.PageView.render("map.html", assigns)
   end
@@ -10,7 +13,7 @@ defmodule WhereIsWeb.MapLive do
     defstruct name: nil, email: nil, id: nil, username: nil, status: nil, attributes: nil
   end
 
-  def mount(%{csrf_token: csrf_token}, socket) do
+  def mount(%{"csrf_token" => csrf_token}, socket) do
     WhereIsWeb.Endpoint.subscribe("rooms")
 
     suggestions = [
@@ -21,11 +24,13 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:titleName, "Randy")
       |> assign(:searchValue, nil)
       |> assign(:subject, %SubjectBase{})
-      |> assign(:map, "both")
+      |> assign(:maps, Repo.all(Map))
+      |> assign(:active_map, "north-mdc")
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
       |> assign(:rooms, %{})
       |> assign(:csrf_token, csrf_token)
+    IO.inspect(socket.assigns)
     {:ok, socket}
   end
 
@@ -35,7 +40,7 @@ defmodule WhereIsWeb.MapLive do
     {:noreply, socket}
   end
 
-  def formatSubject(%WhereIs.Room{} = room) do
+  def format_subject(%WhereIs.Room{} = room) do
     %{
       name: room.name,
       email: room.email,
@@ -46,7 +51,7 @@ defmodule WhereIsWeb.MapLive do
     }
   end
 
-  def formatSubject(%WhereIs.Locations{} = location) do
+  def format_subject(%WhereIs.Locations{} = location) do
     %{
       name: location.name,
       email: nil,
@@ -57,7 +62,7 @@ defmodule WhereIsWeb.MapLive do
     }
   end
 
-  def formatSubject(%WhereIs.MattermostUser{} = user) do
+  def format_subject(%WhereIs.MattermostUser{} = user) do
     name =
       if (user.first_name !== "" && user.first_name !== nil), do: "#{user.first_name} #{user.last_name}",
       else: user.username
@@ -74,7 +79,7 @@ defmodule WhereIsWeb.MapLive do
 
   def handle_event("search", %{"search" => value}, socket) do
     suggestions = WhereIs.Fuzzy.find(value)
-      |> Enum.map(fn(s) -> formatSubject(s) end)
+      |> Enum.map(fn(s) -> format_subject(s) end)
 
     [head | _tail] = suggestions
 
@@ -90,6 +95,6 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def handle_event("change-map", %{"name" => value}, socket) do
-    {:noreply, assign(socket, :map, value)}
+    {:noreply, assign(socket, :active_map, value)}
   end
 end

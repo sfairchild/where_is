@@ -33,15 +33,19 @@
 </header>
 <nav>
   <ul>
-    <li class="building-tab active"><a href="#">MDC North Building</a></li>
-    <li class="building-tab"><a href="#">MDC South Building</a></li>
-    <li class="building-tab"><a href="#">Columbus Building</a></li>
+    <%= for m <- @maps do %>
+      <li class="building-tab"><a href="#"><%= m.attributes["display_name"] %></a></li>
+      <%# <li class="building-tab <%= if "north-mdc" = @active_map, do: "active" %1>"><a href="#"><%= m %1></a></li> %>
+    <% end %>
+    <%# <li class="building-tab"><a href="#">MDC South Building</a></li> %>
+    <%# <li class="building-tab"><a href="#">Columbus Building</a></li> %>
+
   </ul>
 </nav>
 <main role="main" class="container">
   <section class="svg-container">
-    <%= case @map do %>
-      <% "both" -> %>
+    <%= case @active_map do %>
+      <% "north-mdc" -> %>
         <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
           <g phx-hook="PanZoom">
             <%= raw @svg %>
