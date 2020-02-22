@@ -3,6 +3,7 @@ defmodule WhereIs.Map do
 
   schema "maps" do
     field :name, :string
+    field :display_name, :string
     field :x_coordinate, :float
     field :y_coordinate, :float
     field :rotation, :string

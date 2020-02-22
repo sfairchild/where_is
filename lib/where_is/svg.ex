@@ -1,19 +1,19 @@
 defmodule WhereIs.Svg do
-  alias WhereIs.{Locations, Room}
+  # should be able to remove Locations and Room one refactored
+  alias WhereIs.{Locations, Room, Map, Template}
 
   def generate_svg do
     {:g, nil, get_defs ++ placements}
     |> XmlBuilder.generate()
   end
 
-  def desk_zoom(xCoord, yCoord) do
-    IO.puts(xCoord)
-    IO.puts(yCoord)
-    #create view svg viewbox, takes 4 element string separated by spaces, x, y, x offset, y offset
-    #inside svg; find first suggestion
-    #add those to viewbox of svg element
-    svgValues = generate_svg()
-    viewBoxText = "<svg viewbox = '#{xCoord} #{yCoord} 100 100' xmlns='http://www.w3.org/2000/svg'> #{svgValues} </svg>"
+  def generate_svg_tuple(%Map{template: template} = map) do
+    {:g, nil, [template_to_svg_tuple(template)]}
+  end
+
+  def template_to_svg_tuple(%Template{svg_elements: elements}) do
+    children = []
+    {:g, nil, []}
   end
 
   def map_by_name(name) do

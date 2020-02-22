@@ -31,7 +31,7 @@ defmodule WhereIs.Rooms.Event do
 
     # TODO: move the rooms api url to a config variable so it can be reused and changed per environment
     "https://rooms.nexient.com/gateway/api/ms-graph-rooms/v2/Rooms/#{ email }/Availability"
-    |> HTTPoison.get(%{"X-Rooms-Authorization":  System.get_env("ROOMS_TOKEN")}, params: %{startDate: start_date, endDate: end_date})
+    |> HTTPoison.get(%{"X-Rooms-Authorization" => System.get_env("ROOMS_TOKEN")}, params: %{startDate: start_date, endDate: end_date, building: "all"})
   end
 
   defp get_events(%WhereIs.Room{} = room, _start, _end) do
@@ -55,6 +55,9 @@ defmodule WhereIs.Rooms.Event do
   end
   defp format_response({:error, _} = error), do: error
 
+  defp format_events({:ok, error = %{"error" => _}}) do
+    error
+  end
   defp format_events({:ok, response}) do
     response
     |> Enum.map(fn (%{"end" => %{"dateTime" => end_date}, "start" => %{"dateTime" => start_date}}) ->
@@ -63,11 +66,11 @@ defmodule WhereIs.Rooms.Event do
   end
   defp format_events({:error, _} = error), do: error
 
+  defp drop_past_events(%{"error" => _} = error), do: error
   defp drop_past_events(events) when is_list(events) do
     events
     |> Enum.filter(fn (%__MODULE__{end_time: end_time}) -> Timex.before?( Timex.now, end_time ) end)
   end
-  defp drop_past_events({:error, _} = error), do: error
 
   defp sort_events(events) when is_list(events) do
     events

@@ -36,6 +36,7 @@ defmodule WhereIsWeb.Router do
   scope "/", WhereIsWeb do
     pipe_through :browser
     get "/", PageController, :index
+    get "/healthy", PageController, :healthy
   end
 
 
@@ -43,10 +44,9 @@ defmodule WhereIsWeb.Router do
   scope "/api", WhereIsWeb.Api do
     pipe_through :api
 
-
     post "/", FindController, :index
     post "/user", FindController, :fetchUserFromMattermost
-    post "/whereis", FindController, :find
+    # post "/whereis", FindController, :find
   end
 
 end

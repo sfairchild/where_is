@@ -13,6 +13,7 @@ defmodule WhereIs.User do
 
     belongs_to :manager, WhereIs.User
     belongs_to :coach, WhereIs.User
+    belongs_to :location, WhereIs.Location
 
     timestamps()
   end

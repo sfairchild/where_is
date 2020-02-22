@@ -9,4 +9,8 @@ defmodule WhereIsWeb.PageController do
   def index(conn, _params) do
     render(conn, "login.html")
   end
+
+  def healthy(conn, _params) do
+    send_resp(conn, 200, "")
+  end
 end

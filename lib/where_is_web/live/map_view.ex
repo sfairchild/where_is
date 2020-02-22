@@ -2,8 +2,7 @@ defmodule WhereIsWeb.MapLive do
 
   use Phoenix.LiveView
 
-  alias WhereIs.Repo
-  alias WhereIs.Map
+  alias WhereIs.{ Repo, Map, Template }
 
   def render(assigns) do
     WhereIsWeb.PageView.render("map.html", assigns)
@@ -22,10 +21,11 @@ defmodule WhereIsWeb.MapLive do
     ]
     socket = socket
       |> assign(:titleName, "Randy")
-      |> assign(:searchValue, nil)
+      |> assign(:search_value, nil)
       |> assign(:subject, %SubjectBase{})
       |> assign(:maps, Repo.all(Map))
-      |> assign(:active_map, "north-mdc")
+      |> assign(:active_map, Repo.get_by(Map, name: "mdc-north") |> Repo.preload([:template, locations: [:template, :user]]))
+      |> assign(:templates, Repo.all(Template))
       |> assign(:suggestions, suggestions)
       |> assign(:svg, WhereIs.Svg.generate_svg)
       |> assign(:rooms, %{})
@@ -87,7 +87,7 @@ defmodule WhereIsWeb.MapLive do
     else: %SubjectBase{}
 
     socket = socket
-      |> assign(:searchValue, value)
+      |> assign(:search_value, value)
       |> assign(:suggestions, suggestions)
       |> assign(:subject, subject)
 
@@ -95,6 +95,8 @@ defmodule WhereIsWeb.MapLive do
   end
 
   def handle_event("change-map", %{"name" => value}, socket) do
-    {:noreply, assign(socket, :active_map, value)}
+    map = Repo.get_by(Map, name: "mdc-north")
+          |> Repo.preload([:template, locations: [:template, :user]])
+    {:noreply, assign(socket, :active_map, map)}
   end
 end

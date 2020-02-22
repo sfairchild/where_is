@@ -10,12 +10,12 @@
           class="header-search"
           placeholder="Search people or rooms"
           debounce="1000"
-          value="<%= @searchValue %>"
-        />
-        <div class="shield">
-          <div class="separator"></div>
-        </div>
-          <%= if @searchValue == nil || @searchValue == "" do %>
+          value="<%= @search_value %>"
+          />
+          <div class="shield">
+            <div class="separator"></div>
+          </div>
+          <%= if @search_value == nil || @search_value == "" do %>
             <div class="search-assist small">Start typing to see suggestions</div>
           <% else %>
             <div class="search-assist large">
@@ -26,36 +26,25 @@
               <% end %>
             </div>
           <% end %>
-      </div>
-        <%= button "Logout", to: "/auth/logout", csrf_token: @csrf_token, method: :delete, class: "logout-button" %>
-    </form>
+      </form>
+    </div>
+    <%= button "Logout", to: "/auth/logout", csrf_token: @csrf_token, method: :delete, class: "logout-button" %>
   </div>
 </header>
 <nav>
   <ul>
     <%= for m <- @maps do %>
-      <li class="building-tab"><a href="#"><%= m.attributes["display_name"] %></a></li>
-      <%# <li class="building-tab <%= if "north-mdc" = @active_map, do: "active" %1>"><a href="#"><%= m %1></a></li> %>
+      <li class="building-tab"><a href="#" phx-click="change-map" phx-value-name="<%= m.name %>"><%= m.display_name %></a></li>
     <% end %>
-    <%# <li class="building-tab"><a href="#">MDC South Building</a></li> %>
-    <%# <li class="building-tab"><a href="#">Columbus Building</a></li> %>
-
   </ul>
 </nav>
 <main role="main" class="container">
   <section class="svg-container">
-    <%= case @active_map do %>
-      <% "north-mdc" -> %>
-        <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
-          <g phx-hook="PanZoom">
-            <%= raw @svg %>
-          </g>
-        </svg>
-      <% "north" -> %>
-        <div>NORTH BUILDING HERE</div>
-      <% "south" -> %>
-        <div>SOUTH BUILDING HERE<div>
-    <% end %>
+    <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
+      <g phx-hook="PanZoom">
+        <%= raw @svg %>
+      </g>
+    </svg>
   </section>
 
   <section class="right-side">
@@ -64,7 +53,7 @@
         <h1>Make a search to view information</h1>
       <% else %>
         <div class="profile-image">
-          <img src="https://www.clipartwiki.com/clipimg/detail/248-2480210_user-staff-man-profile-person-icon-circle-png.png">
+          <img src="https://wikiclipart.com/wp-content/uploads/2017/07/Smiley-face-black-and-white-smiley-face-clipart-black-and-white-free.jpg">
         </div>
         <div class="profile-info">
           <%= if @subject.name do %><div class="info name"><%= @subject.name %></div><% end %>
@@ -75,15 +64,5 @@
         </div>
       <% end %>
     </div>
-
-    <!-- These are buttons to swap between North/South SVGs -->
-    <div class="svg-tabs">
-    <!--
-      <button class="svg-tab orange" phx-click="change-map" phx-value-name="both">Both</button>
-      <button class="svg-tab grey" phx-click="change-map" phx-value-name="north">North</button>
-      <button class="svg-tab blue" phx-click="change-map" phx-value-name="south">South</button>
-    -->
-    </div>
-
   </section>
 </main>

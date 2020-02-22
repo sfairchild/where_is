@@ -51,12 +51,12 @@ defmodule WhereIsWeb.Api.FindController do
 
   end
 
-  def find(conn, %{"text" => text, "user_name" => user_name} = params) do
-    user_exists = WhereIs.Application.validate(text)
-    {:ok, json} = get_json(WhereIs.Application.validate(text), WhereIs.Application.generate_url(text), text)
-                  |> Jason.decode
-    json(conn, json)
-  end
+  # def find(conn, %{"text" => text, "user_name" => user_name} = params) do
+  #   user_exists = WhereIs.Application.validate(text)
+  #   {:ok, json} = get_json(WhereIs.Application.validate(text), WhereIs.Application.generate_url(text), text)
+  #                 |> Jason.decode
+  #   json(conn, json)
+  # end
 
   defp get_json(user_exists = true, image_link, text) when is_binary(image_link) do
     """

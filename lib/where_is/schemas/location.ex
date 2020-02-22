@@ -12,6 +12,7 @@ defmodule WhereIs.Location do
 
     belongs_to :map, WhereIs.Map
     belongs_to :template, WhereIs.Template
+    has_one :user, WhereIs.User
 
     timestamps()
   end
