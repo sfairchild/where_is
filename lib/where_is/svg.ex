@@ -3,35 +3,21 @@ defmodule WhereIs.Svg do
   alias WhereIs.{Locations, Room, Map, Template}
 
   def generate_svg do
-    {:g, nil, get_defs ++ placements}
+    {:g, nil, get_defs() ++ placements()}
     |> XmlBuilder.generate()
   end
 
-  def generate_svg_tuple(%Map{template: template} = map) do
+  def generate_svg_tuple(%Map{template: template} = _map) do
     {:g, nil, [template_to_svg_tuple(template)]}
   end
 
-  def template_to_svg_tuple(%Template{svg_elements: elements}) do
-    children = []
+  def template_to_svg_tuple(%Template{svg_elements: _elements}) do
+    _children = []
     {:g, nil, []}
   end
 
-  def map_by_name(name) do
-    [head | tail] = WhereIs.MattermostUser.fuzzy_search_users(name)
-    #uses first response from fuzzy search to get location_id from the individual user.
-    location = WhereIs.Locations.find_location(WhereIs.Locations.list, head.location_id)
-    if location do
-      xCoord = location.x
-      yCoord = location.y
-      svgValues = generate_svg()
-      viewBoxText = "<svg viewbox = '#{xCoord} #{yCoord} 100 100' xmlns='http://www.w3.org/2000/svg'> #{svgValues} </svg>"
-    else
-      returnText = "no location found"
-    end
-  end
-
   def placements do
-    locations ++ rooms ++ [
+    locations() ++ rooms() ++ [
       {:use, %{"xlink:href" => "#north-bldg"}, nil},
       {:use, %{"xlink:href" => "#south-bldg", transform: "translate(-900 1300)"}, nil}
     ]
@@ -51,7 +37,7 @@ defmodule WhereIs.Svg do
   end
 
   def get_defs do
-    [{:defs, %{}, [desk, north_building, south_building]}]
+    [{:defs, %{}, [desk(), north_building(), south_building()]}]
   end
 
   def north_building do
@@ -65,7 +51,6 @@ defmodule WhereIs.Svg do
         d: "m90.4 476h19.7v12.4h18.2v-14.1h40.3v10.7h2v-10.7-1-56.4h8.3v-2h-8.3-42.3-2-54-1v73.5h19.1v-12.4zm78.2-59.2v55.4h-40.3v-55.4h40.3zm-42.3 57.5v12.1h-14.3v-12.4h-10.2v-57.2h24.5v57.5zm-37.9 12.1h-15.1v-69.5h26.6v57.2h-11.5v12.3z"
       }, nil},
       {:rect, %{
-        style: "fill:#9eddf9",
         height: "2", style: "fill:#9eddf9", width: "98.7", x: "70.9", y: "500.2"
       }, nil},
       {:path, %{d: "m93.4 873.9h-20.4v55.5l10.6 16.6h9.7 2 17v-9.5h20.5v9.5h18.6v-72.1h-56-2zm0 2v32.2h-18.4v-32.2h18.4zm-8.7 68.1-9.7-15.2v-18.7h18.4v33.9h-8.7zm25.6-9.5v9.5h-14.9v-51.6h26v42.1h-11.1zm24.5 9.5v-9.5h-11.4v-42.1h26v51.6h-14.6zm14.6-53.6h-26v-14.5h26v14.5zm-28-14.5v14.5h-26v-14.5h26z",

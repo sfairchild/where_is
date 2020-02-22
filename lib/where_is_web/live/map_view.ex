@@ -30,7 +30,6 @@ defmodule WhereIsWeb.MapLive do
       |> assign(:svg, WhereIs.Svg.generate_svg)
       |> assign(:rooms, %{})
       |> assign(:csrf_token, csrf_token)
-    IO.inspect(socket.assigns)
     {:ok, socket}
   end
 
