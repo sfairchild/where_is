@@ -3,7 +3,8 @@ defmodule WhereIs.Repo.Migrations.CreateMap do
 
   def change do
     create table(:maps) do
-      add :name, :string
+      add :name, :string, required: true
+      add :display_name, :string, default: ""
       add :x_coordinate, :float, default: 0.0
       add :y_coordinate, :float, default: 0.0
       add :rotation, :string, default: "0"

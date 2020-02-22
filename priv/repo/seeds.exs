@@ -24,6 +24,17 @@
     }]
   })
 
+  { :ok, circle_template } = Repo.insert(%Template{
+    name: "Circle Label",
+    label: "circle",
+    svg_elements: [%SvgElement{
+      tag: "circle",
+      attributes: %{
+        cx: "50", cy: "50", r: "50", style: "fill: #485665;"
+      }
+    }]
+  })
+
   north_svg = [
     %SvgElement{tag: "path", attributes: %{
       style: "fill:#9eddf9",
@@ -43,7 +54,7 @@
 
   north_template = %Template{name: "MDC North", label: "mdc-north", svg_elements: north_svg}
 
-  {:ok, north_map} = Repo.insert(%Map{name: "mdc-north", attributes: %{display_name: "MDC North"}, template: north_template})
+  {:ok, north_map} = Repo.insert(%Map{name: "mdc-north", display_name: "MDC North", attributes: %{}, template: north_template})
 
   north_map = north_map.id
   desk_template = desk_template.id

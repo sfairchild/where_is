@@ -9,7 +9,8 @@ defmodule WhereIs.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -51,6 +52,14 @@ defmodule WhereIs.MixProject do
       {:ueberauth, "~> 0.6"},
       {:ueberauth_microsoft, "~> 0.6.0"},
       {:xml_builder, "~> 2.1.1"}
+    ]
+  end
+
+  defp aliases do
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

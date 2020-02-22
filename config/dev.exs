@@ -7,7 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :where_is, WhereIsWeb.Endpoint,
-  http: [port: 4000],
+  http: [port: System.get_env("PORT")],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
@@ -57,11 +57,19 @@ config :where_is, WhereIsWeb.Endpoint,
   ]
 
 config :where_is, WhereIs.Repo,
-  database: "where_is_repo",
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  username: System.get_env("POSTGRES_USER") || "postgres",
+  password: System.get_env("POSTGRES_PASSWORD") || "postgres",
+  database: System.get_env("POSTGRES_DB") || "where_is_repo",
+  hostname: System.get_env("POSTGRES_HOST") || "localhost",
+  pool_size: 10,
   migration_primary_key: [name: :id, type: :binary_id]
+
+# config :where_is, WhereIs.Repo,
+#   database: "where_is_repo",
+#   username: "postgres",
+#   password: "postgres",
+#   hostname: "localhost",
+#   migration_primary_key: [name: :id, type: :binary_id]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
