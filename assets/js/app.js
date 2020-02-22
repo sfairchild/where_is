@@ -26,6 +26,7 @@ let pan
 Hooks.PanZoom = {
   mounted() {
     pan = svgPanZoom('#mainSvg');
+    console.log(pan)
   },
   updated() {
     pan.panBy({x: 0.01, y: 0.01})
@@ -74,3 +75,52 @@ Hooks.TitleName = {
 let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks})
 liveSocket.connect()
 
+function customPanByZoomAtEnd(amount, endZoomLevel, animationTime){ // {x: 1, y: 2}
+  if(typeof animationTime == "undefined"){
+    animationTime =   300; // ms
+  }
+  var animationStepTime = 15 // one frame per 30 ms
+    , animationSteps = animationTime / animationStepTime
+    , animationStep = 0
+    , intervalID = null
+    , stepX = amount.x / animationSteps
+    , stepY = amount.y / animationSteps;
+
+  intervalID = setInterval(function(){
+    if (animationStep++ < animationSteps) {
+      panZoomInstance.panBy({x: stepX, y: stepY})
+    } else {
+      // Cancel interval
+      if(typeof endZoomLevel != "undefined"){
+        var viewPort = $(".svg-pan-zoom_viewport")[0];
+        viewPort.style.transition = "all " + animationTime / 1000 + "s ease";
+        panZoomInstance.zoom(endZoomLevel);
+        setTimeout(function(){
+          viewPort.style.transition = "none";
+          $("svg")[0].style.pointerEvents = "all"; // re-enable the pointer events after auto-panning/zooming.
+          panZoomInstance.enablePan();
+          panZoomInstance.enableZoom();
+          panZoomInstance.enableControlIcons();
+          panZoomInstance.enableDblClickZoom();
+          panZoomInstance.enableMouseWheelZoom();
+        }, animationTime + 50);
+      }
+      clearInterval(intervalID)
+    }
+  }, animationStepTime)
+}
+
+function panToElem(targetElem) {
+
+  var initialSizes = panZoomInstance.getSizes();
+  var initialLoc = panZoomInstance.getPan();
+  var initialBounds = targetElem.getBoundingClientRect();
+  var initialZoom = panZoomInstance.getZoom();
+  var initialCX = initialBounds.x + (initialBounds.width / 2);
+  var initialCY = initialBounds.y + (initialBounds.height / 2);
+
+  var dX = (initialSizes.width / 2) - initialCX;
+  var dY = (initialSizes.height / 2) - initialCY;
+
+  customPanByZoomAtEnd({x: dX, y: dY}, 2, 700);
+}

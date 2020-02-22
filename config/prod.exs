@@ -17,15 +17,17 @@ config :where_is, WhereIsWeb.Endpoint,
   # url: [host: "${APP_NAME}.gigalixirapp.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
   rooms_token: "${ROOMS_TOKEN}",
-  check_origin: false,
-  mattermost_token: "${MATTERMOST_TOKEN}"
+  check_origin: false
 
 config :where_is, WhereIs.Repo,
-  database: "where_is_repo",
   adapter: Ecto.Adapters.Postgres,
-  url: System.get_env("DATABASE_URL"),
-  ssl: true,
-  pool_size: 2
+  username: System.get_env("POSTGRES_USER") || "postgres",
+  password: System.get_env("POSTGRES_PASSWORD") || "postgres",
+  database: System.get_env("POSTGRES_DB") || "where_is_repo",
+  hostname: System.get_env("POSTGRES_HOST") || "localhost",
+  pool_size: 10,
+  migration_primary_key: [name: :id, type: :binary_id]
+
 
 config :ueberauth, Ueberauth,
   providers: [
@@ -41,6 +43,13 @@ config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
+  client_id: System.get_env("CLIENT_ID"),
+  client_secret: System.get_env("CLIENT_SECRET"),
+  redirect_uri: System.get_env("REDIRECT_URI"),
+  tenant_id: System.get_env("TENANT_ID"),
+  authorize_url: System.get_env("AUTHORIZE_URL")
 
 # ## SSL Support
 #
