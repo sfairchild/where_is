@@ -31,37 +31,76 @@
     <%= button "Logout", to: "/auth/logout", csrf_token: @csrf_token, method: :delete, class: "logout-button" %>
   </div>
 </header>
+
 <nav>
-  <ul>
+  <ul class="maps-nav">
     <%= for m <- @maps do %>
-      <li class="building-tab"><a href="#" phx-click="change-map" phx-value-name="<%= m.name %>"><%= m.display_name %></a></li>
+      <li class="building-tab<%= if m.id == @active_map.id, do: " active" %>"><a href="#" phx-click="change-map" phx-value-id="<%= m.id %>"><%= m.display_name %></a></li>
     <% end %>
   </ul>
+  <%= if @admin_user do %>
+    <ul class="edit">
+      <li class="building-tab<%= if @editing, do: " active" %>"><a href="#" phx-click="change-page-state">Edit</a></li>
+    </ul>
+  <% end %>
 </nav>
 <main role="main" class="container">
   <section class="svg-container">
     <svg xmlns="http://www.w3.org/2000/svg" width="90%", height="500px" id="mainSvg">
       <g phx-hook="PanZoom">
-        <%= raw @svg %>
+        <defs>
+          <%= templates_to_tag(@templates) %>
+        </defs>
+
+        <use id="<%= @active_map.id %>"
+             transform="translate(<%= @active_map.x_coordinate %> <%= @active_map.y_coordinate %>) rotate(<%= @active_map.rotation %>) scale(<%= @active_map.scale %>)"
+             class="active-map"
+             xlink:href="#<%= @active_map.template.label %>">
+        </use>
+
+        <%= location_to_tag(@locations) %>
+        <%= if @selected_location do %>
+          <g <%= if @editing, do: "phx-window-keydown=move-location" %>>
+            <%= selected_location(@selected_location) %>
+          </g>
+        <% end %>
       </g>
     </svg>
   </section>
 
   <section class="right-side">
     <div class="location-information">
-      <%= if !@subject.name do %>
-        <h1>Make a search to view information</h1>
+      <%= if @editing do %>
+        <%= if @selected_location do %>
+
+          <%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :save] %>
+            Name: <%= text_input f, :name %>
+          </form>
+        <% else %>
+          <button phx-click="add-location">Add Location</button>
+        <% end %>
+
       <% else %>
-        <div class="profile-image">
-          <img src="https://wikiclipart.com/wp-content/uploads/2017/07/Smiley-face-black-and-white-smiley-face-clipart-black-and-white-free.jpg">
-        </div>
-        <div class="profile-info">
-          <%= if @subject.name do %><div class="info name"><%= @subject.name %></div><% end %>
-          <%= if @subject.email do %><div class="info"><%= @subject.email %></div><% end %>
-          <%= if @subject.id do %><div class="info"><%= @subject.id %></div><% end %>
-          <%= if @subject.username do %><div class="info">@<%= @subject.username %></div><% end %>
-          <%= if @subject.status do %><div class="info">Status: <%= @subject.status %></div><% end %>
-        </div>
+        <%= case @selected_location do %>
+          <%= %Location{user: %User{}} -> %>
+            <div class="profile-image">
+              <img src="https://wikiclipart.com/wp-content/uploads/2017/07/Smiley-face-black-and-white-smiley-face-clipart-black-and-white-free.jpg">
+            </div>
+            <div class="profile-info">
+              <div class="info name"><%= @selected_location.name %></div>
+
+              <div class="info"><%= @selected_location.user.email %></div>
+              <div class="info"><%= @selected_location.user.display_name %></div>
+              <%# <%= if @selected_location.username do %1><div class="info">@<%= @selected_location.username %1></div><% end %1> %>
+              <%# <%= if @selected_location.status do %1><div class="info">Status: <%= @selected_location.status %1></div><% end %1> %>
+            </div>
+
+          <%= %Location{} -> %>
+            <div class="info name"><%= @selected_location.name %></div>
+            <button phx-click="move_user">Move Here</button>
+          <% _ -> %>
+            <h1>Select an item to view information</h1>
+        <% end %>
       <% end %>
     </div>
   </section>

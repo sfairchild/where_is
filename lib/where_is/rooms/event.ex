@@ -31,7 +31,7 @@ defmodule WhereIs.Rooms.Event do
 
     # TODO: move the rooms api url to a config variable so it can be reused and changed per environment
     "https://rooms.nexient.com/gateway/api/ms-graph-rooms/v2/Rooms/#{ email }/Availability"
-    |> HTTPoison.get(%{"X-Rooms-Authorization" => System.get_env("ROOMS_TOKEN")}, params: %{startDate: start_date, endDate: end_date, building: "all"})
+    |> HTTPoison.get(%{"X-Rooms-Authorization" => Application.get_env(:where_is, __MODULE__)[:rooms_token]}, params: %{startDate: start_date, endDate: end_date, building: "all"})
   end
 
   defp get_events(%WhereIs.Room{} = room, _start, _end) do

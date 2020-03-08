@@ -16,7 +16,6 @@ config :where_is, WhereIsWeb.Endpoint,
   secret_key_base: "${SECRET_KEY_BASE}",
   # url: [host: "${APP_NAME}.gigalixirapp.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  rooms_token: "${ROOMS_TOKEN}",
   check_origin: false
 
 config :where_is, WhereIs.Repo,
@@ -28,6 +27,8 @@ config :where_is, WhereIs.Repo,
   pool_size: 10,
   migration_primary_key: [name: :id, type: :binary_id]
 
+config :where_is, WhereIs.Rooms.Event,
+  rooms_token: System.get_env("ROOMS_TOKEN")
 
 config :ueberauth, Ueberauth,
   providers: [

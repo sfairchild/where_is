@@ -7,7 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :where_is, WhereIsWeb.Endpoint,
-  http: [port: System.get_env("PORT")],
+  http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
@@ -63,6 +63,9 @@ config :where_is, WhereIs.Repo,
   hostname: System.get_env("POSTGRES_HOST") || "localhost",
   pool_size: 10,
   migration_primary_key: [name: :id, type: :binary_id]
+
+config :where_is, WhereIs.Rooms.Event,
+  rooms_token: System.get_env("ROOMS_TOKEN")
 
 # config :where_is, WhereIs.Repo,
 #   database: "where_is_repo",

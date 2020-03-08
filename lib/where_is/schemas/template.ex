@@ -5,6 +5,7 @@ defmodule WhereIs.Template do
   schema "templates" do
     field :name, :string
     field :label, :string
+    field :is_map, :boolean
 
     has_many :svg_elements, WhereIs.SvgElement
 

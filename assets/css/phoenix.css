@@ -136,11 +136,18 @@ header .search-assist.large {
 
 /* Main body */
 main {
-  height: calc(100vh - var(--header-height));
+  height: calc(100vh - var(--nav-height) - var(--header-height));
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 10px 22px;
+  padding: 0px 22px;
+}
+
+nav {
+  padding: 10px 22px 0px;
+  width: 73%;
+  position: relative;
+  height: var(--nav-height);
 }
 
 nav ul {
@@ -150,8 +157,21 @@ nav ul {
   overflow: hidden;
 }
 
+nav ul.maps-nav {
+  position: absolute;
+  top: 10px;
+}
+
+nav ul.edit {
+  position: relative;
+  float: right;
+}
+
 nav li {
   float: left;
+}
+
+nav ul.edit li {
 }
 
 nav li a {
@@ -192,6 +212,24 @@ main > .svg-container {
   height: 100%;
   width: 100%;
 }
+
+
+#mainSvg use {
+  --primary-color: #8298a6;
+}
+
+#mainSvg use.selected-location {
+  --primary-color: #2f8bee;
+}
+
+#mainSvg use.active-map {
+  --primary-color: #9eddf9;
+}
+
+#mainSvg use.location-occupied {
+  --primary-color: #485665;
+}
+
 
 main .right-side {
   height: 100%;

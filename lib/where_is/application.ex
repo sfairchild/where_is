@@ -13,7 +13,7 @@ defmodule WhereIs.Application do
       # Starts a worker by calling: WhereIs.Worker.start_link(arg)
       # {WhereIs.Worker, arg},
       {WhereIs.Users, %{}},
-      {WhereIs.Room, %{}},
+      # {WhereIs.Room, %{}},
       {WhereIs.Repo, []}
     ]
 
@@ -26,17 +26,17 @@ defmodule WhereIs.Application do
   def validate("@bad_user"), do: false
   def validate(_), do: true
 
-  def generate_url("bad_user"), do: nil
-  def generate_url("frodo") do
-    locationInfo = WhereIs.Locations.find_location(WhereIs.Locations.list, "North Desk 13")
-    WhereIs.Svg.desk_zoom(locationInfo.x, locationInfo.y)
-  end
+  #def generate_url("bad_user"), do: nil
+  #def generate_url("frodo") do
+  #  locationInfo = WhereIs.Locations.find_location(WhereIs.Locations.list, "North Desk 13")
+  #  WhereIs.Svg.desk_zoom(locationInfo.x, locationInfo.y)
+  #end
 
-  def generate_url(username) do
-    [head | _tail] = WhereIs.MattermostUser.fuzzy_search_users(username)
-    #uses first response from fuzzy search to get location_id from the individual user.
-    URI.encode "https://nautical-sandy-americanbulldog.gigalixirapp.com/svg/map.svg?name=#{head.location_id}.svg"
-  end
+  #def generate_url(username) do
+  #  [head | _tail] = WhereIs.MattermostUser.fuzzy_search_users(username)
+  #  #uses first response from fuzzy search to get location_id from the individual user.
+  #  URI.encode "https://nautical-sandy-americanbulldog.gigalixirapp.com/svg/map.svg?name=#{head.location_id}.svg"
+  #end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.

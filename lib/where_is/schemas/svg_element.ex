@@ -5,6 +5,10 @@ defmodule WhereIs.SvgElement do
   schema "svg_elements" do
     field :attributes, :map
     field :tag, :string
+    field :x_coordinate, :float
+    field :y_coordinate, :float
+    field :rotation, :string
+    field :scale, :string
 
     belongs_to :template, WhereIs.Template
 

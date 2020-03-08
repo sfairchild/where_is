@@ -1,15 +1,51 @@
 defmodule WhereIs.Svg do
   # should be able to remove Locations and Room one refactored
-  alias WhereIs.{Locations, Room, Map, Template}
+  alias WhereIs.{Locations, Room, Map, SvgElement, Template, Location}
 
   def generate_svg do
     {:g, nil, get_defs() ++ placements()}
     |> XmlBuilder.generate()
   end
 
-  def generate_svg_tuple(%Map{template: template} = _map) do
-    {:g, nil, [template_to_svg_tuple(template)]}
+  def generate_svg(containers) do
+    {:g, %{}, generate_svg_tuple(containers)}
+    |> XmlBuilder.generate()
   end
+
+  def generate_svg_tuple([%Template{svg_elements: elements, label: label} | templates]) do
+    [{:g, %{id: label}, svg_elements_tuple(elements)} | generate_svg_tuple(templates)]
+  end
+  def generate_svg_tuple([]), do: []
+  def generate_svg_tuple(_), do: "Not a supported type"
+
+  def svg_elements_tuple([%SvgElement{tag: tag, attributes: attributes} | elements]) do
+    [{tag, attributes, nil} | svg_elements_tuple(elements)]
+  end
+  def svg_elements_tuple([]), do: []
+
+  def generate_location_svgs(locations) do
+    {:g, %{}, generate_location_tuple(locations)}
+    |> XmlBuilder.generate()
+  end
+
+  def generate_location_tuple([%Location{} = location | locations]) do
+    [{:use, location_attributes(location), nil } | generate_location_tuple(locations)]
+  end
+  def generate_location_tuple([]), do: []
+
+  def location_attributes(%Location{id: id, name: name, template: %Template{label: label}, x_coordinate: x, y_coordinate: y, rotation: r, scale: s}) do
+    %{
+      "xlink:href" => "##{label}",
+      "transform" => "translate(#{x} #{y}) rotate(#{r}) scale(#{s})",
+      name: name,
+      id: id,
+      "phx-click": "show-location",
+      "phx-value-search": id
+    }
+  end
+
+
+
 
   def template_to_svg_tuple(%Template{svg_elements: _elements}) do
     _children = []

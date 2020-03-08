@@ -4,6 +4,7 @@ defmodule WhereIs.Location do
 
   schema "locations" do
     field :name, :string
+    field :type, :string
     field :x_coordinate, :float
     field :y_coordinate, :float
     field :rotation, :string
@@ -17,10 +18,14 @@ defmodule WhereIs.Location do
     timestamps()
   end
 
+  def types() do
+    ["seat", "meeting-room", "static"]
+  end
+
   @doc false
-  def changeset(location, attrs) do
+  def changeset(%__MODULE__{} = location, attrs \\ %{}) do
     location
-    |> cast(attrs, [:name, :x_corridnate])
-    |> validate_required([:name, :x_corridnate])
+    |> cast(attrs, [:name, :x_coordinate])
+    |> validate_required([:name, :x_coordinate])
   end
 end

@@ -10,6 +10,7 @@ defmodule WhereIs.User do
     field :last_name, :string
     field :photo_url, :string
     field :admin, :boolean
+    field :active, :boolean
 
     belongs_to :manager, WhereIs.User
     belongs_to :coach, WhereIs.User
@@ -21,6 +22,6 @@ defmodule WhereIs.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :admin])
+    |> cast(attrs, [:email, :admin, :location_id])
   end
 end

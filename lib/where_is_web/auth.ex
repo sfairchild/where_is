@@ -6,7 +6,7 @@ defmodule WhereIsWeb.Auth do
   alias WhereIs.Accounts
 
   @site_admins ~w[
-
+    sfairchild@nexient.com
   ]
 
   def init(opts), do: opts
